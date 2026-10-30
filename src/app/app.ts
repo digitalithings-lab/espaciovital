@@ -11,7 +11,7 @@ import { Icon } from './shared/icon';
   template: `
     <a
       href="#contenido"
-      class="sr-only z-[70] rounded-full bg-leaf-700 px-5 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      class="sr-only z-[70] rounded-full bg-forest-900 px-5 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
     >
       Saltar al contenido
     </a>
@@ -20,7 +20,7 @@ import { Icon } from './shared/icon';
     <app-footer />
 
     <!-- Agendar siempre a mano en el celular. -->
-    <a routerLink="/agendar" class="btn-sunset fixed right-4 bottom-4 z-40 size-14 rounded-full p-0 sm:hidden" aria-label="Agendar cita">
+    <a routerLink="/agendar" class="btn-primary fixed right-4 bottom-4 z-40 size-14 rounded-full p-0 shadow-lift sm:hidden" aria-label="Agendar cita">
       <app-icon name="calendar" [size]="24" />
     </a>
   `,

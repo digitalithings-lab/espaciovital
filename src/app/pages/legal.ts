@@ -37,7 +37,7 @@ const PAGES: Record<LegalKind, { title: string; intro: string; sections: { title
   imports: [RouterLink, Icon],
   template: `
     <article class="page max-w-3xl py-16 md:py-24">
-      <a routerLink="/" class="mb-8 inline-flex items-center gap-1.5 text-sm font-bold text-leaf-700 hover:underline">
+      <a routerLink="/" class="mb-8 inline-flex items-center gap-1.5 text-sm font-bold text-forest-700 hover:underline">
         <app-icon name="chevronLeft" [size]="16" /> Volver al inicio
       </a>
       <h1 class="heading-lg mb-4">{{ page().title }}</h1>

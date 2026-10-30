@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       <path
         d="M26 102 V58 A34 34 0 0 1 94 58 V102"
         fill="none"
-        [attr.stroke]="inverse() ? '#9FD9C8' : 'var(--ev-leaf-700)'"
+        [attr.stroke]="inverse() ? '#9FD9C8' : 'var(--ev-forest-700)'"
         stroke-width="9"
         stroke-linecap="round"
       />
@@ -21,8 +21,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
     </svg>
     @if (withName()) {
       <span class="leading-none">
-        <span class="block text-[1.35rem] tracking-tight" [class]="inverse() ? 'text-white' : 'text-ink'">
-          <span class="font-semibold">Espacio</span><span class="font-extrabold" [class]="inverse() ? 'text-[#8FE0C8]' : 'text-leaf-500'">Vital</span>
+        <span class="block font-display text-[1.35rem] tracking-tight" [class]="inverse() ? 'text-white' : 'text-ink'">
+          <span class="font-semibold">Espacio</span><span class="font-extrabold" [class]="inverse() ? 'text-[#8FE0C8]' : 'text-forest-500'">Vital</span>
         </span>
         @if (tagline()) {
           <span class="mt-1 block text-[0.6rem] font-bold tracking-[0.2em] uppercase" [class]="inverse() ? 'text-white/70' : 'text-muted'">

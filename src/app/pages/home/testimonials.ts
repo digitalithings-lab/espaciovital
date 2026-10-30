@@ -2,53 +2,56 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TESTIMONIALS } from '../../core/content';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
-import { TONE } from '../../shared/tones';
 
+// Testimonios: uno destacado en grande y dos de apoyo, sin tarjetas iguales.
 @Component({
   selector: 'app-testimonials',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Reveal],
   template: `
-    <section id="testimonios" class="section-y border-t border-line bg-surface">
+    <section id="testimonios" class="section-y border-t border-line bg-forest-50">
       <div class="page">
-        <header class="mx-auto mb-14 max-w-2xl space-y-4 text-center">
-          <p appReveal class="eyebrow bg-honey-100 text-honey-600">Testimonios reales</p>
-          <h2 appReveal="80" class="heading-lg">Voces de transformación</h2>
-          <p appReveal="120" class="lead">Lo que vivieron las mujeres que se atrevieron a regalarse este viaje.</p>
-        </header>
+        <p appReveal class="eyebrow">Testimonios reales</p>
 
-        <!-- En celular se desliza de lado; en pantallas grandes, tres columnas. -->
-        <ul class="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
-          @for (t of testimonials; track t.name; let i = $index) {
-            <li [appReveal]="i * 90" class="card flex w-[85%] shrink-0 snap-center flex-col justify-between p-8 md:w-auto">
-              <figure class="space-y-5">
-                <div class="flex items-center justify-between">
-                  <span class="flex gap-0.5 text-honey-600" role="img" aria-label="5 de 5 estrellas">
-                    @for (s of [1, 2, 3, 4, 5]; track s) {
-                      <app-icon name="star" [size]="18" [filled]="true" />
-                    }
-                  </span>
-                  <app-icon name="quote" [size]="32" class="text-line" />
-                </div>
-                <blockquote class="font-display text-lg leading-relaxed text-ink/90 italic">“{{ t.quote }}”</blockquote>
-                <figcaption class="flex items-center gap-3 border-t border-line pt-5">
-                  <span class="flex size-11 items-center justify-center rounded-full font-display text-lg font-bold" [class]="tone[t.tone].soft + ' ' + tone[t.tone].text">
-                    {{ t.name[0] }}
-                  </span>
-                  <span>
-                    <span class="block font-bold">{{ t.name }}</span>
-                    <span class="block text-xs text-muted">{{ t.detail }}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            </li>
+        <div class="mt-8 grid gap-12 lg:grid-cols-12 lg:gap-16">
+          @if (featured; as t) {
+            <figure appReveal="60" class="lg:col-span-7">
+              <app-icon name="quote" [size]="44" class="text-accent" />
+              <blockquote class="mt-6 font-display text-2xl leading-snug font-medium text-ink md:text-[2rem] md:leading-[1.3]">
+                {{ t.quote }}
+              </blockquote>
+              <figcaption class="mt-8 flex items-center gap-4">
+                <span class="flex size-12 items-center justify-center rounded-full bg-forest-700 font-display text-lg font-semibold text-white dark:text-ink">
+                  {{ t.name[0] }}
+                </span>
+                <span>
+                  <span class="block font-bold">{{ t.name }}</span>
+                  <span class="block text-sm text-muted">{{ t.detail }}</span>
+                </span>
+              </figcaption>
+            </figure>
           }
-        </ul>
+
+          <ul class="divide-y divide-line border-y border-line lg:col-span-5 lg:self-center">
+            @for (t of others; track t.name; let i = $index) {
+              <li [appReveal]="120 + i * 80" class="py-8">
+                <span class="flex gap-0.5 text-accent" role="img" aria-label="5 de 5 estrellas">
+                  @for (s of stars; track s) {
+                    <app-icon name="star" [size]="16" />
+                  }
+                </span>
+                <blockquote class="mt-3 leading-relaxed text-ink/90">“{{ t.quote }}”</blockquote>
+                <p class="mt-4 text-sm"><span class="font-bold">{{ t.name }}</span> <span class="text-muted">· {{ t.detail }}</span></p>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
     </section>
   `,
 })
 export class Testimonials {
-  protected readonly testimonials = TESTIMONIALS;
-  protected readonly tone = TONE;
+  protected readonly featured = TESTIMONIALS[0];
+  protected readonly others = TESTIMONIALS.slice(1);
+  protected readonly stars = [1, 2, 3, 4, 5];
 }

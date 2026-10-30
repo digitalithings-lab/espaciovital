@@ -36,7 +36,7 @@ import { Logo } from '../shared/logo';
             <p id="pie-navegacion" class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Navegación</p>
             <ul class="space-y-2.5 text-sm text-muted">
               @for (link of links; track link.id) {
-                <li><a routerLink="/" [fragment]="link.id" class="transition-colors hover:text-leaf-700">{{ link.label }}</a></li>
+                <li><a routerLink="/" [fragment]="link.id" class="transition-colors hover:text-forest-700">{{ link.label }}</a></li>
               }
             </ul>
           </nav>
@@ -44,10 +44,10 @@ import { Logo } from '../shared/logo';
           <nav aria-labelledby="pie-programas">
             <p id="pie-programas" class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Programas</p>
             <ul class="space-y-2.5 text-sm text-muted">
-              <li><a routerLink="/" fragment="espacio-kids" class="transition-colors hover:text-leaf-700">Metamorfosis Kids</a></li>
-              <li><a routerLink="/" fragment="sobre-mi" class="transition-colors hover:text-leaf-700">Terapia individual</a></li>
+              <li><a routerLink="/" fragment="espacio-kids" class="transition-colors hover:text-forest-700">Metamorfosis Kids</a></li>
+              <li><a routerLink="/" fragment="sobre-mi" class="transition-colors hover:text-forest-700">Terapia individual</a></li>
               @for (edition of retreats; track edition.id) {
-                <li><a routerLink="/" fragment="proximas-fechas" class="transition-colors hover:text-leaf-700">{{ edition.name }}</a></li>
+                <li><a routerLink="/" fragment="proximas-fechas" class="transition-colors hover:text-forest-700">{{ edition.name }}</a></li>
               }
             </ul>
           </nav>
@@ -55,9 +55,9 @@ import { Logo } from '../shared/logo';
           <div>
             <p class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Contacto</p>
             <ul class="space-y-3 text-sm text-muted">
-              <li class="flex gap-2.5"><app-icon name="mapPin" [size]="18" class="mt-0.5 text-leaf-700" /> Consultas presenciales en {{ site.country }} y en línea</li>
-              <li class="flex gap-2.5"><app-icon name="clock" [size]="18" class="mt-0.5 text-leaf-700" /> {{ site.hours }}</li>
-              <li class="flex gap-2.5"><app-icon name="lock" [size]="18" class="mt-0.5 text-leaf-700" /> Confidencialidad clínica garantizada</li>
+              <li class="flex gap-2.5"><app-icon name="mapPin" [size]="18" class="mt-0.5 text-forest-700" /> Consultas presenciales en {{ site.country }} y en línea</li>
+              <li class="flex gap-2.5"><app-icon name="clock" [size]="18" class="mt-0.5 text-forest-700" /> {{ site.hours }}</li>
+              <li class="flex gap-2.5"><app-icon name="lock" [size]="18" class="mt-0.5 text-forest-700" /> Confidencialidad clínica garantizada</li>
             </ul>
           </div>
         </div>
@@ -65,8 +65,8 @@ import { Logo } from '../shared/logo';
         <div class="flex flex-col items-center justify-between gap-4 pt-8 text-xs text-muted sm:flex-row">
           <p>© {{ year }} {{ site.name }} · {{ site.therapist }}. Todos los derechos reservados.</p>
           <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <a routerLink="/privacidad" class="transition-colors hover:text-leaf-700">Política de privacidad</a>
-            <a routerLink="/terminos" class="transition-colors hover:text-leaf-700">Términos y condiciones</a>
+            <a routerLink="/privacidad" class="transition-colors hover:text-forest-700">Política de privacidad</a>
+            <a routerLink="/terminos" class="transition-colors hover:text-forest-700">Términos y condiciones</a>
             <span>Hecho por <span class="font-bold text-ink">digitalithings</span></span>
           </div>
         </div>

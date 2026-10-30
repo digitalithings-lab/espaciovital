@@ -12,23 +12,23 @@ import { Reveal } from '../../shared/reveal.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, Icon, Reveal],
   template: `
-    <section id="contacto" class="section-y border-t border-line bg-surface">
-      <div class="page grid gap-12 lg:grid-cols-12">
+    <section id="contacto" class="section-y border-t border-line">
+      <div class="page grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div class="space-y-6 lg:col-span-5">
-          <p appReveal class="eyebrow bg-clay-100 text-clay-600">Contacto</p>
-          <h2 appReveal="80" class="heading-lg">Da el primer paso. <em class="text-clay-600">Estoy aquí.</em></h2>
-          <p appReveal="120" class="lead">Cuéntame qué te trae y te respondo en menos de 24 horas hábiles.</p>
-          <ul appReveal="160" class="space-y-4">
-            <li class="flex items-center gap-4">
-              <span class="flex size-12 items-center justify-center rounded-2xl bg-leaf-100 text-leaf-700"><app-icon name="video" /></span>
+          <p appReveal class="eyebrow">Contacto</p>
+          <h2 appReveal="60" class="heading-lg">Da el primer paso. <span class="em-brand">Estoy aquí.</span></h2>
+          <p appReveal="100" class="lead">Cuéntame qué te trae y te respondo en menos de 24 horas hábiles.</p>
+          <ul appReveal="140" class="divide-y divide-line border-y border-line">
+            <li class="flex items-center gap-4 py-4">
+              <app-icon name="video" [size]="24" class="text-forest-500" />
               <span><span class="block font-bold">Presencial y en línea</span><span class="text-sm text-muted">Sesiones en {{ site.country }} o por videollamada</span></span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="flex size-12 items-center justify-center rounded-2xl bg-clay-100 text-clay-600"><app-icon name="clock" /></span>
+            <li class="flex items-center gap-4 py-4">
+              <app-icon name="clock" [size]="24" class="text-forest-500" />
               <span><span class="block font-bold">Horario</span><span class="text-sm text-muted">{{ site.hours }}</span></span>
             </li>
-            <li class="flex items-center gap-4">
-              <span class="flex size-12 items-center justify-center rounded-2xl bg-lilac-100 text-lilac-600"><app-icon name="shield" /></span>
+            <li class="flex items-center gap-4 py-4">
+              <app-icon name="shield" [size]="24" class="text-forest-500" />
               <span><span class="block font-bold">Confidencialidad total</span><span class="text-sm text-muted">Protegida por el secreto profesional</span></span>
             </li>
           </ul>
@@ -37,8 +37,8 @@ import { Reveal } from '../../shared/reveal.directive';
         <div appReveal="120" class="lg:col-span-7">
           @if (sent()) {
             <div class="card flex h-full flex-col items-center justify-center gap-4 p-10 text-center" role="status">
-              <span class="flex size-16 items-center justify-center rounded-full bg-leaf-100 text-leaf-700"><app-icon name="checkCircle" [size]="32" /></span>
-              <h3 class="font-display text-2xl font-semibold">¡Gracias, {{ firstName() }}!</h3>
+              <app-icon name="checkCircle" [size]="44" class="text-forest-500" />
+              <h3 class="text-2xl font-medium">¡Gracias, {{ firstName() }}!</h3>
               <p class="max-w-sm text-muted">Recibí tu mensaje. Te escribiré muy pronto para coordinar el siguiente paso.</p>
               <button type="button" class="btn-outline mt-2" (click)="reset()">Enviar otro mensaje</button>
             </div>
@@ -49,7 +49,7 @@ import { Reveal } from '../../shared/reveal.directive';
                   <label class="label" for="c-name">Nombre</label>
                   <input id="c-name" class="input" formControlName="name" autocomplete="name" [attr.aria-invalid]="invalid('name')" aria-describedby="c-name-err" />
                   @if (invalid('name')) {
-                    <p id="c-name-err" class="mt-1.5 text-xs font-semibold text-clay-600">Escribe tu nombre.</p>
+                    <p id="c-name-err" class="mt-2 text-xs font-semibold text-accent-ink">Escribe tu nombre.</p>
                   }
                 </div>
                 <div>
@@ -61,7 +61,7 @@ import { Reveal } from '../../shared/reveal.directive';
                 <label class="label" for="c-email">Correo</label>
                 <input id="c-email" class="input" type="email" formControlName="email" autocomplete="email" inputmode="email" [attr.aria-invalid]="invalid('email')" aria-describedby="c-email-err" />
                 @if (invalid('email')) {
-                  <p id="c-email-err" class="mt-1.5 text-xs font-semibold text-clay-600">Escribe un correo válido.</p>
+                  <p id="c-email-err" class="mt-2 text-xs font-semibold text-accent-ink">Escribe un correo válido.</p>
                 }
               </div>
               <fieldset>
@@ -70,7 +70,7 @@ import { Reveal } from '../../shared/reveal.directive';
                   @for (option of interests; track option.value) {
                     <label class="cursor-pointer">
                       <input type="radio" class="peer sr-only" formControlName="interest" [value]="option.value" />
-                      <span class="flex h-full flex-col items-center gap-1.5 rounded-2xl border-[1.5px] border-line bg-background px-2 py-3 text-center text-xs font-bold text-muted transition-all peer-checked:border-leaf-500 peer-checked:bg-leaf-50 peer-checked:text-leaf-700 peer-focus-visible:ring-2 peer-focus-visible:ring-leaf-500">
+                      <span class="flex h-full flex-col items-center gap-1.5 rounded-xl border-[1.5px] border-line bg-background px-2 py-3 text-center text-xs font-bold text-muted transition-all peer-checked:border-forest-500 peer-checked:bg-forest-50 peer-checked:text-forest-700 peer-focus-visible:ring-2 peer-focus-visible:ring-forest-500">
                         <app-icon [name]="option.icon" />
                         {{ option.label }}
                       </span>
@@ -83,20 +83,20 @@ import { Reveal } from '../../shared/reveal.directive';
                 <textarea id="c-message" class="input min-h-28 resize-y" formControlName="message" maxlength="1000" placeholder="Cuéntame brevemente qué te gustaría trabajar…"></textarea>
               </div>
               <label class="flex cursor-pointer items-start gap-3 text-sm text-muted">
-                <input type="checkbox" formControlName="consent" class="mt-0.5 size-5 shrink-0 cursor-pointer accent-[var(--ev-leaf-700)]" [attr.aria-invalid]="invalid('consent')" />
-                <span>Acepto la <a routerLink="/privacidad" class="font-bold text-leaf-700 underline-offset-4 hover:underline">política de privacidad</a> y que me contacten sobre mi consulta.</span>
+                <input type="checkbox" formControlName="consent" class="mt-0.5 size-5 shrink-0 cursor-pointer accent-[var(--ev-forest-700)]" [attr.aria-invalid]="invalid('consent')" />
+                <span>Acepto la <a routerLink="/privacidad" class="font-bold text-forest-700 underline underline-offset-4">política de privacidad</a> y que me contacten sobre mi consulta.</span>
               </label>
               @if (invalid('consent')) {
-                <p class="-mt-3 text-xs font-semibold text-clay-600">Necesitamos tu autorización para responderte.</p>
+                <p class="-mt-3 text-xs font-semibold text-accent-ink">Necesitamos tu autorización para responderte.</p>
               }
               @if (error()) {
-                <p class="rounded-2xl bg-clay-100 px-4 py-3 text-sm font-semibold text-clay-600" role="alert">{{ error() }}</p>
+                <p class="rounded-xl border border-accent/40 bg-accent/10 px-4 py-3 text-sm font-semibold text-accent-ink" role="alert">{{ error() }}</p>
               }
-              <button type="submit" class="btn-sunset w-full sm:w-auto" [disabled]="sending()" [attr.aria-busy]="sending()">
+              <button type="submit" class="btn-dark w-full sm:w-auto" [disabled]="sending()" [attr.aria-busy]="sending()">
                 @if (sending()) {
                   <span class="size-4 animate-spin rounded-full border-2 border-white border-r-transparent" aria-hidden="true"></span> Enviando…
                 } @else {
-                  {{ contact.hasBackend ? 'Enviar mensaje' : 'Enviar por WhatsApp' }} <app-icon name="send" [size]="18" />
+                  {{ contact.hasBackend ? 'Enviar mensaje' : 'Escribir por WhatsApp' }} <app-icon [name]="contact.hasBackend ? 'send' : 'whatsapp'" [size]="18" />
                 }
               </button>
             </form>

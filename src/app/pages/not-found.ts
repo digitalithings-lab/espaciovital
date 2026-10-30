@@ -13,7 +13,7 @@ import { Logo } from '../shared/logo';
       <app-logo [size]="72" [withName]="false" />
       <h1 class="heading-lg mt-6">Esta página no existe</h1>
       <p class="lead mt-3 max-w-md">Puede que el enlace haya cambiado. Volvamos a un lugar seguro.</p>
-      <a routerLink="/" class="btn-leaf mt-8">Ir al inicio</a>
+      <a routerLink="/" class="btn-dark mt-8">Ir al inicio</a>
     </section>
   `,
 })

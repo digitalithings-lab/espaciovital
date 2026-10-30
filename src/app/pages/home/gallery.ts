@@ -15,14 +15,14 @@ import { Reveal } from '../../shared/reveal.directive';
     '(document:keydown.arrowleft)': 'step(-1)',
   },
   template: `
-    <section id="galeria" class="section-y border-t border-line bg-surface-muted">
+    <section id="galeria" class="section-y border-t border-line bg-surface">
       <div class="page">
         <header class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div class="space-y-4">
-            <p appReveal class="eyebrow bg-clay-100 text-clay-600">Galería de vivencias</p>
-            <h2 appReveal="80" class="heading-lg max-w-2xl">Momentos que quedan grabados en el corazón</h2>
+            <p appReveal class="eyebrow">Galería de vivencias</p>
+            <h2 appReveal="80" class="heading-lg max-w-2xl">Momentos que se quedan <span class="em-brand">contigo.</span></h2>
           </div>
-          <p appReveal="120" class="max-w-md text-muted">
+          <p appReveal="120" class="lead max-w-md">
             Fotografías de ediciones anteriores: agua cálida, complicidad, risas profundas y la dicha de no tener que demostrar nada.
           </p>
         </header>
@@ -32,19 +32,19 @@ import { Reveal } from '../../shared/reveal.directive';
             <button
               type="button"
               [appReveal]="i * 80"
-              class="group relative cursor-zoom-in overflow-hidden rounded-[2rem] text-left shadow-soft"
+              class="group relative cursor-zoom-in overflow-hidden rounded-3xl text-left"
               [class]="layout[i]"
               (click)="open(i)"
               [attr.aria-label]="'Ver foto: ' + photo.title"
             >
-              <img [src]="photo.image" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-              <span class="absolute inset-0 bg-gradient-to-t from-leaf-900/85 via-leaf-900/5 to-transparent"></span>
+              <img [src]="photo.image" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+              <span class="absolute inset-0 bg-gradient-to-t from-forest-900/85 via-forest-900/5 to-transparent"></span>
               <span class="absolute top-4 right-4 flex size-10 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
                 <app-icon name="expand" [size]="18" />
               </span>
               <span class="absolute right-6 bottom-6 left-6 text-white">
-                <span class="mb-2 inline-block rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold tracking-wider uppercase backdrop-blur-md">{{ photo.tag }}</span>
-                <span class="block font-display text-xl font-semibold md:text-2xl">{{ photo.title }}</span>
+                <span class="block text-xs font-semibold text-accent">{{ photo.tag }}</span>
+                <span class="mt-1 block font-display text-xl font-medium md:text-2xl">{{ photo.title }}</span>
                 <span class="mt-1 block text-sm text-white/80">{{ photo.text }}</span>
               </span>
             </button>
@@ -66,7 +66,7 @@ import { Reveal } from '../../shared/reveal.directive';
             <img [src]="photo.image" [alt]="photo.alt" class="max-h-[78dvh] w-full rounded-3xl object-contain" />
             <div class="mt-4 flex items-center justify-between gap-4 text-white">
               <div>
-                <p class="font-display text-xl">{{ photo.title }}</p>
+                <p class="font-display text-xl font-medium">{{ photo.title }}</p>
                 <p class="text-sm text-white/70">{{ index()! + 1 }} de {{ photos.length }}</p>
               </div>
               <div class="flex gap-2">

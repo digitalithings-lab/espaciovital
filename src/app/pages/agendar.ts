@@ -20,11 +20,11 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, Icon],
   template: `
-    <section class="bg-glow -mt-20 pt-28 pb-20 md:pt-32">
+    <section class="pt-12 pb-20 md:pt-16">
       <div class="page">
-        <header class="mx-auto mb-10 max-w-3xl space-y-4 text-center">
-          <p class="eyebrow bg-leaf-100 text-leaf-700"><app-icon name="calendar" [size]="16" /> Agenda en línea</p>
-          <h1 class="heading-lg">Agenda tu cita con <em class="text-clay-600">{{ site.therapistShort }}</em></h1>
+        <header class="mb-12 max-w-3xl space-y-4">
+          <p class="eyebrow"><app-icon name="calendar" [size]="16" /> Agenda en línea</p>
+          <h1 class="heading-lg">Agenda tu cita con <span class="em-brand">{{ site.therapistShort }}</span></h1>
           <p class="lead">Elige el día y la hora que te queden mejor. Solo verás horarios libres; {{ site.therapistShort }} confirmará tu cita.</p>
         </header>
 
@@ -36,26 +36,26 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
           </div>
         } @else if (state() === 'unavailable') {
           <div class="card mx-auto max-w-xl p-10 text-center">
-            <span class="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-clay-100 text-clay-600"><app-icon name="calendar" [size]="26" /></span>
+            <span class="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-accent/15 text-accent-ink"><app-icon name="calendar" [size]="26" /></span>
             <h2 class="font-display text-2xl font-semibold">La agenda en línea no está disponible ahora</h2>
             <p class="mt-2 text-muted">{{ loadError() }}</p>
             <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-              <button type="button" class="btn-leaf" (click)="load()">Reintentar</button>
+              <button type="button" class="btn-dark" (click)="load()">Reintentar</button>
               <a class="btn-outline" [href]="whatsapp" target="_blank" rel="noopener noreferrer"><app-icon name="message" [size]="18" /> Escribir por WhatsApp</a>
             </div>
           </div>
         } @else if (result(); as r) {
           <div class="card mx-auto max-w-xl animate-fade-up p-8 text-center md:p-10" role="status">
-            <span class="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-leaf-100 text-leaf-700"><app-icon name="checkCircle" [size]="32" /></span>
+            <span class="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-forest-100 text-forest-700"><app-icon name="checkCircle" [size]="32" /></span>
             <h2 class="font-display text-3xl font-semibold">¡Solicitud enviada!</h2>
             <p class="mt-3 text-muted">{{ site.therapistShort }} ya recibió tu solicitud y te confirmará por correo o teléfono.</p>
-            <div class="mx-auto mt-6 max-w-sm rounded-2xl border border-line bg-background p-4 text-left">
-              <p class="eyebrow p-0 text-muted">Tu cita</p>
+            <div class="mx-auto mt-6 max-w-sm rounded-xl border border-line bg-background p-4 text-left">
+              <p class="eyebrow text-muted">Tu cita</p>
               <p class="mt-1 font-bold capitalize">{{ resultLabel() }}</p>
               <p class="text-sm text-muted">{{ agenda()!.psychologist.sessionMinutes }} minutos · {{ site.therapist }}</p>
             </div>
             <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-              <button type="button" class="btn-leaf" (click)="downloadIcs(r)"><app-icon name="calendar" [size]="18" /> Añadir a mi calendario</button>
+              <button type="button" class="btn-dark" (click)="downloadIcs(r)"><app-icon name="calendar" [size]="18" /> Añadir a mi calendario</button>
               <a routerLink="/" class="btn-outline">Volver al inicio</a>
             </div>
           </div>
@@ -64,7 +64,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
             <!-- Horario de atención -->
             <aside class="min-w-0 space-y-4 lg:sticky lg:top-28 lg:col-span-4">
               <div class="card p-6">
-                <h2 class="mb-4 flex items-center gap-2 text-lg font-bold"><app-icon name="clock" class="text-leaf-700" /> Horario de atención</h2>
+                <h2 class="mb-4 flex items-center gap-2 text-lg font-bold"><app-icon name="clock" class="text-forest-700" /> Horario de atención</h2>
                 @if (a.weekly.length === 0) {
                   <p class="text-sm text-muted">Pronto se publicarán los horarios.</p>
                 } @else {
@@ -84,12 +84,12 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                 <p class="mt-4 text-xs text-muted">Horario de {{ placeLabel() }}.</p>
               </div>
               <div class="card space-y-3 p-6 text-sm">
-                <p class="flex items-center gap-2.5"><app-icon name="clock" [size]="18" class="text-clay-600" /> Sesiones de {{ a.psychologist.sessionMinutes }} minutos</p>
+                <p class="flex items-center gap-2.5"><app-icon name="clock" [size]="18" class="text-accent-ink" /> Sesiones de {{ a.psychologist.sessionMinutes }} minutos</p>
                 @if (a.psychologist.sessionPriceCents > 0) {
-                  <p class="flex items-center gap-2.5"><app-icon name="heart" [size]="18" class="text-clay-600" /> {{ price() }} por sesión</p>
+                  <p class="flex items-center gap-2.5"><app-icon name="heart" [size]="18" class="text-accent-ink" /> {{ price() }} por sesión</p>
                 }
-                <p class="flex items-center gap-2.5"><app-icon name="video" [size]="18" class="text-clay-600" /> Presencial o por videollamada</p>
-                <p class="flex items-center gap-2.5"><app-icon name="shield" [size]="18" class="text-clay-600" /> Tus datos son confidenciales</p>
+                <p class="flex items-center gap-2.5"><app-icon name="video" [size]="18" class="text-accent-ink" /> Presencial o por videollamada</p>
+                <p class="flex items-center gap-2.5"><app-icon name="shield" [size]="18" class="text-accent-ink" /> Tus datos son confidenciales</p>
               </div>
             </aside>
 
@@ -99,7 +99,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                 <h2 class="mb-1 text-lg font-bold">1. Elige el día</h2>
                 <p class="mb-4 text-sm text-muted">Los días en gris no tienen horas libres.</p>
                 @if (!anySlots()) {
-                  <p class="rounded-2xl bg-clay-100 p-4 text-sm font-semibold text-clay-600">
+                  <p class="rounded-xl bg-accent/15 p-4 text-sm font-semibold text-accent-ink">
                     No hay horas libres en las próximas semanas. Escríbenos y te avisamos cuando se abran nuevos espacios.
                   </p>
                 } @else {
@@ -108,13 +108,13 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                       <button
                         type="button"
                         role="option"
-                        class="flex w-[4.5rem] shrink-0 snap-start flex-col items-center gap-0.5 rounded-2xl border-[1.5px] py-3 transition-all duration-200"
+                        class="flex w-[4.5rem] shrink-0 snap-start flex-col items-center gap-0.5 rounded-xl border-[1.5px] py-3 transition-all duration-200"
                         [class]="
                           i === dayIndex()
-                            ? 'border-leaf-700 bg-leaf-700 text-white shadow-soft'
+                            ? 'border-accent bg-accent text-forest-900 shadow-soft'
                             : day.slots.length === 0
                               ? 'cursor-not-allowed border-line bg-surface-muted text-muted opacity-50'
-                              : 'cursor-pointer border-line bg-surface hover:border-leaf-500'
+                              : 'cursor-pointer border-line bg-surface hover:border-forest-500'
                         "
                         [disabled]="day.slots.length === 0"
                         [attr.aria-selected]="i === dayIndex()"
@@ -135,8 +135,8 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                         <button
                           type="button"
                           role="radio"
-                          class="cursor-pointer rounded-2xl border-[1.5px] py-3 text-sm font-bold tabular-nums transition-all duration-200"
-                          [class]="slot.startsAt === slotStart() ? 'border-leaf-700 bg-leaf-700 text-white shadow-soft' : 'border-line bg-surface hover:border-leaf-500 hover:bg-leaf-50'"
+                          class="cursor-pointer rounded-full border-[1.5px] py-3 text-sm font-bold tabular-nums transition-all duration-200"
+                          [class]="slot.startsAt === slotStart() ? 'border-accent bg-accent text-forest-900 shadow-soft' : 'border-line bg-surface hover:border-forest-500 hover:bg-forest-50'"
                           [attr.aria-checked]="slot.startsAt === slotStart()"
                           (click)="slotStart.set(slot.startsAt)"
                         >
@@ -151,9 +151,9 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
               <!-- Paso 3: datos -->
               @if (slotStart()) {
                 <form [formGroup]="form" (ngSubmit)="submit()" class="card animate-fade-up space-y-5 p-6 md:p-8" novalidate>
-                  <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-leaf-50 px-4 py-3">
-                    <p class="text-sm"><span class="font-bold text-leaf-700">Tu cita:</span> <span class="capitalize">{{ slotLabel() }}</span></p>
-                    <button type="button" class="text-sm font-bold text-leaf-700 underline-offset-4 hover:underline" (click)="slotStart.set(null)">Cambiar</button>
+                  <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-forest-50 px-4 py-3">
+                    <p class="text-sm"><span class="font-bold text-forest-700">Tu cita:</span> <span class="capitalize">{{ slotLabel() }}</span></p>
+                    <button type="button" class="text-sm font-bold text-forest-700 underline-offset-4 hover:underline" (click)="slotStart.set(null)">Cambiar</button>
                   </div>
                   <h2 class="text-lg font-bold">3. Tus datos</h2>
 
@@ -162,21 +162,21 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                       <label class="label" for="b-name">Nombre completo</label>
                       <input id="b-name" class="input" formControlName="fullName" autocomplete="name" [attr.aria-invalid]="invalid('fullName')" />
                       @if (invalid('fullName')) {
-                        <p class="mt-1.5 text-xs font-semibold text-clay-600">Escribe tu nombre completo.</p>
+                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe tu nombre completo.</p>
                       }
                     </div>
                     <div>
                       <label class="label" for="b-email">Correo</label>
                       <input id="b-email" class="input" type="email" inputmode="email" formControlName="email" autocomplete="email" [attr.aria-invalid]="invalid('email')" />
                       @if (invalid('email')) {
-                        <p class="mt-1.5 text-xs font-semibold text-clay-600">Escribe un correo válido.</p>
+                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe un correo válido.</p>
                       }
                     </div>
                     <div>
                       <label class="label" for="b-phone">Teléfono / WhatsApp</label>
                       <input id="b-phone" class="input" type="tel" inputmode="tel" formControlName="phone" autocomplete="tel" placeholder="+507 6000-0000" [attr.aria-invalid]="invalid('phone')" />
                       @if (invalid('phone')) {
-                        <p class="mt-1.5 text-xs font-semibold text-clay-600">Escribe un teléfono para confirmarte.</p>
+                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe un teléfono para confirmarte.</p>
                       }
                     </div>
                     <div>
@@ -198,7 +198,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                         [attr.aria-invalid]="invalid('reason')"
                       ></textarea>
                       <div class="mt-1.5 flex justify-between text-xs">
-                        <span class="font-semibold text-clay-600">{{ invalid('reason') ? 'Escribe al menos 5 caracteres.' : '' }}</span>
+                        <span class="font-semibold text-accent-ink">{{ invalid('reason') ? 'Escribe al menos 5 caracteres.' : '' }}</span>
                         <span class="text-muted tabular-nums">{{ form.controls.reason.value.length }}/500</span>
                       </div>
                     </div>
@@ -208,15 +208,15 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                   <input type="text" formControlName="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
                   <label class="flex cursor-pointer items-start gap-3 text-sm text-muted">
-                    <input type="checkbox" formControlName="consent" class="mt-0.5 size-5 shrink-0 cursor-pointer accent-[var(--ev-leaf-700)]" [attr.aria-invalid]="invalid('consent')" />
-                    <span>Acepto la <a routerLink="/privacidad" class="font-bold text-leaf-700 underline-offset-4 hover:underline">política de privacidad</a> y que me contacten para confirmar la cita.</span>
+                    <input type="checkbox" formControlName="consent" class="mt-0.5 size-5 shrink-0 cursor-pointer accent-[var(--ev-forest-700)]" [attr.aria-invalid]="invalid('consent')" />
+                    <span>Acepto la <a routerLink="/privacidad" class="font-bold text-forest-700 underline-offset-4 hover:underline">política de privacidad</a> y que me contacten para confirmar la cita.</span>
                   </label>
 
                   @if (error()) {
-                    <p class="rounded-2xl bg-clay-100 px-4 py-3 text-sm font-semibold text-clay-600" role="alert">{{ error() }}</p>
+                    <p class="rounded-xl bg-accent/15 px-4 py-3 text-sm font-semibold text-accent-ink" role="alert">{{ error() }}</p>
                   }
 
-                  <button type="submit" class="btn-sunset h-14 w-full text-base" [disabled]="sending()" [attr.aria-busy]="sending()">
+                  <button type="submit" class="btn-primary h-14 w-full text-base" [disabled]="sending()" [attr.aria-busy]="sending()">
                     @if (sending()) {
                       <span class="size-4 animate-spin rounded-full border-2 border-white border-r-transparent" aria-hidden="true"></span> Agendando…
                     } @else {

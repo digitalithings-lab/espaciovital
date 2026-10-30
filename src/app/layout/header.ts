@@ -7,11 +7,11 @@ import { Icon } from '../shared/icon';
 import { Logo } from '../shared/logo';
 
 const NAV = [
-  { id: 'inicio', label: 'Inicio' },
   { id: 'sobre-mi', label: 'Sobre mí' },
-  { id: 'retiro', label: 'Retiro Metamorfosis' },
-  { id: 'espacio-kids', label: 'Espacio Kids' },
-  { id: 'proximas-fechas', label: 'Próximas fechas' },
+  { id: 'retiro', label: 'Retiro' },
+  { id: 'espacio-kids', label: 'Kids' },
+  { id: 'proximas-fechas', label: 'Fechas' },
+  { id: 'preguntas', label: 'Preguntas' },
   { id: 'contacto', label: 'Contacto' },
 ];
 
@@ -25,18 +25,18 @@ const NAV = [
       class="sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300"
       [class]="scrolled() || open() ? 'border-line bg-background/85 shadow-soft backdrop-blur-xl' : 'border-transparent bg-transparent'"
     >
-      <div class="page flex h-20 items-center justify-between gap-4">
+      <div class="page flex h-[72px] items-center justify-between gap-4">
         <a routerLink="/" fragment="inicio" class="rounded-2xl" aria-label="EspacioVital, ir al inicio" (click)="close()">
           <app-logo [size]="40" />
         </a>
 
-        <nav class="hidden items-center gap-1 rounded-full border border-line bg-surface/70 p-1.5 shadow-soft xl:flex" aria-label="Secciones">
+        <nav class="hidden items-center gap-1 lg:flex" aria-label="Secciones">
           @for (item of nav; track item.id) {
             <a
               routerLink="/"
               [fragment]="item.id"
-              class="rounded-full px-4 py-2 text-[13px] font-semibold transition-colors duration-200"
-              [class]="active() === item.id ? 'bg-leaf-100 text-leaf-700' : 'text-muted hover:bg-surface-muted hover:text-ink'"
+              class="relative rounded-full px-3.5 py-2 text-sm font-semibold transition-colors duration-200"
+              [class]="active() === item.id ? 'text-ink after:absolute after:inset-x-3.5 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-accent' : 'text-muted hover:text-ink'"
               [attr.aria-current]="active() === item.id ? 'location' : null"
             >
               {{ item.label }}
@@ -53,14 +53,12 @@ const NAV = [
             aria-label="Escribir por WhatsApp"
             title="Escribir por WhatsApp"
           >
-            <app-icon name="message" />
+            <app-icon name="whatsapp" />
           </a>
-          <a routerLink="/agendar" class="btn-sunset hidden min-h-11 px-6 sm:inline-flex">
-            Agendar cita <app-icon name="arrowRight" [size]="18" />
-          </a>
+          <a routerLink="/agendar" class="btn-primary hidden min-h-11 px-6 sm:inline-flex">Agendar cita</a>
           <button
             type="button"
-            class="icon-btn xl:hidden"
+            class="icon-btn lg:hidden"
             (click)="toggle()"
             [attr.aria-expanded]="open()"
             aria-controls="menu-movil"
@@ -73,14 +71,14 @@ const NAV = [
 
       <!-- Menú en celular y tableta: en la referencia no existía. -->
       @if (open()) {
-        <div id="menu-movil" class="animate-fade-in border-t border-line xl:hidden">
+        <div id="menu-movil" class="animate-fade-in border-t border-line lg:hidden">
           <nav class="page flex flex-col gap-1 py-4" aria-label="Secciones">
             @for (item of nav; track item.id) {
               <a
                 routerLink="/"
                 [fragment]="item.id"
                 class="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold transition-colors"
-                [class]="active() === item.id ? 'bg-leaf-100 text-leaf-700' : 'text-ink hover:bg-surface-muted'"
+                [class]="active() === item.id ? 'bg-forest-50 text-forest-700' : 'text-ink hover:bg-surface-muted'"
                 (click)="close()"
               >
                 {{ item.label }}
@@ -88,9 +86,9 @@ const NAV = [
               </a>
             }
             <div class="mt-3 grid gap-2 sm:grid-cols-2">
-              <a routerLink="/agendar" class="btn-sunset" (click)="close()"><app-icon name="calendar" [size]="18" /> Agendar cita</a>
+              <a routerLink="/agendar" class="btn-primary" (click)="close()">Agendar cita</a>
               <a class="btn-outline" [href]="whatsapp" target="_blank" rel="noopener noreferrer">
-                <app-icon name="message" [size]="18" /> WhatsApp
+                <app-icon name="whatsapp" [size]="18" /> Escribir por WhatsApp
               </a>
             </div>
           </nav>
@@ -104,7 +102,7 @@ export class Header {
   protected readonly whatsapp = whatsappLink(`Hola ${SITE.therapistShort}, me gustaría recibir información.`);
   protected readonly open = signal(false);
   protected readonly scrolled = signal(false);
-  protected readonly active = signal('inicio');
+  protected readonly active = signal('');
 
   private readonly document = inject(DOCUMENT);
 
