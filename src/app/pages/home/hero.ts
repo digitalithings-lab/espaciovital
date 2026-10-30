@@ -79,19 +79,22 @@ import { Icon } from '../../shared/icon';
             </figcaption>
           </figure>
 
-          <div class="card animate-float absolute top-16 -left-4 flex items-center gap-3 px-4 py-3 sm:-left-10">
-            <span class="flex size-10 items-center justify-center rounded-xl bg-leaf-100 text-leaf-700"><app-icon name="brain" /></span>
-            <span>
-              <span class="block text-sm font-bold">Psicóloga colegiada</span>
-              <span class="block text-xs text-muted">Práctica ética y compasiva</span>
-            </span>
-          </div>
-          <div class="card absolute -right-3 -bottom-6 flex items-center gap-3 px-4 py-3 sm:-right-8" style="animation: var(--animate-float); animation-delay: -3s">
-            <span class="flex size-10 items-center justify-center rounded-full bg-clay-100 text-clay-600"><app-icon name="users" /></span>
-            <span>
-              <span class="block text-sm font-bold">Círculos vivenciales</span>
-              <span class="block text-xs font-semibold text-clay-600">Retiro Metamorfosis</span>
-            </span>
+          <!-- En celular y tableta van debajo de la foto (flotando le tapaban la cara); en escritorio flotan a los lados. -->
+          <div class="relative mt-5 grid grid-cols-2 gap-3 lg:static lg:mt-0 lg:block">
+            <div class="card flex flex-col items-start gap-2 px-4 py-3 sm:flex-row sm:items-center sm:gap-3 lg:animate-float lg:absolute lg:top-16 lg:-left-12">
+              <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-leaf-100 text-leaf-700"><app-icon name="brain" /></span>
+              <span>
+                <span class="block text-sm font-bold">Psicóloga colegiada</span>
+                <span class="block text-xs text-muted">Práctica ética y compasiva</span>
+              </span>
+            </div>
+            <div class="card flex flex-col items-start gap-2 px-4 py-3 [animation-delay:-3s] sm:flex-row sm:items-center sm:gap-3 lg:animate-float lg:absolute lg:-right-8 lg:-bottom-6">
+              <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-clay-100 text-clay-600"><app-icon name="users" /></span>
+              <span>
+                <span class="block text-sm font-bold">Círculos vivenciales</span>
+                <span class="block text-xs font-semibold text-clay-600">Retiro Metamorfosis</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
