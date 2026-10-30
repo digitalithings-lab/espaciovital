@@ -55,8 +55,8 @@ const NAV = [
           >
             <app-icon name="message" />
           </a>
-          <a routerLink="/" fragment="proximas-fechas" class="btn-sunset hidden min-h-11 px-6 sm:inline-flex">
-            Reservar cupo <app-icon name="arrowRight" [size]="18" />
+          <a routerLink="/agendar" class="btn-sunset hidden min-h-11 px-6 sm:inline-flex">
+            Agendar cita <app-icon name="arrowRight" [size]="18" />
           </a>
           <button
             type="button"
@@ -88,7 +88,7 @@ const NAV = [
               </a>
             }
             <div class="mt-3 grid gap-2 sm:grid-cols-2">
-              <a routerLink="/" fragment="proximas-fechas" class="btn-sunset" (click)="close()">Reservar cupo</a>
+              <a routerLink="/agendar" class="btn-sunset" (click)="close()"><app-icon name="calendar" [size]="18" /> Agendar cita</a>
               <a class="btn-outline" [href]="whatsapp" target="_blank" rel="noopener noreferrer">
                 <app-icon name="message" [size]="18" /> WhatsApp
               </a>
@@ -122,6 +122,11 @@ export class Header {
       let observer: IntersectionObserver | null = null;
       const watchSections = () => {
         observer?.disconnect();
+        // Fuera de la portada (agenda, páginas legales) ninguna sección del menú está activa.
+        if (router.url.split(/[?#]/)[0] !== '/') {
+          this.active.set('');
+          return;
+        }
         observer = new IntersectionObserver(
           (entries) => {
             const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];

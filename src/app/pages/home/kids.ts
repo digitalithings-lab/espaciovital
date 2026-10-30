@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { KIDS } from '../../core/content';
-import { SITE, whatsappLink } from '../../core/site.config';
+import { RouterLink } from '@angular/router';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 import { TONE } from '../../shared/tones';
@@ -8,7 +8,7 @@ import { TONE } from '../../shared/tones';
 @Component({
   selector: 'app-kids',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Reveal],
+  imports: [RouterLink, Icon, Reveal],
   template: `
     <section id="espacio-kids" class="section-y relative overflow-hidden bg-background">
       <div class="pointer-events-none absolute top-10 -left-24 size-80 rounded-full bg-lilac-100 blur-3xl" aria-hidden="true"></div>
@@ -62,8 +62,8 @@ import { TONE } from '../../shared/tones';
             <h3 class="text-xl font-bold">¿Quieres una evaluación o un taller para tu hijo o hija?</h3>
             <p class="text-muted">Sesiones de psicología infantil y grupos pequeños de estimulación socioemocional.</p>
           </div>
-          <a class="btn-leaf shrink-0" [href]="whatsapp" target="_blank" rel="noopener noreferrer">
-            <app-icon name="message" [size]="18" /> Consultar por terapia infantil
+          <a routerLink="/agendar" class="btn-leaf shrink-0">
+            <app-icon name="calendar" [size]="18" /> Agendar evaluación infantil
           </a>
         </div>
       </div>
@@ -73,7 +73,6 @@ import { TONE } from '../../shared/tones';
 export class Kids {
   protected readonly programs = KIDS;
   protected readonly tone = TONE;
-  protected readonly whatsapp = whatsappLink(`Hola ${SITE.therapistShort}, quisiera información sobre Metamorfosis Kids y los talleres infantiles.`);
   protected readonly badges = [
     { icon: 'wind', label: 'Regulación emocional', color: 'text-leaf-700' },
     { icon: 'target', label: 'Atención y foco', color: 'text-clay-600' },

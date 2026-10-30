@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IMG } from '../../core/content';
-import { SITE, whatsappLink } from '../../core/site.config';
+import { SITE } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
 
 @Component({
@@ -49,7 +49,7 @@ import { Icon } from '../../shared/icon';
             <a routerLink="/" fragment="proximas-fechas" class="btn-sunset h-14 px-8 text-base">
               Ver próximos retiros <app-icon name="arrowRight" />
             </a>
-            <a class="btn-outline h-14 px-7 text-base" [href]="whatsapp" target="_blank" rel="noopener noreferrer">
+            <a routerLink="/agendar" class="btn-outline h-14 px-7 text-base">
               <app-icon name="calendar" /> Agendar cita
             </a>
           </div>
@@ -104,7 +104,6 @@ import { Icon } from '../../shared/icon';
 export class Hero {
   protected readonly site = SITE;
   protected readonly img = IMG;
-  protected readonly whatsapp = whatsappLink(`Hola ${SITE.therapistShort}, quiero agendar una cita.`);
   protected readonly chips = [
     { icon: 'badgeCheck', label: 'Psicóloga clínica colegiada', color: 'text-leaf-700' },
     { icon: 'leaf', label: 'Terapia femenina y somática', color: 'text-clay-600' },

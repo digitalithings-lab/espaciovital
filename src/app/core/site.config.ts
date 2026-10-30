@@ -16,6 +16,14 @@ export const SITE = {
   hours: 'Lunes a sábado · 8:00 a. m. – 6:00 p. m.',
   /** URL de tu backend (sin barra final). Vacío = el formulario solo abre WhatsApp. */
   apiUrl: '',
+  /**
+   * Agenda de citas: se consulta en el backend de Florece, solo el horario de esta psicóloga.
+   * slug = el «Enlace de tu agenda» que Nathalie activa en su panel (Mi perfil → Agenda en tu sitio web).
+   */
+  booking: {
+    apiUrl: 'https://florece-digitali3.vercel.app',
+    slug: 'nathalie-vera',
+  },
 };
 
 /** Enlace de WhatsApp con un mensaje ya escrito. */
