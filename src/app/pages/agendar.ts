@@ -60,9 +60,9 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
             </div>
           </div>
         } @else if (agenda(); as a) {
-          <div class="grid items-start gap-6 lg:grid-cols-12">
+          <div class="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
             <!-- Horario de atención -->
-            <aside class="space-y-4 lg:sticky lg:top-28 lg:col-span-4">
+            <aside class="min-w-0 space-y-4 lg:sticky lg:top-28 lg:col-span-4">
               <div class="card p-6">
                 <h2 class="mb-4 flex items-center gap-2 text-lg font-bold"><app-icon name="clock" class="text-leaf-700" /> Horario de atención</h2>
                 @if (a.weekly.length === 0) {
@@ -93,7 +93,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
               </div>
             </aside>
 
-            <div class="space-y-6 lg:col-span-8">
+            <div class="min-w-0 space-y-6 lg:col-span-8">
               <!-- Paso 1: día y hora -->
               <div class="card p-6 md:p-8">
                 <h2 class="mb-1 text-lg font-bold">1. Elige el día</h2>
