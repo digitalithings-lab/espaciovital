@@ -74,7 +74,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                         <span class="font-semibold">{{ weekdays[day.weekday] }}</span>
                         <span class="text-right text-muted tabular-nums">
                           @for (r of day.ranges; track r.start) {
-                            <span class="block">{{ r.start }} – {{ r.end }}</span>
+                            <span class="block">{{ clock(r.start) }} – {{ clock(r.end) }}</span>
                           }
                         </span>
                       </li>
@@ -140,7 +140,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                           [attr.aria-checked]="slot.startsAt === slotStart()"
                           (click)="slotStart.set(slot.startsAt)"
                         >
-                          {{ slot.label }}
+                          {{ slotTime(slot.startsAt) }}
                         </button>
                       }
                     </div>
@@ -354,6 +354,16 @@ export class Agendar {
   protected longDay(date: string) {
     return LONG_DAY.format(utcDate(date));
   }
+  /** «14:00» → «2:00 p. m.» (sin hora militar). */
+  protected clock(hhmm: string) {
+    const [h, m] = hhmm.split(':').map(Number);
+    return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'a. m.' : 'p. m.'}`;
+  }
+  /** Hora de una cita en la zona de la psicóloga, en formato de 12 horas. */
+  protected slotTime(iso: string) {
+    const tz = this.agenda()?.psychologist.timezone;
+    return new Intl.DateTimeFormat('es', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz }).format(new Date(iso));
+  }
   protected placeLabel() {
     const tz = this.agenda()?.psychologist.timezone ?? '';
     return tz === 'America/Panama' ? 'Panamá' : tz.split('/').pop()?.replace(/_/g, ' ') ?? tz;
@@ -364,7 +374,7 @@ export class Agendar {
   }
   private format(iso: string) {
     const tz = this.agenda()?.psychologist.timezone;
-    return new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', timeZone: tz }).format(new Date(iso));
+    return new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz }).format(new Date(iso));
   }
   protected slotLabel() {
     return this.slotStart() ? this.format(this.slotStart()!) : '';
