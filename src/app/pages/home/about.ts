@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { IMG, srcset } from '../../core/content';
+import { IMG } from '../../core/content';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 
@@ -11,7 +11,17 @@ import { Reveal } from '../../shared/reveal.directive';
     <section id="sobre-mi" class="section-y">
       <div class="page grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
         <figure appReveal class="relative overflow-hidden rounded-3xl shadow-lift lg:sticky lg:top-28 lg:col-span-5">
-          <img [src]="img.about" [attr.srcset]="srcset(img.about)" sizes="(min-width: 1024px) 40vw, 92vw" alt="Mujeres acompañándose en un círculo de EspacioVital" width="600" height="720" loading="lazy" decoding="async" class="aspect-[5/6] w-full object-cover" />
+          <img
+            [src]="img.about"
+            srcset="/img/nathalie-vera-cuerpo-560.webp 560w, /img/nathalie-vera-cuerpo-934.webp 934w"
+            sizes="(min-width: 1024px) 40vw, 92vw"
+            alt="Psicóloga Nathalie Vera en el estudio, de cuerpo completo"
+            width="934"
+            height="1400"
+            loading="lazy"
+            decoding="async"
+            class="aspect-[3/4] w-full object-cover object-[50%_18%]"
+          />
           <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-forest-900/85 to-transparent"></div>
           <blockquote class="absolute right-6 bottom-6 left-6 text-white">
             <app-icon name="quote" [size]="26" class="mb-2 text-accent" />
@@ -47,7 +57,6 @@ import { Reveal } from '../../shared/reveal.directive';
 })
 export class About {
   protected readonly img = IMG;
-  protected readonly srcset = srcset;
   protected readonly pillars = [
     {
       title: 'Acompañamiento clínico',

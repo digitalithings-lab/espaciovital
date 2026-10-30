@@ -95,9 +95,8 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
               </div>
               <div class="card space-y-3 p-6 text-sm">
                 <p class="flex items-center gap-2.5"><app-icon name="clock" [size]="18" class="text-accent-ink" /> Sesiones de {{ a.psychologist.sessionMinutes }} minutos</p>
-                @if (a.psychologist.sessionPriceCents > 0) {
-                  <p class="flex items-center gap-2.5"><app-icon name="heart" [size]="18" class="text-accent-ink" /> {{ price() }} por sesión</p>
-                }
+                <!-- Sin precio en la web: Nathalie lo indica al confirmar la cita. -->
+                <p class="flex items-center gap-2.5"><app-icon name="heart" [size]="18" class="text-accent-ink" /> El precio te lo indica {{ site.therapistShort }} al confirmar tu cita</p>
                 <p class="flex items-center gap-2.5"><app-icon name="video" [size]="18" class="text-accent-ink" /> Presencial o por videollamada</p>
                 <p class="flex items-center gap-2.5"><app-icon name="shield" [size]="18" class="text-accent-ink" /> Tus datos son confidenciales</p>
               </div>
@@ -377,10 +376,6 @@ export class Agendar {
   protected placeLabel() {
     const tz = this.agenda()?.psychologist.timezone ?? '';
     return tz === 'America/Panama' ? 'Panamá' : tz.split('/').pop()?.replace(/_/g, ' ') ?? tz;
-  }
-  protected price() {
-    const p = this.agenda()!.psychologist;
-    return new Intl.NumberFormat('es', { style: 'currency', currency: p.currency }).format(p.sessionPriceCents / 100);
   }
   private format(iso: string) {
     const tz = this.agenda()?.psychologist.timezone;

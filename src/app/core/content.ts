@@ -14,7 +14,8 @@ export function srcset(src: string) {
 export const IMG = {
   // Foto de estudio de Nathalie (public/img, WebP en 934 y 560 px).
   hero: '/img/nathalie-vera-934.webp',
-  about: '/img/fotos/retiro-playa-1200.webp',
+  // Foto de estudio de Nathalie de cuerpo completo (ampliada al doble desde 467 px; cambiar por la original cuando esté).
+  about: '/img/nathalie-vera-cuerpo-934.webp',
   retreat: '/img/fotos/retiro-manglar-1200.webp',
   kidsBreath: '/img/fotos/kids-respiracion-720.webp',
   kidsTangram: '/img/fotos/kids-tangram-960.webp',
