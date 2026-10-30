@@ -22,10 +22,20 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
   template: `
     <section class="pt-12 pb-20 md:pt-16">
       <div class="page">
-        <header class="mb-12 max-w-3xl space-y-4">
-          <p class="eyebrow"><app-icon name="calendar" [size]="16" /> Agenda en línea</p>
-          <h1 class="heading-lg">Agenda tu cita con <span class="em-brand">{{ site.therapistShort }}</span></h1>
-          <p class="lead">Elige el día y la hora que te queden mejor. Solo verás horarios libres; {{ site.therapistShort }} confirmará tu cita.</p>
+        <header class="mb-12 flex max-w-3xl flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
+          <!-- Retrato pequeño: la foto de estudio disponible mide 467 px, nítida a este tamaño. -->
+          <img
+            src="/img/nathalie-vera-retrato-336.webp"
+            alt="Psicóloga Nathalie Vera"
+            width="112"
+            height="112"
+            class="size-24 shrink-0 rounded-full object-cover shadow-lift ring-4 ring-surface sm:size-28"
+          />
+          <div class="space-y-4">
+            <p class="eyebrow"><app-icon name="calendar" [size]="16" /> Agenda en línea</p>
+            <h1 class="heading-lg">Agenda tu cita con <span class="em-brand">{{ site.therapistShort }}</span></h1>
+            <p class="lead">Elige el día y la hora que te queden mejor. Solo verás horarios libres; {{ site.therapistShort }} confirmará tu cita.</p>
+          </div>
         </header>
 
         @if (state() === 'loading') {
