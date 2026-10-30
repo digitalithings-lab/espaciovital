@@ -3,7 +3,7 @@
 /*
  * Sistema de diseño de EspacioVital (rediseño con la skill design-taste-frontend).
  *
- * Paleta «bosque»: verde profundo del logo + piedra fría + UN solo acento ámbar.
+ * Paleta «bosque»: verde profundo del logo + piedra fría + UN solo acento naranja.
  *   - Verdes: estructura, texto y secciones oscuras.
  *   - Ámbar: solo acciones principales y detalles destacados (nunca otro color de acento).
  * Tipografía: Outfit (títulos) + Plus Jakarta Sans (texto), alojadas en el sitio.
@@ -28,8 +28,8 @@
   --color-forest-800: #163b37;
   --color-forest-900: #0f2a27;
 
-  --color-accent: #e6a23c;
-  --color-accent-hover: #f0b04f;
+  --color-accent: #fd761a;
+  --color-accent-hover: #ff8a3a;
   --color-accent-ink: var(--ev-accent-ink);
 
   --shadow-soft: 0 1px 2px rgb(15 42 39 / 0.05), 0 10px 30px -18px rgb(15 42 39 / 0.25);
@@ -64,7 +64,7 @@
   --ev-forest-100: #dcebe4;
   --ev-forest-500: #2a8470;
   --ev-forest-700: #1f5f5b;
-  --ev-accent-ink: #8a5a0f;
+  --ev-accent-ink: #b4500a;
 }
 
 /* Oscuro (según el sistema): verde noche. */
@@ -81,7 +81,7 @@
     --ev-forest-100: #183a31;
     --ev-forest-500: #6cc9ae;
     --ev-forest-700: #9adcc8;
-    --ev-accent-ink: #f2c072;
+    --ev-accent-ink: #ff9a5c;
   }
 }
 
@@ -161,7 +161,7 @@
   @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-7 text-sm font-bold whitespace-nowrap
     transition-all duration-200 ease-out select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
 }
-/* Acción principal: el único acento (ámbar) con texto verde noche (contraste > 8:1). */
+/* Acción principal: el único acento (naranja) con texto verde noche (contraste > 5:1). */
 @utility btn-primary {
   @apply btn bg-accent text-forest-900 shadow-soft hover:-translate-y-0.5 hover:bg-accent-hover;
 }
