@@ -42,7 +42,7 @@ export class Home {
           '@type': 'ProfessionalService',
           name: SITE.name,
           url: SITE.url,
-          image: IMG.hero,
+          image: SITE.url + IMG.hero,
           logo: `${SITE.url}/brand/icono-app-512.png`,
           description: SITE.description,
           email: SITE.email,

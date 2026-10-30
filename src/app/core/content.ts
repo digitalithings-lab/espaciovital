@@ -5,7 +5,8 @@ import { Faq, GalleryPhoto, KidsProgram, RetreatEdition, Testimonial } from './m
 
 /** Fotos de la referencia. Reemplázalas por las tuyas (idealmente en public/img, en WebP). */
 export const IMG = {
-  hero: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBBvH5Bz6tpjn72H3LyOixBXpBXbEMzQ-sSN_OcDPd34k4grvoqHRSXmD1YgdSp_Som7-ukSNrEIquww2lnys_NhbUffekOnqpSqqWVZfegudrLvPxBF_8NcJtRsgL5gxe-6Bg7xDdTQ-KhGAiCnW0aTyRKfw5WRzmCMG8pM5gxSk49Y3F8Jyuh34KwKs_Pk-nPwWv2g_AKnVdToIl4y_AoC10WGt5MTtlBuHlqjDqTHHvoGTvrrxyNyQ',
+  // Foto de estudio de Nathalie (public/img, WebP en 934 y 560 px).
+  hero: '/img/nathalie-vera-934.webp',
   about: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCvhOHYSKO0TvUglYg7OEEcr6EdGP19nIOZfUOYYyImgvv2VPsxqhuWT4hEXGwZlPldEyib9vugrL9fuSfc1fWUz6aT_tBHmA4bYTXSQfQJ3zikuUAfy_rq17YEJ8BU7aHQ1KIjzlycXcPcdTFotqcJ-g0pu_oBbAFkhrU7vd3rZLW3CWNnO_gZy-2Wefog0oRaaJPx3-QVsVR9FIf-7r6_WjF5CGbIjZAhutkiJZqNYAqV5GKPI6ZT4g',
   retreat: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCVVTlLSr9VBa77y61PoiUGHdiO36ILoINGLUf3aL2yBYDfJcs4CjtrJnrbw_g0Pk6Vohx1Exxogbc0QOX0jHJkqWWw-Rj-IUMtl5Tl74qhsOLaSMLlJVpj_CJra90z-erqVtMtMTgmyk_hTJZPyndIdQdxe1P5eaWIYLntqvcnz7gxvjScwnApsdh-6ffm2YllepSst0YYFjrncF4Myff5u_2hTJn1WdwxyGj7HuVO5_pthajnU3gpMQ',
   kidsBreath: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBwUw2_afarzvYgwyi0-l-deLSmw-DS_Vca6kSHn-VW8SiMYwhaHaGTY7Z1hk6Dtk3IrRrnI5WhgRozBYIa3p4BHDZzvE6BGAmJc5AZq25IDja8OXCv79eDivUleeVXfGciPQyVFaq8igvld1pDPD_CJn4uiUjZJumJdExMF6WuC15-pL7xPQPFFE7RXUCNZUjwHLzEZTmKvN2ygFgY4y1rqxDZI-Htui7KFbEkpHU2TU0UmAfD_Si7dA',

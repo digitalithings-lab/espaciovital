@@ -35,11 +35,13 @@ import { Icon } from '../../shared/icon';
           <figure class="relative overflow-hidden rounded-t-[999px] rounded-b-3xl bg-surface-muted shadow-lift">
             <img
               [src]="img.hero"
+              srcset="/img/nathalie-vera-560.webp 560w, /img/nathalie-vera-934.webp 934w"
+              sizes="(min-width: 1024px) 34vw, (min-width: 640px) 26rem, 92vw"
               alt="Psicóloga Nathalie Vera, fundadora de EspacioVital"
-              width="560"
-              height="700"
+              width="934"
+              height="1400"
               fetchpriority="high"
-              class="aspect-[4/5] w-full object-cover object-top"
+              class="aspect-[4/5] w-full object-cover object-[50%_12%]"
             />
             <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-forest-900/85 to-transparent"></div>
             <figcaption class="absolute right-6 bottom-6 left-6 text-white">
