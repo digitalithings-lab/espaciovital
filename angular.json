@@ -53,13 +53,8 @@
               "src/styles.css"
             ],
             "server": "src/main.server.ts",
-            "outputMode": "server",
-            "security": {
-              "allowedHosts": []
-            },
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            "outputMode": "static",
+            "outputPath": "dist/espaciovital"
           },
           "configurations": {
             "production": {

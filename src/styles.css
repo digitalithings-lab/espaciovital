@@ -1,1 +1,246 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+
+/*
+ * Sistema de diseño de EspacioVital.
+ * Paleta del logo: verde profundo (calma y confianza) + salvia, con terracota cálido como
+ * acento de acción (60 % fondos cálidos · 30 % verdes y texto · 10 % terracota).
+ * Los colores son variables: el modo oscuro solo cambia sus valores.
+ */
+@theme inline {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
+
+  --color-background: var(--ev-background);
+  --color-surface: var(--ev-surface);
+  --color-surface-muted: var(--ev-surface-muted);
+  --color-line: var(--ev-line);
+  --color-ink: var(--ev-ink);
+  --color-muted: var(--ev-muted);
+
+  --color-leaf-50: var(--ev-leaf-50);
+  --color-leaf-100: var(--ev-leaf-100);
+  --color-leaf-500: var(--ev-leaf-500);
+  --color-leaf-700: var(--ev-leaf-700);
+  --color-leaf-900: #12302d;
+
+  --color-clay-100: var(--ev-clay-100);
+  --color-clay-500: var(--ev-clay-500);
+  --color-clay-600: var(--ev-clay-600);
+
+  --color-lilac-100: var(--ev-lilac-100);
+  --color-lilac-600: var(--ev-lilac-600);
+
+  --color-honey-100: var(--ev-honey-100);
+  --color-honey-600: var(--ev-honey-600);
+
+  --shadow-soft: 0 1px 2px rgb(28 43 41 / 0.05), 0 8px 24px -16px rgb(28 43 41 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(28 43 41 / 0.04), 0 24px 48px -20px rgb(28 43 41 / 0.3);
+  --shadow-glow: 0 18px 40px -14px rgb(180 83 47 / 0.45);
+
+  --animate-fade-up: fade-up 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade-in: fade-in 250ms ease-out both;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Claro: cálido, editorial y luminoso. Los textos de color cumplen WCAG AA. */
+:root {
+  color-scheme: light;
+  --ev-background: #faf8f4;
+  --ev-surface: #ffffff;
+  --ev-surface-muted: #f3efe7;
+  --ev-line: #e6e0d5;
+  --ev-ink: #1c2b29;
+  --ev-muted: #56645f;
+
+  --ev-leaf-50: #f0f7f4;
+  --ev-leaf-100: #dcede6;
+  --ev-leaf-500: #2f8f7a;
+  --ev-leaf-700: #1f5f5b;
+
+  --ev-clay-100: #fbe8df;
+  --ev-clay-500: #b4532f;
+  --ev-clay-600: #963f22;
+
+  --ev-lilac-100: #efebfa;
+  --ev-lilac-600: #6650b3;
+
+  --ev-honey-100: #fbf0d9;
+  --ev-honey-600: #8a5d0c;
+}
+
+/* Oscuro (según el sistema): verde noche, sin negro puro. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --ev-background: #0e1817;
+    --ev-surface: #142221;
+    --ev-surface-muted: #1b2c2a;
+    --ev-line: #283c39;
+    --ev-ink: #ecf2ef;
+    --ev-muted: #a6b6b1;
+
+    --ev-leaf-50: #15282a;
+    --ev-leaf-100: #1b3431;
+    --ev-leaf-500: #5fc0a6;
+    --ev-leaf-700: #8fd9c4;
+
+    --ev-clay-100: #3a2219;
+    --ev-clay-500: #b4532f;
+    --ev-clay-600: #f0a385;
+
+    --ev-lilac-100: #262140;
+    --ev-lilac-600: #c3b5f5;
+
+    --ev-honey-100: #33270f;
+    --ev-honey-600: #f0c56b;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem; /* el encabezado fijo no tapa el título de cada sección */
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background font-sans text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: var(--ev-leaf-100);
+    color: var(--ev-ink);
+  }
+  :where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--ev-leaf-500);
+    outline-offset: 3px;
+    border-radius: 0.75rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+    }
+  }
+}
+
+/* ─── Utilidades de la marca ─────────────────────────── */
+
+@utility page {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
+}
+@utility section-y {
+  @apply py-20 md:py-28;
+}
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold tracking-[0.12em] uppercase;
+}
+@utility heading-xl {
+  @apply font-display text-4xl leading-[1.08] font-semibold tracking-tight md:text-6xl;
+}
+@utility heading-lg {
+  @apply font-display text-3xl leading-tight font-semibold tracking-tight md:text-[2.75rem];
+}
+@utility lead {
+  @apply text-base leading-relaxed text-muted md:text-lg;
+}
+@utility card {
+  @apply rounded-3xl border border-line bg-surface shadow-soft;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-semibold text-ink;
+}
+@utility btn {
+  @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-7 text-sm font-bold
+    transition-all duration-200 ease-out select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+}
+/* Acción principal: atardecer terracota → baya (texto blanco con contraste AA). */
+@utility btn-sunset {
+  @apply btn text-white shadow-glow hover:-translate-y-0.5 hover:brightness-110;
+  background-image: linear-gradient(120deg, #b4532f 0%, #a8433f 55%, #94365a 100%);
+}
+@utility btn-leaf {
+  @apply btn bg-leaf-700 text-white shadow-soft hover:-translate-y-0.5 hover:bg-leaf-900;
+}
+@utility btn-outline {
+  @apply btn border-2 border-leaf-700 text-leaf-700 hover:bg-leaf-50;
+}
+@utility btn-ghost-light {
+  @apply btn border-2 border-white/70 text-white hover:bg-white/10;
+}
+@utility icon-btn {
+  @apply inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-leaf-700
+    transition-all duration-200 hover:border-leaf-500 hover:bg-leaf-50 active:scale-95;
+}
+@utility input {
+  @apply w-full rounded-2xl border-[1.5px] border-line bg-surface px-4 py-3 text-ink shadow-soft outline-none
+    transition-[border-color,box-shadow] duration-200 placeholder:text-muted/70
+    focus:border-leaf-500 focus:ring-4 focus:ring-leaf-500/15
+    aria-invalid:border-clay-500 aria-invalid:focus:ring-clay-500/15;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-bold text-ink;
+}
+
+/* Fondo suave con luz cálida arriba a la derecha (heredado de la referencia). */
+.bg-glow {
+  background:
+    radial-gradient(60rem 30rem at 100% 0%, color-mix(in oklab, var(--ev-clay-100) 70%, transparent), transparent 70%),
+    radial-gradient(40rem 28rem at 0% 100%, color-mix(in oklab, var(--ev-leaf-100) 70%, transparent), transparent 70%),
+    var(--ev-background);
+}
+.bg-retreat {
+  background:
+    radial-gradient(40rem 22rem at 90% 10%, rgb(244 165 120 / 0.35), transparent 70%),
+    linear-gradient(135deg, #1f5f5b 0%, #184b48 45%, #12302d 100%);
+}
+
+/* Aparición suave al hacer scroll (ver shared/reveal.directive.ts).
+ * Solo se oculta si hay JavaScript (clase .js en <html>): sin él, o para buscadores, todo se ve. */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

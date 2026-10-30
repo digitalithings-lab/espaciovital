@@ -1,59 +1,48 @@
-# Espaciovital
+# EspacioVital · Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.5.
+Sitio de la Psic. Nathalie Vera (psicología clínica, Retiro Metamorfosis y Metamorfosis Kids).
+Angular 22 + Tailwind CSS 4, **pre-renderizado** (cada página sale como HTML listo para Google).
 
-## Development server
-
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Comandos
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # desarrollo en http://localhost:4200
+npm run build      # genera dist/espaciovital/browser (HTML estático + JS)
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Dónde cambiar las cosas
 
-```bash
-ng generate --help
-```
+| Qué | Archivo |
+|---|---|
+| WhatsApp, correo, Instagram, horario, dominio, URL del backend | `src/app/core/site.config.ts` |
+| Retiros (fechas, cupos), programas Kids, galería, testimonios, preguntas | `src/app/core/content.ts` |
+| Fotos (hoy son las de la referencia) | `IMG` en `src/app/core/content.ts` → mejor en `public/img/` en WebP |
+| Colores y tipografías | `src/styles.css` (variables `--ev-*`, claro y oscuro) |
+| Título, descripción y datos estructurados de Google | `src/app/pages/home/home.ts` y `core/seo.service.ts` |
+| Sitemap y robots | `public/sitemap.xml`, `public/robots.txt` (cambia el dominio) |
 
-## Building
+## Conectar el backend
 
-To build the project run:
+- **Formulario de contacto:** pon la URL en `SITE.apiUrl`. El sitio hará `POST {apiUrl}/contact` con este cuerpo
+  (`ContactRequest` en `core/models.ts`):
 
-```bash
-ng build
-```
+  ```json
+  { "name": "", "email": "", "phone": "", "interest": "terapia | retiro | kids | otro", "message": "", "consent": true }
+  ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+  Responde `2xx` si se guardó. Sin `apiUrl`, el formulario abre WhatsApp con el mensaje armado.
+- **Retiros y demás contenido:** los tipos de `core/models.ts` son el contrato; tu API puede devolver esas mismas formas.
+- Las ediciones de retiro ya pasadas se ocultan solas (`endDate`).
 
-## Running unit tests
+## Publicar en Vercel
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+`vercel.json` ya está listo: comando `npm run build` y carpeta `dist/espaciovital/browser`.
 
-```bash
-ng test
-```
+## Antes de lanzar
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [ ] Número de WhatsApp, correo e Instagram reales en `site.config.ts`.
+- [ ] Dominio final en `site.config.ts`, `sitemap.xml` y `robots.txt`.
+- [ ] Fotos propias (las de la referencia son temporales).
+- [ ] Revisar los textos legales (`src/app/pages/legal.ts`) con un profesional.
+- [ ] Dar de alta el sitio en Google Search Console y enviar el sitemap.
