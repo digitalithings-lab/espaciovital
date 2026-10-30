@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IMG } from '../../core/content';
+import { IMG, srcset } from '../../core/content';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 
@@ -29,6 +29,8 @@ import { Reveal } from '../../shared/reveal.directive';
           <figure appReveal="120" class="lg:col-span-6">
             <img
               [src]="img.retreat"
+              [attr.srcset]="srcset(img.retreat)"
+              sizes="(min-width: 1024px) 45vw, 92vw"
               alt="Grupo de mujeres en el Retiro Metamorfosis"
               width="640"
               height="520"
@@ -55,6 +57,7 @@ import { Reveal } from '../../shared/reveal.directive';
 })
 export class Retreat {
   protected readonly img = IMG;
+  protected readonly srcset = srcset;
   protected readonly includes = [
     { icon: 'leaf', label: 'Terapia somática' },
     { icon: 'waves', label: 'Ritual marino' },

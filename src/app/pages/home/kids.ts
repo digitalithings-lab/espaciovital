@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { KIDS } from '../../core/content';
+import { KIDS, srcset } from '../../core/content';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 
@@ -32,6 +32,8 @@ import { Reveal } from '../../shared/reveal.directive';
             >
               <img
                 [src]="program.image"
+                [attr.srcset]="srcset(program.image)"
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 92vw"
                 [alt]="program.alt"
                 width="640"
                 height="480"
@@ -66,6 +68,7 @@ import { Reveal } from '../../shared/reveal.directive';
 })
 export class Kids {
   protected readonly programs = KIDS;
+  protected readonly srcset = srcset;
   // Ritmo del bento: grande (2 filas) + dos medianas apiladas; luego tres pequeñas.
   protected readonly layout = [
     'md:col-span-3 md:row-span-2',

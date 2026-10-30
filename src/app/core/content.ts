@@ -3,22 +3,29 @@ import { Faq, GalleryPhoto, KidsProgram, RetreatEdition, Testimonial } from './m
 // Contenido de la página. Hoy vive aquí; cuando tengas el backend, ContentService puede pedirlo a tu API
 // (mismas formas de datos, ver models.ts) sin cambiar los componentes.
 
-/** Fotos de la referencia. Reemplázalas por las tuyas (idealmente en public/img, en WebP). */
+/** Fotos de la página, en public/img como WebP. Las de muestra (public/img/fotos) son temporales: cámbialas por fotos propias. */
+// Cada foto de public/img/fotos existe en su ancho completo (en el nombre: «-1200») y en 640 px para celulares.
+export function srcset(src: string) {
+  const width = Number(/-(\d+)\.webp$/.exec(src)?.[1]);
+  if (!width || width <= 640) return null;
+  return `${src.replace(/-\d+\.webp$/, '-640.webp')} 640w, ${src} ${width}w`;
+}
+
 export const IMG = {
   // Foto de estudio de Nathalie (public/img, WebP en 934 y 560 px).
   hero: '/img/nathalie-vera-934.webp',
-  about: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCvhOHYSKO0TvUglYg7OEEcr6EdGP19nIOZfUOYYyImgvv2VPsxqhuWT4hEXGwZlPldEyib9vugrL9fuSfc1fWUz6aT_tBHmA4bYTXSQfQJ3zikuUAfy_rq17YEJ8BU7aHQ1KIjzlycXcPcdTFotqcJ-g0pu_oBbAFkhrU7vd3rZLW3CWNnO_gZy-2Wefog0oRaaJPx3-QVsVR9FIf-7r6_WjF5CGbIjZAhutkiJZqNYAqV5GKPI6ZT4g',
-  retreat: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCVVTlLSr9VBa77y61PoiUGHdiO36ILoINGLUf3aL2yBYDfJcs4CjtrJnrbw_g0Pk6Vohx1Exxogbc0QOX0jHJkqWWw-Rj-IUMtl5Tl74qhsOLaSMLlJVpj_CJra90z-erqVtMtMTgmyk_hTJZPyndIdQdxe1P5eaWIYLntqvcnz7gxvjScwnApsdh-6ffm2YllepSst0YYFjrncF4Myff5u_2hTJn1WdwxyGj7HuVO5_pthajnU3gpMQ',
-  kidsBreath: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBwUw2_afarzvYgwyi0-l-deLSmw-DS_Vca6kSHn-VW8SiMYwhaHaGTY7Z1hk6Dtk3IrRrnI5WhgRozBYIa3p4BHDZzvE6BGAmJc5AZq25IDja8OXCv79eDivUleeVXfGciPQyVFaq8igvld1pDPD_CJn4uiUjZJumJdExMF6WuC15-pL7xPQPFFE7RXUCNZUjwHLzEZTmKvN2ygFgY4y1rqxDZI-Htui7KFbEkpHU2TU0UmAfD_Si7dA',
-  kidsTangram: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBF3XP1wtQGJozuzzuDGQVSExhKRgxpyAra726-hxw3UdbmsAWyNG9jXhvWyLllB2Toswb9JIQWP-zuyBNgKbr1K0FM2Oi-YJ6jFiJRYVye1ltXEClnsLKB3hBKKhG4wwUWsMPB3Y4x8hDocGup95KTeoj-Bi0uClNdQ3_E6X5ugEXt5PSYE_tB6jT2mj9J_aFDDj6bU8cJ3Es1AXkW_-DX4g4Wzm89gHNbO4-a3w9IZtsMsV0ZqzfJjQ',
-  kidsMandala: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgsx1qq7VnEciPCNgP6fmZxU_ph2RE8Bfuc3fZql6GqgmYN6Jm5-anN_Tss7ABzZhJuLCZLLFWWYvkN27hl8hFF-HqYQCWon8VaUPrbWYH4jbVHU-mKR66Muy7a-xd0hBdkECWvssF2A_flBWESe-JSopUK8TPjz8q-2DonW7CoZn0nE13jtFHHw26OHk5Mxkql-dQ6nOOE42a1Aerdt_0WJmT2-nlqI3abUOaK_1z1VN0twjfclJjwA',
-  kidsLego: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9z8S2-NaGWjiyZGDbjzFtJCegTanrV8G7HsnM5Gu-MJs_w-xswQsGSNRUu8eAd7rdo9y6p9GNILGuJtWAOS8hzwvgQ5XdSIxE5-kdhNKhUAwQ0aIPgBtTN1xsyH-Q_8CfYZO8MxyZ2yrcRyygwdXbDMiLKnTPA9_X8m-Htdh-j77W6VtkCbCbCKPt5tL3l67dxjFdFNLuUvnZzjCtEDOq364QDvJAl0-8mxgc-lLBryDBvEx0X6IPdw',
-  kidsSensory: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA9ZdPbQCrTpiI1T6OpKYaILero4Et_w3u5feTLEN5lwKjkhjZOvRexGc6PeXrl0rOYX3Tgd8loBWai6ZbGv3kuUkq3QVon7ftdGysiIFi5-z_hjunMUwTlNwXWIYkQa72Hmcx9rsvy-x3I7NMyVOXQD1s-Os_czc46QgombnQLCx1Z2gzypoj9hjpMZ3Es9BVO8zQXdZHnsdM5u5tTr7ucrwWLRWgZzrN6czwUiw6VXjxsK2ncPnx3rw',
-  kidsOrigami: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDjLVBSQHO8VWQVHNi4QkOGYaNOgltdRDJgGfMxO9tPrD2PwR91IKniJMwTFtFPQ91ZM5VKCW2koO5d1fUkXPJCopoPRBpKsEl5X6bTiOjoF_SUgJNXvs1En39LOMglTaJsdKzRg5Z72A9uCgEQy5pb5sS7mwocUKR8fvtt_KV97H2HaFW_VGE_YuPw0xzBZgkd18cQCrDBsguHL1ximb79i1ph_1LLed4IQvyt1ONqWsRG43BIFKTMag',
-  galleryWater: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA8RrboigRNrrKmHov62cVTGwI0LorbkcXjr_Zz-a3nvcT5CnIwUgJvXrs5c8PysSWDthUgOywl3l1QZRYH3l6jwCNZgKbeR_n6BpraBOuzUC6YXcL-a5-9kR94R6Yo-N9jBQv_jYtrvpaxAKae-mheEAjaR3qG_DylTYheCrGKb5FIKEmJ_sVOwhkzhLDhbCnRPTQlO1cXzM8O_2IFNl-xVQCNxRyeKBnIrsCaCQP5ltsfH8syc0tTAg',
-  galleryCircle: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAWVXW4UOyD_9aDq7V0UuiNQgdo8Elw0_7ulDpfE2gLTlnMQ1Pvx9oSS2HumrCO-vatIm66LT334PpmpHSwEU7d9OnKul6xq0UA2P2kV9JeTnXMz0etuqX2qWMSZqvQlkNnUI9lHQYxIXlbOwx8ToF8Z1q3A_sx9Amn5ISxZQ160H3706kx1O5Hkn4uvMQYCD4jA7yOX2HCAm6V7dV0SVmE401rDVxB3soGJ_lnCzwG-PxSxs8tc5alqQ',
-  galleryJoy: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCvhOHYSKO0TvUglYg7OEEcr6EdGP19nIOZfUOYYyImgvv2VPsxqhuWT4hEXGwZlPldEyib9vugrL9fuSfc1fWUz6aT_tBHmA4bYTXSQfQJ3zikuUAfy_rq17YEJ8BU7aHQ1KIjzlycXcPcdTFotqcJ-g0pu_oBbAFkhrU7vd3rZLW3CWNnO_gZy-2Wefog0oRaaJPx3-QVsVR9FIf-7r6_WjF5CGbIjZAhutkiJZqNYAqV5GKPI6ZT4g',
-  galleryBeach: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCVVTlLSr9VBa77y61PoiUGHdiO36ILoINGLUf3aL2yBYDfJcs4CjtrJnrbw_g0Pk6Vohx1Exxogbc0QOX0jHJkqWWw-Rj-IUMtl5Tl74qhsOLaSMLlJVpj_CJra90z-erqVtMtMTgmyk_hTJZPyndIdQdxe1P5eaWIYLntqvcnz7gxvjScwnApsdh-6ffm2YllepSst0YYFjrncF4Myff5u_2hTJn1WdwxyGj7HuVO5_pthajnU3gpMQ',
+  about: '/img/fotos/circulo-mujeres-1200.webp',
+  retreat: '/img/fotos/retiro-playa-1200.webp',
+  kidsBreath: '/img/fotos/kids-respiracion-720.webp',
+  kidsTangram: '/img/fotos/kids-tangram-960.webp',
+  kidsMandala: '/img/fotos/kids-mandala-960.webp',
+  kidsLego: '/img/fotos/kids-lego-720.webp',
+  kidsSensory: '/img/fotos/kids-sensorial-960.webp',
+  kidsOrigami: '/img/fotos/kids-origami-960.webp',
+  galleryWater: '/img/fotos/galeria-agua-1200.webp',
+  galleryCircle: '/img/fotos/galeria-circulo-1200.webp',
+  galleryJoy: '/img/fotos/circulo-mujeres-1200.webp',
+  galleryBeach: '/img/fotos/retiro-playa-1200.webp',
 };
 
 export const RETREATS: RetreatEdition[] = [

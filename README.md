@@ -17,7 +17,7 @@ npm run build      # genera dist/espaciovital/browser (HTML estático + JS)
 |---|---|
 | WhatsApp, correo, Instagram, horario, dominio, URL del backend | `src/app/core/site.config.ts` |
 | Retiros (fechas, cupos), programas Kids, galería, testimonios, preguntas | `src/app/core/content.ts` |
-| Fotos (hoy son las de la referencia) | `IMG` en `src/app/core/content.ts` → mejor en `public/img/` en WebP |
+| Fotos (las de muestra están en `public/img/fotos`, en WebP de 640 px y ancho completo) | `IMG` en `src/app/core/content.ts` |
 | Colores, tipografías y regla de bordes | `src/styles.css` (paleta bosque + un solo acento naranja, claro y oscuro) |
 | Título, descripción y datos estructurados de Google | `src/app/pages/home/home.ts` y `core/seo.service.ts` |
 | Sitemap y robots | `public/sitemap.xml`, `public/robots.txt` (cambia el dominio) |

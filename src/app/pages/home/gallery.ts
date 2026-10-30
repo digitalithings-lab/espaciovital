@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { GALLERY } from '../../core/content';
+import { GALLERY, srcset } from '../../core/content';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 
@@ -37,7 +37,7 @@ import { Reveal } from '../../shared/reveal.directive';
               (click)="open(i)"
               [attr.aria-label]="'Ver foto: ' + photo.title"
             >
-              <img [src]="photo.image" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+              <img [src]="photo.image" [attr.srcset]="srcset(photo.image)" sizes="(min-width: 768px) 66vw, 92vw" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
               <span class="absolute inset-0 bg-gradient-to-t from-forest-900/85 via-forest-900/5 to-transparent"></span>
               <span class="absolute top-4 right-4 flex size-10 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
                 <app-icon name="expand" [size]="18" />
@@ -89,6 +89,7 @@ import { Reveal } from '../../shared/reveal.directive';
 })
 export class Gallery {
   protected readonly photos = GALLERY;
+  protected readonly srcset = srcset;
   // Mosaico: grande + vertical arriba, mediana + ancha abajo.
   protected readonly layout = ['h-[420px] md:col-span-8', 'h-[420px] md:col-span-4', 'h-[360px] md:col-span-5', 'h-[360px] md:col-span-7'];
   protected readonly index = signal<number | null>(null);
