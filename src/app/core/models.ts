@@ -34,6 +34,8 @@ export interface GalleryPhoto {
   tag: string;
   title: string;
   text: string;
+  /** Parte de la foto que se conserva al recortarla (CSS object-position), p. ej. '50% 80%'. */
+  focus?: string;
 }
 
 export interface Testimonial {

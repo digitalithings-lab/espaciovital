@@ -14,18 +14,20 @@ export function srcset(src: string) {
 export const IMG = {
   // Foto de estudio de Nathalie (public/img, WebP en 934 y 560 px).
   hero: '/img/nathalie-vera-934.webp',
-  about: '/img/fotos/circulo-mujeres-1200.webp',
-  retreat: '/img/fotos/retiro-playa-1200.webp',
+  about: '/img/fotos/retiro-playa-1200.webp',
+  retreat: '/img/fotos/retiro-manglar-1200.webp',
   kidsBreath: '/img/fotos/kids-respiracion-720.webp',
   kidsTangram: '/img/fotos/kids-tangram-960.webp',
   kidsMandala: '/img/fotos/kids-mandala-960.webp',
   kidsLego: '/img/fotos/kids-lego-720.webp',
   kidsSensory: '/img/fotos/kids-sensorial-960.webp',
   kidsOrigami: '/img/fotos/kids-origami-960.webp',
-  galleryWater: '/img/fotos/galeria-agua-1200.webp',
-  galleryCircle: '/img/fotos/galeria-circulo-1200.webp',
   galleryJoy: '/img/fotos/circulo-mujeres-1200.webp',
-  galleryBeach: '/img/fotos/retiro-playa-1200.webp',
+  galleryHug: '/img/fotos/retiro-abrazo-1200.webp',
+  galleryViewpoint: '/img/fotos/retiro-mirador-1200.webp',
+  galleryBeach: '/img/fotos/retiro-playa-ronda-1200.webp',
+  galleryDance: '/img/fotos/retiro-celebracion-960.webp',
+  galleryBoat: '/img/fotos/retiro-nathalie-bote-960.webp',
 };
 
 export const RETREATS: RetreatEdition[] = [
@@ -145,32 +147,51 @@ export const KIDS: KidsProgram[] = [
 
 export const GALLERY: GalleryPhoto[] = [
   {
-    image: IMG.galleryWater,
-    alt: 'Baño grupal en el mar durante el Retiro Metamorfosis',
-    tag: 'Aguas claras · Inmersión',
-    title: 'Ritual del agua: soltar el peso que no te corresponde',
-    text: 'Conexión profunda con la naturaleza para liberar cargas acumuladas.',
-  },
-  {
-    image: IMG.galleryCircle,
-    alt: 'Grupo de mujeres conversando con la psicóloga en el retiro',
-    tag: 'Complicidad',
-    title: 'Círculo de confianza',
-    text: 'Donde tu historia es respetada y celebrada.',
-  },
-  {
     image: IMG.galleryJoy,
-    alt: 'Participantes celebrando juntas en el retiro',
+    alt: 'Participantes del Retiro Metamorfosis sonriendo juntas en una foto grupal',
     tag: 'Celebración',
     title: 'Hermandad que perdura',
     text: 'Vínculos que continúan después del retiro.',
   },
   {
+    image: IMG.galleryHug,
+    alt: 'Dos participantes abrazadas dentro del mar durante el retiro',
+    tag: 'Aguas claras · Inmersión',
+    title: 'Ritual del agua: soltar el peso que no te corresponde',
+    focus: '50% 80%',
+    text: 'Conexión profunda con la naturaleza para liberar cargas acumuladas.',
+  },
+  {
+    image: IMG.galleryViewpoint,
+    alt: 'Grupo de mujeres sentadas en un mirador frente a las montañas',
+    tag: 'Mirador',
+    title: 'Círculo de confianza',
+    focus: '50% 80%',
+    text: 'Donde tu historia es respetada y celebrada.',
+  },
+  {
     image: IMG.galleryBeach,
-    alt: 'Mujeres sonriendo en la playa',
-    tag: 'Playa Bonita',
+    alt: 'Participantes formando una ronda en la playa',
+    tag: 'Playa',
     title: 'La libertad de volver a ser tú',
+    focus: '50% 70%',
     text: 'Sin poses ni juicios: plenitud, risa y renovación.',
+  },
+  {
+    image: IMG.galleryDance,
+    alt: 'Mujeres con los brazos en alto celebrando en la orilla del mar',
+    tag: 'Energía',
+    title: 'Bailar, respirar, soltar',
+    focus: '50% 85%',
+    text: 'El cuerpo también sana cuando se mueve con alegría.',
+  },
+  {
+    image: IMG.galleryBoat,
+    alt: 'La psicóloga Nathalie Vera sonriendo en el bote junto al grupo',
+    tag: 'Con Nathalie',
+    title: 'Rumbo a la isla, juntas',
+    focus: '50% 75%',
+    text: 'Cada edición empieza con el mismo viaje compartido.',
   },
 ];
 

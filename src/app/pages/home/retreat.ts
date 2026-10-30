@@ -31,7 +31,7 @@ import { Reveal } from '../../shared/reveal.directive';
               [src]="img.retreat"
               [attr.srcset]="srcset(img.retreat)"
               sizes="(min-width: 1024px) 45vw, 92vw"
-              alt="Grupo de mujeres en el Retiro Metamorfosis"
+              alt="Grupo de mujeres saludando dentro del agua en el Retiro Metamorfosis"
               width="640"
               height="520"
               loading="lazy"
