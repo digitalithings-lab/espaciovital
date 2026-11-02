@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FAQS, IMG, RETREATS } from '../../core/content';
-import { SeoService } from '../../core/seo.service';
+import { FAQS, RETREATS } from '../../core/content';
+import { businessJsonLd, SeoService } from '../../core/seo.service';
 import { SITE } from '../../core/site.config';
 import { About } from './about';
 import { Contact } from './contact';
@@ -33,27 +33,12 @@ import { Testimonials } from './testimonials';
 export class Home {
   constructor() {
     inject(SeoService).set({
-      title: `Psicóloga en La Chorrera, Panamá · ${SITE.therapist} | ${SITE.name}`,
+      title: `Psicóloga en La Chorrera y en línea en Panamá | ${SITE.therapist}`,
       description: SITE.description,
       path: '/',
+      alternates: { es: '/', en: '/en' },
       jsonLd: [
-        {
-          '@context': 'https://schema.org',
-          '@type': ['ProfessionalService', 'LocalBusiness'],
-          name: SITE.name,
-          url: SITE.url,
-          image: SITE.url + IMG.hero,
-          logo: `${SITE.url}/brand/icono-app-512.png`,
-          description: SITE.description,
-          email: SITE.email,
-          telephone: SITE.whatsapp,
-          areaServed: [SITE.city, SITE.region, SITE.country],
-          address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: 'PA' },
-          openingHours: 'Mo-Sa 08:00-18:00',
-          knowsAbout: ['Psicología general', 'Terapia individual', 'Terapia de pareja', 'Terapia somática', 'Bienestar emocional'],
-          founder: { '@type': 'Person', name: 'Nathalie Vera', jobTitle: 'Psicóloga general' },
-          sameAs: [SITE.instagram],
-        },
+        businessJsonLd(SITE.description),
         {
           '@context': 'https://schema.org',
           '@type': 'FAQPage',

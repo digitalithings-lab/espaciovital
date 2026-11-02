@@ -1,7 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { filter } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs';
 import { SITE, whatsappLink } from '../core/site.config';
 import { Icon } from '../shared/icon';
 import { Logo } from '../shared/logo';
@@ -55,6 +56,16 @@ const NAV = [
           >
             <app-icon name="whatsapp" />
           </a>
+          <a
+            [routerLink]="isEnglish() ? '/' : '/en'"
+            class="icon-btn text-xs font-extrabold tracking-wider"
+            [attr.hreflang]="isEnglish() ? 'es' : 'en'"
+            [attr.aria-label]="isEnglish() ? 'Ver en español' : 'View in English'"
+            [title]="isEnglish() ? 'Ver en español' : 'View in English'"
+            (click)="close()"
+          >
+            {{ isEnglish() ? 'ES' : 'EN' }}
+          </a>
           <a routerLink="/agendar" class="btn-primary hidden min-h-11 px-6 sm:inline-flex">Agendar cita</a>
           <button
             type="button"
@@ -103,6 +114,11 @@ export class Header {
   protected readonly open = signal(false);
   protected readonly scrolled = signal(false);
   protected readonly active = signal('');
+  private readonly router = inject(Router);
+  protected readonly isEnglish = toSignal(
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd), map(() => this.router.url.startsWith('/en'))),
+    { initialValue: this.router.url.startsWith('/en') },
+  );
 
   private readonly document = inject(DOCUMENT);
 

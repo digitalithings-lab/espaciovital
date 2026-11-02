@@ -268,7 +268,7 @@ export const FAQS: Faq[] = [
   {
     question: '¿Las sesiones son presenciales o en línea?',
     answer:
-      'Ambas. Puedes elegir sesiones presenciales en Panamá o videollamadas desde cualquier país. La calidad del acompañamiento es la misma.',
+      'Ambas. Atiendo de forma presencial en La Chorrera (Panamá Oeste) y por videollamada desde cualquier lugar de Panamá. La calidad del acompañamiento es la misma.',
   },
   {
     question: '¿Qué pasa en una primera consulta?',

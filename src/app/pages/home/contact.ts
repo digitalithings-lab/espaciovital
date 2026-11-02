@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ContactService } from '../../core/contact.service';
 import { ContactRequest } from '../../core/models';
+import { cleanText, emailValidators, nameValidators, PHONE_PATTERN } from '../../core/safe-input';
 import { SITE } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
@@ -47,19 +48,22 @@ import { Reveal } from '../../shared/reveal.directive';
               <div class="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label class="label" for="c-name">Nombre</label>
-                  <input id="c-name" class="input" formControlName="name" autocomplete="name" [attr.aria-invalid]="invalid('name')" aria-describedby="c-name-err" />
+                  <input id="c-name" class="input" formControlName="name" maxlength="120" autocomplete="name" [attr.aria-invalid]="invalid('name')" aria-describedby="c-name-err" />
                   @if (invalid('name')) {
-                    <p id="c-name-err" class="mt-2 text-xs font-semibold text-accent-ink">Escribe tu nombre.</p>
+                    <p id="c-name-err" class="mt-2 text-xs font-semibold text-accent-ink">Escribe tu nombre (solo letras).</p>
                   }
                 </div>
                 <div>
                   <label class="label" for="c-phone">Teléfono / WhatsApp <span class="font-medium text-muted">(opcional)</span></label>
-                  <input id="c-phone" class="input" type="tel" formControlName="phone" autocomplete="tel" inputmode="tel" />
+                  <input id="c-phone" class="input" type="tel" formControlName="phone" maxlength="20" autocomplete="tel" inputmode="tel" [attr.aria-invalid]="invalid('phone')" />
+                  @if (invalid('phone')) {
+                    <p class="mt-2 text-xs font-semibold text-accent-ink">Escribe un teléfono válido.</p>
+                  }
                 </div>
               </div>
               <div>
                 <label class="label" for="c-email">Correo</label>
-                <input id="c-email" class="input" type="email" formControlName="email" autocomplete="email" inputmode="email" [attr.aria-invalid]="invalid('email')" aria-describedby="c-email-err" />
+                <input id="c-email" class="input" type="email" formControlName="email" maxlength="254" autocomplete="email" inputmode="email" [attr.aria-invalid]="invalid('email')" aria-describedby="c-email-err" />
                 @if (invalid('email')) {
                   <p id="c-email-err" class="mt-2 text-xs font-semibold text-accent-ink">Escribe un correo válido.</p>
                 }
@@ -82,6 +86,8 @@ import { Reveal } from '../../shared/reveal.directive';
                 <label class="label" for="c-message">Mensaje <span class="font-medium text-muted">(opcional)</span></label>
                 <textarea id="c-message" class="input min-h-28 resize-y" formControlName="message" maxlength="1000" placeholder="Cuéntame brevemente qué te gustaría trabajar…"></textarea>
               </div>
+              <!-- Campo trampa contra robots: oculto para las personas. -->
+              <input type="text" formControlName="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
               <label class="flex cursor-pointer items-start gap-3 text-sm text-muted">
                 <input type="checkbox" formControlName="consent" class="mt-0.5 size-5 shrink-0 cursor-pointer accent-[var(--ev-forest-700)]" [attr.aria-invalid]="invalid('consent')" />
                 <span>Acepto la <a routerLink="/privacidad" class="font-bold text-forest-700 underline underline-offset-4">política de privacidad</a> y que me contacten sobre mi consulta.</span>
@@ -119,16 +125,18 @@ export class Contact {
     { value: 'terapia', label: 'Terapia', icon: 'brain' },
     { value: 'retiro', label: 'Retiro', icon: 'waves' },
     { value: 'kids', label: 'Niños', icon: 'smile' },
-    { value: 'pareja', label: 'pareja', icon: 'people' },
+    { value: 'pareja', label: 'Pareja', icon: 'users' },
   ] as const;
 
   protected readonly form = inject(FormBuilder).nonNullable.group({
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(120)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: [''],
+    name: ['', nameValidators],
+    email: ['', emailValidators],
+    phone: ['', Validators.pattern(PHONE_PATTERN)],
     interest: ['terapia' as ContactRequest['interest']],
     message: ['', Validators.maxLength(1000)],
     consent: [false, Validators.requiredTrue],
+    /** Campo trampa contra robots: siempre vacío. */
+    website: [''],
   });
 
   // Los errores se muestran al tocar el campo o al intentar enviar.
@@ -142,7 +150,20 @@ export class Contact {
     this.form.markAllAsTouched();
     if (this.form.invalid) return;
 
-    const request = this.form.getRawValue() as ContactRequest;
+    const v = this.form.getRawValue();
+    // Un robot rellena el campo oculto: se descarta en silencio.
+    if (v.website) {
+      this.sent.set(true);
+      return;
+    }
+    const request: ContactRequest = {
+      name: cleanText(v.name, 120),
+      email: v.email.trim().toLowerCase(),
+      phone: cleanText(v.phone, 20),
+      interest: this.interests.some((o) => o.value === v.interest) ? v.interest : 'otro',
+      message: cleanText(v.message, 1000, true),
+      consent: true,
+    };
     this.firstName.set(request.name.split(' ')[0]);
 
     if (!this.contact.hasBackend) {

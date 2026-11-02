@@ -17,7 +17,7 @@ import { Icon } from '../../shared/icon';
 
       <div class="page relative grid items-center gap-12 pt-12 pb-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-8 lg:pb-12">
         <div class="animate-fade-up lg:col-span-6">
-          <p class="eyebrow mb-6">Psicología General · La Chorrera, Panamá y en línea</p>
+          <p class="eyebrow mb-6">Psicología General · Presencial en La Chorrera · En línea en todo Panamá</p>
           <h1 class="font-display text-5xl leading-[1.02] font-bold tracking-tight text-ink md:text-6xl lg:text-7xl">
             Bienvenido/a, a tu espacio de<br>
             <span class="text-forest-500 italic">Bienestar.</span>
@@ -129,7 +129,8 @@ export class Hero {
     'Retiro Metamorfosis',
     'Vital Kids',
     'Bienestar emocional',
-    'La Chorrera y en línea',
+    'Presencial en La Chorrera',
+    'En línea en todo Panamá',
     'Acompañamiento clínico',
     'Círculos de palabra',
   ];

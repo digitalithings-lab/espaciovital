@@ -56,7 +56,7 @@ export interface ContactRequest {
   name: string;
   email: string;
   phone: string;
-  interest: 'terapia' | 'retiro' | 'kids' | 'otro';
+  interest: 'terapia' | 'pareja' | 'retiro' | 'kids' | 'otro';
   message: string;
   consent: boolean;
 }

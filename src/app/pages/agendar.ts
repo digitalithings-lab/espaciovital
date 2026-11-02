@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { BookingAgenda, bookingError, BookingResult, BookingService } from '../core/booking.service';
 import { SeoService } from '../core/seo.service';
+import { cleanText, emailValidators, nameValidators, PHONE_PATTERN } from '../core/safe-input';
 import { SITE, whatsappLink } from '../core/site.config';
 import { Icon } from '../shared/icon';
 
@@ -183,28 +184,28 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                   <div class="grid gap-5 sm:grid-cols-2">
                     <div class="sm:col-span-2">
                       <label class="label" for="b-name">Nombre completo</label>
-                      <input id="b-name" class="input" formControlName="fullName" autocomplete="name" [attr.aria-invalid]="invalid('fullName')" />
+                      <input id="b-name" class="input" formControlName="fullName" maxlength="120" autocomplete="name" [attr.aria-invalid]="invalid('fullName')" />
                       @if (invalid('fullName')) {
-                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe tu nombre completo.</p>
+                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe tu nombre completo (solo letras).</p>
                       }
                     </div>
                     <div>
                       <label class="label" for="b-email">Correo</label>
-                      <input id="b-email" class="input" type="email" inputmode="email" formControlName="email" autocomplete="email" [attr.aria-invalid]="invalid('email')" />
+                      <input id="b-email" class="input" type="email" inputmode="email" formControlName="email" maxlength="254" autocomplete="email" [attr.aria-invalid]="invalid('email')" />
                       @if (invalid('email')) {
                         <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe un correo válido.</p>
                       }
                     </div>
                     <div>
                       <label class="label" for="b-phone">Teléfono / WhatsApp</label>
-                      <input id="b-phone" class="input" type="tel" inputmode="tel" formControlName="phone" autocomplete="tel" placeholder="+507 6000-0000" [attr.aria-invalid]="invalid('phone')" />
+                      <input id="b-phone" class="input" type="tel" inputmode="tel" formControlName="phone" maxlength="20" autocomplete="tel" placeholder="+507 6000-0000" [attr.aria-invalid]="invalid('phone')" />
                       @if (invalid('phone')) {
                         <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe un teléfono para confirmarte.</p>
                       }
                     </div>
                     <div>
                       <label class="label" for="b-id">Cédula <span class="font-medium text-muted">(opcional)</span></label>
-                      <input id="b-id" class="input uppercase" formControlName="idNumber" placeholder="8-123-4567" [attr.aria-invalid]="invalid('idNumber')" />
+                      <input id="b-id" class="input uppercase" formControlName="idNumber" maxlength="30" placeholder="8-123-4567" [attr.aria-invalid]="invalid('idNumber')" />
                     </div>
                     <div>
                       <label class="label" for="b-birth">Fecha de nacimiento <span class="font-medium text-muted">(opcional)</span></label>
@@ -332,9 +333,9 @@ export class Agendar {
   protected readonly selectedDay = computed(() => this.agenda()?.days[this.dayIndex()] ?? null);
 
   protected readonly form = inject(FormBuilder).nonNullable.group({
-    fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.pattern(/^\+?[0-9 ()-]{7,20}$/)]],
+    fullName: ['', [...nameValidators, Validators.minLength(3)]],
+    email: ['', emailValidators],
+    phone: ['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
     idNumber: ['', Validators.pattern(/^[A-Za-z0-9.\- ]{4,30}$/)],
     birthDate: [''],
     reason: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(500)]],
@@ -394,16 +395,19 @@ export class Agendar {
       this.result.set(
         await this.booking.book({
           startsAt,
-          fullName: v.fullName.trim(),
-          email: v.email.trim(),
-          phone: v.phone.trim(),
-          idNumber: v.idNumber.trim() || undefined,
-          birthDate: v.birthDate || undefined,
-          reason: v.reason.trim(),
+          fullName: cleanText(v.fullName, 120),
+          email: v.email.trim().toLowerCase(),
+          phone: cleanText(v.phone, 20),
+          idNumber: cleanText(v.idNumber, 30).toUpperCase() || undefined,
+          birthDate: /^\d{4}-\d{2}-\d{2}$/.test(v.birthDate) && v.birthDate <= this.today ? v.birthDate : undefined,
+          reason: cleanText(v.reason, 500, true),
           consent: true,
           website: v.website,
           recurrence: v.recurring
-            ? { rule: v.recurrenceRule, count: Number(v.recurrenceCount) }
+            ? {
+                rule: v.recurrenceRule === 'weekly' ? 'weekly' : 'biweekly',
+                count: Math.min(12, Math.max(2, Math.trunc(Number(v.recurrenceCount)) || 2)),
+              }
             : undefined,
         }),
       );

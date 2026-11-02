@@ -6,6 +6,7 @@ import { SITE, whatsappLink } from './site.config';
 
 const INTEREST_LABEL: Record<ContactRequest['interest'], string> = {
   terapia: 'terapia individual',
+  pareja: 'terapia de pareja',
   retiro: 'el Retiro Metamorfosis',
   kids: 'terapia o talleres para niños',
   otro: 'otra consulta',
