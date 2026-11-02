@@ -23,7 +23,7 @@ export const IMG = {
   kidsLego: '/img/fotos/kids-lego-720.webp',
   kidsSensory: '/img/fotos/kids-sensorial-960.webp',
   kidsOrigami: '/img/fotos/kids-origami-960.webp',
-  galleryJoy: '/img/fotos/recurso2.webp',
+  galleryJoy: '/img/fotos/risas-1200.webp',
   galleryHug: '/img/fotos/retiro-abrazo-1200.webp',
   galleryViewpoint: '/img/fotos/retiro-mirador-1200.webp',
   galleryBeach: '/img/fotos/recurso.webp',
@@ -196,7 +196,7 @@ export const GALLERY: GalleryPhoto[] = [
     tag: 'Alegría',
     title: 'Risas que sanan',
     text: 'Cuando el cuerpo ríe, el alma también respira.',
-    focus: '50% 60%',
+    focus: '50% 70%',
   },
   {
     image: IMG.galleryHug,
