@@ -33,22 +33,25 @@ import { Testimonials } from './testimonials';
 export class Home {
   constructor() {
     inject(SeoService).set({
-      title: `${SITE.therapist} · Psicóloga General en Panamá | ${SITE.name}`,
+      title: `Psicóloga en La Chorrera, Panamá · ${SITE.therapist} | ${SITE.name}`,
       description: SITE.description,
       path: '/',
       jsonLd: [
         {
           '@context': 'https://schema.org',
-          '@type': 'ProfessionalService',
+          '@type': ['ProfessionalService', 'LocalBusiness'],
           name: SITE.name,
           url: SITE.url,
           image: SITE.url + IMG.hero,
           logo: `${SITE.url}/brand/icono-app-512.png`,
           description: SITE.description,
           email: SITE.email,
-          areaServed: SITE.country,
-          address: { '@type': 'PostalAddress', addressCountry: 'PA' },
-          founder: { '@type': 'Person', name: 'Nathalie Vera', jobTitle: 'Psicóloga clínica' },
+          telephone: SITE.whatsapp,
+          areaServed: [SITE.city, SITE.region, SITE.country],
+          address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: 'PA' },
+          openingHours: 'Mo-Sa 08:00-18:00',
+          knowsAbout: ['Psicología general', 'Terapia individual', 'Terapia de pareja', 'Terapia somática', 'Bienestar emocional'],
+          founder: { '@type': 'Person', name: 'Nathalie Vera', jobTitle: 'Psicóloga general' },
           sameAs: [SITE.instagram],
         },
         {

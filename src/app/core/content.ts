@@ -292,6 +292,6 @@ export const FAQS: Faq[] = [
   {
     question: '¿Lo que hablo en sesión es confidencial?',
     answer:
-      'Siempre. Todo lo que compartes está protegido por el secreto profesional y el código de ética de la psicología clínica.',
+      'Siempre. Todo lo que compartes está protegido por el secreto profesional y el código de ética de la psicología.',
   },
 ];

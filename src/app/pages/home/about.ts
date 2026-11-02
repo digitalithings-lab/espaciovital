@@ -50,7 +50,7 @@ import { Reveal } from '../../shared/reveal.directive';
 
         <!-- Copy grande derecha -->
         <div class="lg:col-span-8">
-          <p appReveal class="text-xs font-bold tracking-[0.18em] uppercase text-white/60">Sobre la psicologa</p>
+          <p appReveal class="text-xs font-bold tracking-[0.18em] uppercase text-white/60">Sobre la psicóloga</p>
           <h2 appReveal="60" class="font-display text-4xl leading-[1.05] font-bold tracking-tight mt-4 md:text-5xl lg:text-6xl">
             No se trata solo<br>de sentirte mejor.<br>
             <span class="text-accent italic">Se trata de aprender a vivir mejor.</span>

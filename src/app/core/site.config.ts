@@ -7,12 +7,14 @@ export const SITE = {
   /** Dominio final, sin barra al final (para SEO: canonical, sitemap y Open Graph). */
   url: 'https://espaciovitalpsic.site',
   description:
-    'Psicología General, terapia somática y Retiro Metamorfosis para mujeres en Panamá. Talleres socioemocionales para niños con la Psic. Nathalie Vera.',
+    'Psicóloga en La Chorrera, Panamá Oeste: terapia individual y de pareja, presencial y en línea, con la Psic. Nathalie Vera. Retiro Metamorfosis para mujeres y talleres para niños.',
   /** Número con código de país y sin «+» ni espacios, p. ej. 50760000000. Vacío = WhatsApp pide elegir chat. */
   whatsapp: '+50765807290',
   email: 'contacto@espaciovitalpsic.site',
   instagram: 'https://www.instagram.com/espaciovitalpsic?srtk=cHQxMnhwNWp4bW10',
   country: 'Panamá',
+  city: 'La Chorrera',
+  region: 'Panamá Oeste',
   hours: 'Lunes a sábado · 8:00 a. m. – 6:00 p. m.',
   /** URL de tu backend (sin barra final). Vacío = el formulario solo abre WhatsApp. */
   apiUrl: '',
