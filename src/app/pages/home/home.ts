@@ -33,7 +33,7 @@ import { Testimonials } from './testimonials';
 export class Home {
   constructor() {
     inject(SeoService).set({
-      title: `${SITE.therapist} · Psicóloga clínica en Panamá | ${SITE.name}`,
+      title: `${SITE.therapist} · Psicóloga General en Panamá | ${SITE.name}`,
       description: SITE.description,
       path: '/',
       jsonLd: [

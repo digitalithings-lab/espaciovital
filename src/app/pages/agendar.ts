@@ -57,12 +57,26 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
         } @else if (result(); as r) {
           <div class="card mx-auto max-w-xl animate-fade-up p-8 text-center md:p-10" role="status">
             <span class="mx-auto mb-5 flex size-16 items-center justify-center rounded-full bg-forest-100 text-forest-700"><app-icon name="checkCircle" [size]="32" /></span>
-            <h2 class="font-display text-3xl font-semibold">¡Solicitud enviada!</h2>
-            <p class="mt-3 text-muted">{{ site.therapistShort }} ya recibió tu solicitud y te confirmará por correo o teléfono.</p>
+            <h2 class="font-display text-3xl font-semibold">
+              {{ r.recurring ? '¡Solicitud de ' + r.count + ' citas enviada!' : '¡Solicitud enviada!' }}
+            </h2>
+            <p class="mt-3 text-muted">
+              {{ site.therapistShort }} ya recibió tu solicitud {{ r.recurring ? 'para tus sesiones periódicas' : '' }} y te confirmará por correo o teléfono.
+            </p>
             <div class="mx-auto mt-6 max-w-sm rounded-xl border border-line bg-background p-4 text-left">
-              <p class="eyebrow text-muted">Tu cita</p>
-              <p class="mt-1 font-bold capitalize">{{ resultLabel() }}</p>
-              <p class="text-sm text-muted">{{ agenda()!.psychologist.sessionMinutes }} minutos · {{ site.therapist }}</p>
+              <p class="eyebrow text-muted">{{ r.recurring ? 'Tus sesiones (' + r.count + ' citas)' : 'Tu cita' }}</p>
+              @if (r.recurring && r.appointments && r.appointments.length > 0) {
+                <div class="mt-2 space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                  @for (apt of r.appointments; track apt.id) {
+                    <p class="text-xs font-semibold capitalize bg-surface p-2 rounded-lg border border-line">
+                      📅 {{ formatAppointmentDate(apt.startsAt) }}
+                    </p>
+                  }
+                </div>
+              } @else {
+                <p class="mt-1 font-bold capitalize">{{ resultLabel() }}</p>
+              }
+              <p class="mt-2 text-sm text-muted">{{ agenda()!.psychologist.sessionMinutes }} minutos · {{ site.therapist }}</p>
             </div>
             <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
               <button type="button" class="btn-dark" (click)="downloadIcs(r)"><app-icon name="calendar" [size]="18" /> Añadir a mi calendario</button>
@@ -213,6 +227,62 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                     </div>
                   </div>
 
+                  <!-- Sección de Citas Recurrentes -->
+                  <div class="rounded-2xl border border-line bg-surface-muted/40 p-5 space-y-4">
+                    <label class="flex cursor-pointer items-center gap-3">
+                      <input
+                        type="checkbox"
+                        formControlName="recurring"
+                        class="size-5 rounded cursor-pointer accent-[var(--ev-forest-700)]"
+                      />
+                      <span class="font-bold text-ink">Quiero agendar esta cita de forma recurrente</span>
+                    </label>
+
+                    @if (form.controls.recurring.value) {
+                      <div class="space-y-4 pt-2 border-t border-line/60">
+                        <p class="text-xs text-muted">
+                          Elige si prefieres tener tus sesiones cada semana o cada 2 semanas (quincenal).
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div>
+                            <label class="label text-xs" for="r-rule">Frecuencia</label>
+                            <select id="r-rule" class="input py-2.5 text-sm" formControlName="recurrenceRule">
+                              <option value="weekly">Cada semana (semanal)</option>
+                              <option value="biweekly">Cada 2 semanas (quincenal)</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label class="label text-xs" for="r-count">Total de sesiones</label>
+                            <select id="r-count" class="input py-2.5 text-sm" formControlName="recurrenceCount">
+                              <option [value]="2">2 sesiones</option>
+                              <option [value]="3">3 sesiones</option>
+                              <option [value]="4">4 sesiones (1 mes aprox.)</option>
+                              <option [value]="6">6 sesiones</option>
+                              <option [value]="8">8 sesiones (2 meses aprox.)</option>
+                              <option [value]="10">10 sesiones</option>
+                              <option [value]="12">12 sesiones (3 meses aprox.)</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- Fechas proyectadas -->
+                        @if (recurringPreview().length > 0) {
+                          <div class="rounded-xl bg-surface p-3.5 border border-line/60">
+                            <p class="text-xs font-bold text-forest-700 uppercase tracking-wider mb-2">Fechas que se reservarán:</p>
+                            <div class="flex flex-wrap gap-1.5">
+                              @for (d of recurringPreview(); track d) {
+                                <span class="rounded-lg bg-forest-50 border border-forest-200/60 px-2.5 py-1 text-xs font-semibold text-forest-800">
+                                  {{ d }}
+                                </span>
+                              }
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+
                   <!-- Campo trampa contra robots: oculto para las personas. -->
                   <input type="text" formControlName="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
@@ -270,6 +340,9 @@ export class Agendar {
     reason: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(500)]],
     consent: [false, Validators.requiredTrue],
     website: [''],
+    recurring: [false],
+    recurrenceRule: ['biweekly' as 'weekly' | 'biweekly'],
+    recurrenceCount: [4],
   });
 
   constructor() {
@@ -329,6 +402,9 @@ export class Agendar {
           reason: v.reason.trim(),
           consent: true,
           website: v.website,
+          recurrence: v.recurring
+            ? { rule: v.recurrenceRule, count: Number(v.recurrenceCount) }
+            : undefined,
         }),
       );
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -386,6 +462,34 @@ export class Agendar {
   }
   protected resultLabel() {
     return this.result() ? this.format(this.result()!.startsAt) : '';
+  }
+
+  protected formatAppointmentDate(iso: string) {
+    return this.format(iso);
+  }
+
+  protected recurringPreview(): string[] {
+    const start = this.slotStart();
+    const count = Number(this.form.controls.recurrenceCount.value);
+    const rule = this.form.controls.recurrenceRule.value;
+    if (!start || count < 2) return [];
+
+    const days = rule === 'weekly' ? 7 : 14;
+    const tz = this.agenda()?.psychologist.timezone;
+    const fmt = new Intl.DateTimeFormat('es', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      timeZone: tz,
+    });
+
+    const dates: string[] = [];
+    let d = new Date(start);
+    for (let i = 0; i < count; i++) {
+      dates.push(fmt.format(d));
+      d = new Date(d.getTime() + days * 24 * 60 * 60 * 1000);
+    }
+    return dates;
   }
 
   /** Descarga un archivo .ics para añadir la cita a Google Calendar, Apple o Outlook. */

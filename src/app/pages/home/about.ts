@@ -1,51 +1,80 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IMG } from '../../core/content';
-import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 
 @Component({
   selector: 'app-about',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Reveal],
+  imports: [Reveal],
   template: `
-    <section id="sobre-mi" class="section-y">
-      <div class="page grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-        <figure appReveal class="relative overflow-hidden rounded-3xl shadow-lift lg:sticky lg:top-28 lg:col-span-5">
-          <img
-            [src]="img.about"
-            srcset="/img/nathalie-vera-cuerpo-560.webp 560w, /img/nathalie-vera-cuerpo-934.webp 934w"
-            sizes="(min-width: 1024px) 40vw, 92vw"
-            alt="Psicóloga Nathalie Vera en el estudio, de cuerpo completo"
-            width="934"
-            height="1400"
-            loading="lazy"
-            decoding="async"
-            class="aspect-[3/4] w-full object-cover object-[50%_18%]"
-          />
-          <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-forest-900/85 to-transparent"></div>
-          <blockquote class="absolute right-6 bottom-6 left-6 text-white">
-            <app-icon name="quote" [size]="26" class="mb-2 text-accent" />
-            <p class="font-display text-xl leading-snug font-medium md:text-2xl">Ninguna mujer sana sola; sanamos cuando nos reflejamos con verdad y ternura.</p>
-          </blockquote>
-        </figure>
+    <!-- Sección manifiesto: fúcsia sólido, tipografía grande, sin degradados. -->
+    <section id="sobre-mi" class="relative bg-forest-500 py-20 md:py-28 text-white">
+      <div class="page grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
 
-        <div class="lg:col-span-7">
-          <p appReveal class="eyebrow">Sobre la terapeuta</p>
-          <h2 appReveal="60" class="heading-lg mt-4">Hola, soy Nathalie. Te acompaño en el regreso <span class="em-brand">a ti misma.</span></h2>
-          <p appReveal="100" class="lead mt-6">
-            Como psicóloga clínica y fundadora de EspacioVital, sé que el ritmo de vida actual sobrecarga nuestras emociones y silencia
-            nuestras necesidades. Mi trabajo une la psicología basada en evidencia con los círculos de palabra, la regulación somática y el
-            juego terapéutico para niños y familias.
+        <!-- Collage fotográfico izquierda: stack de polaroids rotados -->
+        <div appReveal class="relative lg:col-span-4 lg:sticky lg:top-28 lg:self-start" style="height: 480px;">
+
+          <!-- Foto de fondo: bote con Nathalie, rotada positivo, offset -->
+          <div class="absolute bottom-0 right-4 w-[68%] rotate-[4deg] overflow-hidden rounded-2xl bg-white p-2 shadow-lift">
+            <img
+              src="/img/fotos/retiro-nathalie-bote-960.webp"
+              alt="Nathalie Vera en el retiro, rumbo a la isla"
+              width="960"
+              height="720"
+              loading="lazy"
+              decoding="async"
+              class="aspect-[4/3] w-full rounded-xl object-cover object-[50%_35%]"
+            />
+          </div>
+
+          <!-- Foto principal: Nathalie, polaroid con quote, rotada negativo, encima -->
+          <div class="absolute top-0 left-0 w-[78%] rotate-[-3deg] overflow-hidden rounded-2xl bg-white p-2 shadow-lift">
+            <img
+              src="/img/nathalie-vera-cuerpo-560.webp"
+              alt="Psicóloga Nathalie Vera en el estudio"
+              width="560"
+              height="840"
+              loading="lazy"
+              decoding="async"
+              class="aspect-[3/4] w-full rounded-xl object-cover object-[50%_18%]"
+            />
+            <!-- Quote dentro del polaroid -->
+            <p class="px-1 pt-2 pb-1 text-center text-xs font-bold text-forest-700 italic">"Ninguna mujer sana sola."</p>
+          </div>
+
+          <!-- Chip de año flotante -->
+          <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 rotate-[-1deg] rounded-full bg-accent px-4 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-forest-900 shadow-soft whitespace-nowrap">
+           Convivencia femenina
+          </div>
+        </div>
+
+        <!-- Copy grande derecha -->
+        <div class="lg:col-span-8">
+          <p appReveal class="text-xs font-bold tracking-[0.18em] uppercase text-white/60">Sobre la psicologa</p>
+          <h2 appReveal="60" class="font-display text-4xl leading-[1.05] font-bold tracking-tight mt-4 md:text-5xl lg:text-6xl">
+            No se trata solo<br>de sentirte mejor.<br>
+            <span class="text-accent italic">Se trata de aprender a vivir mejor.</span>
+          </h2>
+          <p appReveal="100" class="mt-8 max-w-[56ch] text-lg leading-relaxed text-white/80">
+           Soy Nathalie Vera, psicóloga idónea, con un enfoque integrativo de base cognitivo-conductual. Brindo atención
+           psicologica individual y de pareja en modalidad presencial y virtual adaptada a las necesidades de cada persona. creo firmemente que el bienestar emocional tambien se construye a travez de nuestras relaciones, convivencias y el sentido de pertenencia.por esto ademas del acompañamiento psicologico  he creado metamorfosis
           </p>
 
-          <!-- Enfoque: lista numerada, sin tarjetas. -->
-          <ol id="terapia" class="mt-12 divide-y divide-line border-y border-line">
+          <!-- Badge flotante decorativo -->
+          <div class="hidden lg:block absolute top-16 right-4 rotate-[5deg] bg-white rounded-2xl px-5 py-4 shadow-lift max-w-[180px] z-10">
+            <p class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-muted">Fundadora</p>
+            <p class="font-display text-base font-bold text-forest-700 leading-tight">EspacioVital</p>
+            <p class="mt-1 text-xs text-muted">Psic. Nathalie Vera</p>
+          </div>
+
+          <!-- Enfoque sin tarjetas: divisores blancos semitransparentes -->
+          <ol id="terapia" class="mt-12 divide-y divide-white/20 border-y border-white/20">
             @for (pillar of pillars; track pillar.title; let i = $index) {
-              <li [appReveal]="i * 80" class="grid gap-2 py-7 sm:grid-cols-[4rem_1fr] sm:gap-6">
-                <span class="font-display text-sm font-semibold text-accent-ink tabular-nums">0{{ i + 1 }}</span>
+              <li [appReveal]="i * 80" class="grid gap-2 py-6 sm:grid-cols-[4rem_1fr] sm:gap-6">
+                <span class="font-display text-sm font-bold tabular-nums text-accent">0{{ i + 1 }}</span>
                 <div>
-                  <h3 class="text-xl font-medium">{{ pillar.title }}</h3>
-                  <p class="mt-2 max-w-[56ch] leading-relaxed text-muted">{{ pillar.text }}</p>
+                  <h3 class="text-lg font-semibold text-white">{{ pillar.title }}</h3>
+                  <p class="mt-1.5 max-w-[52ch] text-sm leading-relaxed text-white/70">{{ pillar.text }}</p>
                 </div>
               </li>
             }
@@ -59,16 +88,16 @@ export class About {
   protected readonly img = IMG;
   protected readonly pillars = [
     {
-      title: 'Acompañamiento clínico',
-      text: 'Validación profesional, técnicas cognitivo-conductuales y regulación del sistema nervioso para entender lo que sientes.',
+      title: 'Atencion psicologica individual',
+      text: 'un espacio seguro para comprender tus emociones, afrontar dificultades y fortalecer tu bienenstar',
     },
     {
-      title: 'Terapia compasiva',
-      text: 'Desarmar la autoexigencia para construir una relación más amable y leal con tu propia historia.',
+      title: 'Atencion psicologica de parejas',
+      text: 'fortalece la comunicacion, gestiona conflictos y construye vinculos mas saludables',
     },
     {
-      title: 'Tribu consciente',
-      text: 'Espacios grupales para quitarse las máscaras y encontrar una sororidad auténtica, sin comparación.',
+      title: 'Metamorfosis - Comunidad femenina',
+      text: 'Espacio de convivencia y socializacion para conocer nuevas amigas compartir experiencias, disfrutar actividades recreativas y crear conexiones significativas',
     },
   ];
 }

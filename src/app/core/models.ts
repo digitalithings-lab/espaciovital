@@ -15,6 +15,8 @@ export interface RetreatEdition {
   featured?: boolean;
   tone: Tone;
   highlights: string[];
+  price?: number;
+  deposit?: number;
 }
 
 export interface KidsProgram {

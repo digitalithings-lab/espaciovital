@@ -12,17 +12,20 @@ import { Icon } from '../../shared/icon';
   imports: [RouterLink, Icon],
   template: `
     <section id="inicio" class="relative -mt-[72px] overflow-hidden pt-[72px]">
-      <!-- Plano de color de marca detrás de la foto (sin degradados de colores). -->
-      <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[44%] bg-forest-50 lg:block" aria-hidden="true"></div>
+      <!-- Panel fúcsia sólido detrás de la foto. -->
+      <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] bg-forest-500 lg:block" aria-hidden="true"></div>
 
-      <div class="page relative grid items-center gap-12 pt-10 pb-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-6 lg:pb-12">
+      <div class="page relative grid items-center gap-12 pt-12 pb-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-8 lg:pb-12">
         <div class="animate-fade-up lg:col-span-6">
-          <p class="eyebrow mb-6">Psicología clínica · Panamá y en línea</p>
-          <h1 class="heading-xl text-ink">Un espacio seguro para <span class="em-brand">volver a ti.</span></h1>
-          <p class="lead mt-6 max-w-[46ch]">
-            Terapia individual, retiros para mujeres y acompañamiento infantil con la {{ site.therapist }}.
+          <p class="eyebrow mb-6">Psicología General· Panamá y en línea</p>
+          <h1 class="font-display text-5xl leading-[1.02] font-bold tracking-tight text-ink md:text-6xl lg:text-7xl">
+            Bienvenido/a, a tu espacio de<br>
+            <span class="text-forest-500 italic">Bienestar.</span>
+          </h1>
+          <p class="lead mt-7 max-w-[46ch]">
+            Dar el primer paso tambien es una forma de priorizarte.Agenda tu cita y comencemos juntos este camino hacia tu bienestar emocional.
           </p>
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <div class="mt-10 flex flex-col gap-3 sm:flex-row">
             <a routerLink="/agendar" class="btn-primary h-14 px-8 text-base">
               Agendar cita <app-icon name="arrowRight" [size]="18" />
             </a>
@@ -31,29 +34,57 @@ import { Icon } from '../../shared/icon';
         </div>
 
         <div class="relative mx-auto w-full max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:max-w-none">
-          <!-- La foto va dentro de un arco, como el logo: el espacio seguro. -->
-          <figure class="relative overflow-hidden rounded-t-[999px] rounded-b-3xl bg-surface-muted shadow-lift">
+          <!-- Mini foto flotante del retiro, fuera del arco, en el panel fúcsia -->
+          <div class="absolute -top-8 right-4 z-10 hidden rotate-[3deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-lift lg:block" style="width: 120px;">
             <img
-              [src]="img.hero"
-              srcset="/img/nathalie-vera-560.webp 560w, /img/nathalie-vera-934.webp 934w"
-              sizes="(min-width: 1024px) 34vw, (min-width: 640px) 26rem, 92vw"
-              alt="Psicóloga Nathalie Vera, fundadora de EspacioVital"
-              width="934"
-              height="1400"
-              fetchpriority="high"
-              class="aspect-[4/5] w-full object-cover object-[50%_12%]"
+              src="/img/fotos/retiro-playa-ronda-640.webp"
+              alt="Retiro Metamorfosis en la playa"
+              width="640"
+              height="480"
+              loading="lazy"
+              decoding="async"
+              class="aspect-[4/3] w-full rounded-xl object-cover"
             />
-            <div class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-forest-900/85 to-transparent"></div>
-            <figcaption class="absolute right-6 bottom-6 left-6 text-white">
-              <p class="font-display text-xl font-medium">{{ site.therapist }}</p>
-              <p class="text-sm text-white/80">Fundadora de EspacioVital</p>
-            </figcaption>
+            <p class="pt-1 pb-0.5 text-center text-[9px] font-bold uppercase tracking-widest text-forest-700">Metamorfosis</p>
+          </div>
+
+          <!-- Foto sobre el panel fúcsia: arco del logo. -->
+          <figure class="relative overflow-visible">
+            <!-- Badge flotante superior izquierdo, rotado -->
+            <div class="absolute -top-5 -left-6 z-20 hidden rotate-[-6deg] rounded-2xl bg-white px-4 py-3 shadow-lift lg:block">
+              <p class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-muted">Psicóloga general</p>
+              <p class="font-display text-lg font-bold text-forest-700">Idonea ✓</p>
+            </div>
+
+            <div class="relative overflow-hidden rounded-t-[999px] rounded-b-3xl shadow-lift">
+              <img
+                [src]="img.hero"
+                srcset="/img/nathalie-vera-560.webp 560w, /img/nathalie-vera-934.webp 934w"
+                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 26rem, 92vw"
+                alt="Psicóloga Nathalie Vera, fundadora de EspacioVital"
+                width="934"
+                height="1400"
+                fetchpriority="high"
+                class="aspect-[4/5] w-full object-cover object-[50%_12%]"
+              />
+              <div class="absolute inset-x-0 bottom-0 h-1/3 bg-forest-900/80"></div>
+              <figcaption class="absolute right-6 bottom-6 left-6 text-white">
+                <p class="font-display text-xl font-semibold">{{ site.therapist }}</p>
+                <p class="text-sm text-white/80">Fundadora de EspacioVital y Metarmorfosis</p>
+              </figcaption>
+            </div>
+
+            <!-- Badge flotante inferior derecho, rotado -->
+            <div class="absolute -right-6 -bottom-5 z-20 hidden rotate-[4deg] rounded-2xl bg-accent px-4 py-3 shadow-lift lg:block">
+              <p class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-forest-900/70">Vidas acompañadas</p>
+              <p class="font-display text-3xl font-bold text-forest-900">+1500</p>
+            </div>
           </figure>
         </div>
       </div>
     </section>
 
-    <!-- Franja de confianza, debajo de la portada (no dentro). -->
+    <!-- Franja de confianza. -->
     <section aria-label="Credenciales" class="border-y border-line bg-surface">
       <dl class="page grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-line">
         @for (item of trust; track item.label; let i = $index) {
@@ -67,15 +98,39 @@ import { Icon } from '../../shared/icon';
         }
       </dl>
     </section>
+
+    <!-- Marquee ticker: ritmo visual entre hero y sobre-mí -->
+    <div class="overflow-hidden bg-accent py-4" aria-hidden="true">
+      <div class="flex whitespace-nowrap" style="animation: marquee 28s linear infinite">
+        @for (item of ticker; track item) {
+          <span class="mx-8 text-xs font-extrabold uppercase tracking-[0.18em] text-forest-900">{{ item }}</span>
+          <span class="mr-8 text-forest-900/40 font-bold">✦</span>
+        }
+        @for (item of ticker; track item) {
+          <span class="mx-8 text-xs font-extrabold uppercase tracking-[0.18em] text-forest-900">{{ item }}</span>
+          <span class="mr-8 text-forest-900/40 font-bold">✦</span>
+        }
+      </div>
+    </div>
   `,
 })
 export class Hero {
   protected readonly site = SITE;
   protected readonly img = IMG;
   protected readonly trust = [
-    { icon: 'badgeCheck', value: 'Colegiada', label: 'Psicóloga clínica' },
-    { icon: 'users', value: '+150', label: 'Mujeres acompañadas' },
+    { icon: 'badgeCheck', value: 'Colegiada', label: 'Psicóloga general' },
+    { icon: 'users', value: '+1500', label: 'Vidas acompañadas' },
     { icon: 'lock', value: '100 %', label: 'Confidencial' },
     { icon: 'video', value: 'Presencial', label: 'y por videollamada' },
+  ];
+  protected readonly ticker = [
+    'Psicología General',
+    'Atencion individual',
+    'Retiro Metamorfosis',
+    'Vital Kids',
+    'Bienestar emocional',
+    'Panamá y en línea',
+    'Acompañamiento clínico',
+    'Círculos de palabra',
   ];
 }

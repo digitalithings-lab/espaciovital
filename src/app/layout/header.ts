@@ -23,7 +23,7 @@ const NAV = [
   template: `
     <header
       class="sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300"
-      [class]="scrolled() || open() ? 'border-line bg-background/85 shadow-soft backdrop-blur-xl' : 'border-transparent bg-transparent'"
+      [class]="open() ? 'border-line bg-surface shadow-soft' : scrolled() ? 'border-line bg-surface/97 shadow-soft backdrop-blur-2xl' : 'border-white/20 bg-white/30 backdrop-blur-md'"
     >
       <div class="page flex h-[72px] items-center justify-between gap-4">
         <a routerLink="/" fragment="inicio" class="rounded-2xl" aria-label="EspacioVital, ir al inicio" (click)="close()">

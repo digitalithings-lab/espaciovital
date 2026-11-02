@@ -30,6 +30,7 @@ export interface BookingRequest {
   consent: true;
   /** Campo trampa contra robots: siempre vacío. */
   website: string;
+  recurrence?: { rule: 'weekly' | 'biweekly'; count: number };
 }
 
 export interface BookingResult {
@@ -38,6 +39,9 @@ export interface BookingResult {
   endsAt: string;
   status: string;
   timezone: string;
+  recurring?: boolean;
+  count?: number;
+  appointments?: Array<{ id: string; startsAt: string; endsAt: string; recurrenceIndex: number }>;
 }
 
 // Agenda pública de la psicóloga en el backend de Florece (sin cuenta).

@@ -119,7 +119,7 @@ export class Contact {
     { value: 'terapia', label: 'Terapia', icon: 'brain' },
     { value: 'retiro', label: 'Retiro', icon: 'waves' },
     { value: 'kids', label: 'Niños', icon: 'smile' },
-    { value: 'otro', label: 'Otro', icon: 'message' },
+    { value: 'pareja', label: 'pareja', icon: 'people' },
   ] as const;
 
   protected readonly form = inject(FormBuilder).nonNullable.group({

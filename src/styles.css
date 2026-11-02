@@ -25,15 +25,15 @@
   --color-forest-100: var(--ev-forest-100);
   --color-forest-500: var(--ev-forest-500);
   --color-forest-700: var(--ev-forest-700);
-  --color-forest-800: #163b37;
-  --color-forest-900: #0f2a27;
+  --color-forest-800: #881048;
+  --color-forest-900: #560b31;
 
   --color-accent: #fd761a;
   --color-accent-hover: #ff8a3a;
   --color-accent-ink: var(--ev-accent-ink);
 
-  --shadow-soft: 0 1px 2px rgb(15 42 39 / 0.05), 0 10px 30px -18px rgb(15 42 39 / 0.25);
-  --shadow-lift: 0 2px 6px rgb(15 42 39 / 0.06), 0 30px 60px -28px rgb(15 42 39 / 0.4);
+  --shadow-soft: 0 1px 2px rgb(86 11 49 / 0.05), 0 10px 30px -18px rgb(86 11 49 / 0.2);
+  --shadow-lift: 0 2px 6px rgb(86 11 49 / 0.06), 0 30px 60px -28px rgb(86 11 49 / 0.35);
 
   --animate-fade-up: fade-up 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   --animate-fade-in: fade-in 250ms ease-out both;
@@ -50,37 +50,41 @@
     opacity: 0;
   }
 }
-
-/* Claro: piedra fría y verde profundo. Todos los textos cumplen WCAG AA. */
-:root {
-  color-scheme: light;
-  --ev-background: #f3f5f2;
-  --ev-surface: #ffffff;
-  --ev-surface-muted: #e8ede7;
-  --ev-line: #d6ddd5;
-  --ev-ink: #10221f;
-  --ev-muted: #4b5c57;
-  --ev-forest-50: #eef5f1;
-  --ev-forest-100: #dcebe4;
-  --ev-forest-500: #2a8470;
-  --ev-forest-700: #1f5f5b;
-  --ev-accent-ink: #b4500a;
+@keyframes marquee {
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) }
 }
 
-/* Oscuro (según el sistema): verde noche. */
+/* Claro: fúcsia + naranja. Todos los textos cumplen WCAG AA. */
+:root {
+  color-scheme: light;
+  --ev-background: #fafafa;
+  --ev-surface: #ffffff;
+  --ev-surface-muted: #fce7f3;
+  --ev-line: #f8bbd9;
+  --ev-ink: #1a0810;
+  --ev-muted: #76354f;
+  --ev-forest-50: #fce7f3;
+  --ev-forest-100: #fbd3e9;
+  --ev-forest-500: #c2185b;
+  --ev-forest-700: #ad1457;
+  --ev-accent-ink: #b04500;
+}
+
+/* Oscuro (según el sistema): fúcsia noche. */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --ev-background: #0b1917;
-    --ev-surface: #112320;
-    --ev-surface-muted: #172e2a;
-    --ev-line: #24403b;
-    --ev-ink: #e8f0ec;
-    --ev-muted: #a2b6b0;
-    --ev-forest-50: #12291f;
-    --ev-forest-100: #183a31;
-    --ev-forest-500: #6cc9ae;
-    --ev-forest-700: #9adcc8;
+    --ev-background: #1a0810;
+    --ev-surface: #240d18;
+    --ev-surface-muted: #2e1220;
+    --ev-line: #451d33;
+    --ev-ink: #fce7f3;
+    --ev-muted: #d088a8;
+    --ev-forest-50: #2e1220;
+    --ev-forest-100: #3d1a2c;
+    --ev-forest-500: #e87ab0;
+    --ev-forest-700: #f0a8c8;
     --ev-accent-ink: #ff9a5c;
   }
 }
@@ -186,6 +190,14 @@
 }
 @utility label {
   @apply mb-2 block text-sm font-bold text-ink;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Aparición suave al hacer scroll (ver shared/reveal.directive.ts).
