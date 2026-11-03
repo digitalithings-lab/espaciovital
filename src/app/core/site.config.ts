@@ -7,7 +7,7 @@ export const SITE = {
   /** Dominio final, sin barra al final (para SEO: canonical, sitemap y Open Graph). */
   url: 'https://espaciovitalpsic.site',
   description:
-    'Psicóloga en La Chorrera (presencial) y en línea para todo Panamá: terapia individual y de pareja con la Psic. Nathalie Vera. Retiro Metamorfosis para mujeres y talleres para niños.',
+    'Psicóloga en La Chorrera, Panamá Oeste y en línea para todo Panamá. Terapia individual y de pareja con la Psic. Nathalie Vera. Agenda tu consulta.',
   /** Número con código de país y sin «+» ni espacios, p. ej. 50760000000. Vacío = WhatsApp pide elegir chat. */
   whatsapp: '+50765807290',
   email: 'contacto@espaciovitalpsic.site',

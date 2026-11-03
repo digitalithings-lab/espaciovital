@@ -33,7 +33,7 @@ import { Testimonials } from './testimonials';
 export class Home {
   constructor() {
     inject(SeoService).set({
-      title: `Psicóloga en La Chorrera y en línea en Panamá | ${SITE.therapist}`,
+      title: `Psicóloga en La Chorrera y Panamá | ${SITE.therapist}`,
       description: SITE.description,
       path: '/',
       alternates: { es: '/', en: '/en' },

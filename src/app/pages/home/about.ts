@@ -56,8 +56,8 @@ import { Reveal } from '../../shared/reveal.directive';
             <span class="text-accent italic">Se trata de aprender a vivir mejor.</span>
           </h2>
           <p appReveal="100" class="mt-8 max-w-[56ch] text-lg leading-relaxed text-white/80">
-           Soy Nathalie Vera, psicóloga idónea, con un enfoque integrativo de base cognitivo-conductual. Brindo atención
-           psicologica individual y de pareja en modalidad presencial y virtual adaptada a las necesidades de cada persona. creo firmemente que el bienestar emocional tambien se construye a travez de nuestras relaciones, convivencias y el sentido de pertenencia.por esto ademas del acompañamiento psicologico  he creado metamorfosis
+            Soy Nathalie Vera, psicóloga idónea, con un enfoque integrativo de base cognitivo-conductual. Brindo atención
+            psicológica individual y de pareja en modalidad presencial en La Chorrera (Panamá Oeste) y virtual para todo Panamá, adaptada a las necesidades de cada persona. Creo firmemente que el bienestar emocional también se construye a través de nuestras relaciones, convivencias y el sentido de pertenencia; por esto, además del acompañamiento psicoterapéutico, he creado Metamorfosis.
           </p>
 
           <!-- Badge flotante decorativo -->

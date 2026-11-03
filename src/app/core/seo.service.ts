@@ -33,6 +33,11 @@ export class SeoService {
     this.document.documentElement.lang = lang;
     this.title.setTitle(page.title);
     this.meta.updateTag({ name: 'description', content: page.description });
+    this.meta.updateTag({
+      name: 'keywords',
+      content:
+        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, terapia de pareja chorrera, psicologa clinica panama, psicologa en linea panama, retiro metamorfosis, psicologa nathalie vera, espaciovital',
+    });
     this.meta.updateTag({ name: 'robots', content: page.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' });
 
     this.meta.updateTag({ property: 'og:type', content: 'website' });
@@ -97,37 +102,78 @@ export class SeoService {
 export function businessJsonLd(description: string): object {
   return {
     '@context': 'https://schema.org',
-    '@type': ['ProfessionalService', 'LocalBusiness'],
+    '@type': ['Psychologist', 'MedicalBusiness', 'LocalBusiness', 'ProfessionalService'],
     '@id': `${SITE.url}/#negocio`,
     name: `${SITE.name} · ${SITE.therapist}`,
-    alternateName: ['EspacioVital', 'Nathalie Vera Psicóloga', 'Psychologist Nathalie Vera'],
+    alternateName: ['EspacioVital', 'Psic. Nathalie Vera', 'Nathalie Vera Psicóloga', 'Psicóloga en La Chorrera'],
     url: SITE.url,
-    image: SITE.url + IMG.hero,
+    image: [SITE.url + IMG.hero, `${SITE.url}/brand/redes-compartir-1200x630.png`],
     logo: `${SITE.url}/brand/icono-app-512.png`,
     description,
     email: SITE.email,
     telephone: SITE.whatsapp,
     priceRange: '$$',
-    address: { '@type': 'PostalAddress', addressLocality: SITE.city, addressRegion: SITE.region, addressCountry: 'PA' },
+    currenciesAccepted: 'USD, PAB',
+    paymentAccepted: 'Efectivo, Yappy, Transferencia bancaria',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'La Chorrera Centro',
+      addressLocality: SITE.city,
+      addressRegion: SITE.region,
+      postalCode: '1001',
+      addressCountry: 'PA',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 8.8803,
+      longitude: -79.7833,
+    },
+    hasMap: 'https://maps.google.com/?q=La+Chorrera+Panama+Oeste',
     areaServed: [
-      { '@type': 'City', name: SITE.city },
-      { '@type': 'AdministrativeArea', name: SITE.region },
-      { '@type': 'Country', name: SITE.country },
+      { '@type': 'City', name: 'La Chorrera' },
+      { '@type': 'AdministrativeArea', name: 'Panamá Oeste' },
+      { '@type': 'AdministrativeArea', name: 'Arraiján' },
+      { '@type': 'City', name: 'Ciudad de Panamá' },
+      { '@type': 'Country', name: 'Panamá' },
     ],
-    openingHours: 'Mo-Sa 08:00-18:00',
-    knowsAbout: ['Psicología general', 'Terapia individual', 'Terapia de pareja', 'Terapia en línea', 'Bienestar emocional', 'Psychology', 'Online therapy', 'Couples therapy'],
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        opens: '08:00',
+        closes: '18:00',
+      },
+    ],
+    medicalSpecialty: ['Psychology', 'Clinical'],
+    knowsAbout: [
+      'Psicología clínica',
+      'Psicología general',
+      'Terapia psicológica en La Chorrera',
+      'Terapia individual',
+      'Terapia de pareja',
+      'Terapia en línea Panamá',
+      'Terapia somática',
+      'Regulación emocional',
+      'Ansiedad y estrés',
+      'Autoestima y límites saludables',
+    ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Servicios de psicología',
+      name: 'Servicios de psicología y bienestar',
       itemListElement: [
-        'Terapia psicológica individual (presencial en La Chorrera)',
-        'Terapia psicológica de pareja',
-        'Terapia psicológica en línea para todo Panamá',
-        'Retiro Metamorfosis para mujeres',
+        'Terapia psicológica individual en La Chorrera (presencial)',
+        'Terapia psicológica de pareja en La Chorrera y Panamá Oeste',
+        'Terapia psicológica en línea para todo Panamá e internacional',
+        'Retiro Metamorfosis vivencial para mujeres en Panamá',
         'Talleres socioemocionales para niños (Vital Kids)',
       ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
     },
-    founder: { '@type': 'Person', name: 'Nathalie Vera', jobTitle: 'Psicóloga general' },
+    founder: {
+      '@type': 'Person',
+      name: 'Nathalie Vera',
+      jobTitle: 'Psicóloga General & Guía Vivencial',
+      knowsAbout: ['Psicología clínica', 'Terapia individual y de pareja', 'Terapia somática'],
+    },
     sameAs: [SITE.instagram],
   };
 }

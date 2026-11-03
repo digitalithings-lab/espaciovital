@@ -22,7 +22,7 @@ import { Reveal } from '../../shared/reveal.directive';
           <ul appReveal="140" class="divide-y divide-line border-y border-line">
             <li class="flex items-center gap-4 py-4">
               <app-icon name="video" [size]="24" class="text-forest-500" />
-              <span><span class="block font-bold">Presencial y en línea</span><span class="text-sm text-muted">Sesiones en {{ site.country }} o por videollamada</span></span>
+              <span><span class="block font-bold">Presencial y en línea</span><span class="text-sm text-muted">Presencial en La Chorrera (Panamá Oeste) o por videollamada</span></span>
             </li>
             <li class="flex items-center gap-4 py-4">
               <app-icon name="clock" [size]="24" class="text-forest-500" />

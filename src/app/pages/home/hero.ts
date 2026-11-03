@@ -17,13 +17,13 @@ import { Icon } from '../../shared/icon';
 
       <div class="page relative grid items-center gap-12 pt-12 pb-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-8 lg:pb-12">
         <div class="animate-fade-up lg:col-span-6">
-          <p class="eyebrow mb-6">Psicología General · Presencial en La Chorrera · En línea en todo Panamá</p>
+          <p class="eyebrow mb-6">Psicología en La Chorrera · Presencial y en línea para todo Panamá</p>
           <h1 class="font-display text-5xl leading-[1.02] font-bold tracking-tight text-ink md:text-6xl lg:text-7xl">
             Bienvenido/a, a tu espacio de<br>
-            <span class="text-forest-500 italic">Bienestar.</span>
+            <span class="text-forest-500 italic">Bienestar y Sanación.</span>
           </h1>
-          <p class="lead mt-7 max-w-[46ch]">
-            Dar el primer paso tambien es una forma de priorizarte.Agenda tu cita y comencemos juntos este camino hacia tu bienestar emocional.
+          <p class="lead mt-7 max-w-[48ch]">
+            Psicología clínica, terapia individual y de pareja presencial en La Chorrera (Panamá Oeste) y virtual en todo Panamá. Dar el primer paso también es una forma de priorizarte.
           </p>
           <div class="mt-10 flex flex-col gap-3 sm:flex-row">
             <a routerLink="/agendar" class="btn-primary h-14 px-8 text-base">

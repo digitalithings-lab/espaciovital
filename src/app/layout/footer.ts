@@ -55,7 +55,7 @@ import { Logo } from '../shared/logo';
           <div>
             <p class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Contacto</p>
             <ul class="space-y-3 text-sm text-muted">
-              <li class="flex gap-2.5"><app-icon name="mapPin" [size]="18" class="mt-0.5 text-forest-700" /> Consultas presenciales en {{ site.country }} y en línea</li>
+              <li class="flex gap-2.5"><app-icon name="mapPin" [size]="18" class="mt-0.5 text-forest-700" /> Presencial en {{ site.city }} ({{ site.region }}) y en línea en todo Panamá</li>
               <li class="flex gap-2.5"><app-icon name="clock" [size]="18" class="mt-0.5 text-forest-700" /> {{ site.hours }}</li>
               <li class="flex gap-2.5"><app-icon name="lock" [size]="18" class="mt-0.5 text-forest-700" /> Confidencialidad clínica garantizada</li>
             </ul>
