@@ -19,7 +19,7 @@ import { Icon } from '../../shared/icon';
         <div class="animate-fade-up lg:col-span-6">
           <p class="eyebrow mb-6">Psicología en La Chorrera · Presencial y en línea para todo Panamá</p>
           <h1 class="font-display text-5xl leading-[1.02] font-bold tracking-tight text-ink md:text-6xl lg:text-7xl">
-            Bienvenido/a, a tu espacio de<br>
+            Bienvenido/a a tu espacio de<br>
             <span class="text-forest-500 italic">Bienestar y Sanación.</span>
           </h1>
           <p class="lead mt-7 max-w-[48ch]">
@@ -53,7 +53,7 @@ import { Icon } from '../../shared/icon';
             <!-- Badge flotante superior izquierdo, rotado -->
             <div class="absolute -top-5 -left-6 z-20 hidden rotate-[-6deg] rounded-2xl bg-white px-4 py-3 shadow-lift lg:block">
               <p class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-muted">Psicóloga general</p>
-              <p class="font-display text-lg font-bold text-forest-700">Idonea ✓</p>
+              <p class="font-display text-lg font-bold text-forest-700">Idónea ✓</p>
             </div>
 
             <div class="relative overflow-hidden rounded-t-[999px] rounded-b-3xl shadow-lift">
@@ -70,7 +70,7 @@ import { Icon } from '../../shared/icon';
               <div class="absolute inset-x-0 bottom-0 h-1/3 bg-forest-900/80"></div>
               <figcaption class="absolute right-6 bottom-6 left-6 text-white">
                 <p class="font-display text-xl font-semibold">{{ site.therapist }}</p>
-                <p class="text-sm text-white/80">Fundadora de EspacioVital y Metarmorfosis</p>
+                <p class="text-sm text-white/80">Fundadora de EspacioVital y Metamorfosis</p>
               </figcaption>
             </div>
 
@@ -125,13 +125,13 @@ export class Hero {
   ];
   protected readonly ticker = [
     'Psicología General',
-    'Atencion individual',
+    'Atención individual',
     'Retiro Metamorfosis',
     'Vital Kids',
     'Bienestar emocional',
     'Presencial en La Chorrera',
     'En línea en todo Panamá',
-    'Acompañamiento clínico',
+    'Acompañamiento terapéutico',
     'Círculos de palabra',
   ];
 }

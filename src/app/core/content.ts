@@ -192,7 +192,7 @@ export const KIDS: KidsProgram[] = [
 export const GALLERY: GalleryPhoto[] = [
   {
     image: IMG.galleryJoy,
-    alt: 'Mujeres del retiro riendo a carcajadas bajo los palapas',
+    alt: 'Mujeres del retiro riendo a carcajadas bajo las palapas',
     tag: 'Alegría',
     title: 'Risas que sanan',
     text: 'Cuando el cuerpo ríe, el alma también respira.',
@@ -226,7 +226,7 @@ export const GALLERY: GalleryPhoto[] = [
     image: IMG.galleryDance,
     alt: 'Tres mujeres sonriendo en el jardín del retiro con palmeras al fondo',
     tag: 'Comunidad',
-    title: 'Premios en Actividades',
+    title: 'Premios en actividades',
     focus: '50% 40%',
     text: 'Amistades reales nacidas de la vulnerabilidad compartida.',
   },
@@ -278,7 +278,7 @@ export const FAQS: Faq[] = [
   {
     question: '¿Necesito estar en terapia para ir al Retiro Metamorfosis?',
     answer:
-      'No. Antes de confirmar tu cupo hacemos una breve evaluación de idoneidad para asegurarnos de que la Actividad sea segura y útil para tu momento actual.',
+      'No. Antes de confirmar tu cupo hacemos una breve evaluación de idoneidad para asegurarnos de que la actividad sea segura y útil para tu momento actual.',
   },
   {
     question: '¿Hay facilidades de pago para los retiros?',

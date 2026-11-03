@@ -209,7 +209,7 @@ function dateRange(start: string, end: string): string {
 
         <footer class="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-line/60 pt-6 text-xs sm:text-sm text-muted">
           <p class="max-w-[70ch]">
-            * Cada actividad deberás asegurar tu cupo con su abono inicial correspondiente. Cupos limitados por orden de reserva.
+            * En cada actividad deberás asegurar tu cupo con el abono inicial correspondiente. Cupos limitados por orden de reserva.
           </p>
           <a
             [href]="waGeneral"

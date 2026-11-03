@@ -14,11 +14,11 @@ import { Reveal } from '../../shared/reveal.directive';
       <div class="page">
         <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div class="lg:col-span-6">
-            <p appReveal class="eyebrow text-accent">Actividades Metamorfosis </p>
-            <h2 appReveal="60" class="heading-lg mt-4">Sal de la rutina <span class="font-semibold text-accent">conecta ,disfruta y pertenece.</span></h2>
+            <p appReveal class="eyebrow text-accent">Actividades Metamorfosis</p>
+            <h2 appReveal="60" class="heading-lg mt-4">Sal de la rutina: <span class="font-semibold text-accent">conecta, disfruta y pertenece.</span></h2>
             <p appReveal="100" class="mt-6 max-w-[56ch] text-lg leading-relaxed text-white/75">
-           una comunidad femenina , donde las desconocidas , se convierten en amigas.creamos experiencias para compartir, conocer nuevas personas, descubrir lugares y construir conexiones autenticas a travez de la diversion
-          </p>
+              Una comunidad femenina donde las desconocidas se convierten en amigas. Creamos experiencias para compartir, conocer nuevas personas, descubrir lugares y construir conexiones auténticas a través de la diversión.
+            </p>
             <ul appReveal="140" class="mt-8 grid max-w-lg grid-cols-2 gap-x-6 gap-y-3 text-sm text-white/85">
               @for (item of includes; track item.label) {
                 <li class="flex items-center gap-2.5"><app-icon [name]="item.icon" [size]="20" class="text-accent" /> {{ item.label }}</li>
@@ -104,39 +104,37 @@ export class Retreat {
   protected readonly img = IMG;
   protected readonly srcset = srcset;
   protected readonly ticker = [
-    'amistad ',
-    'aventuras',
-    'diversion',
-    'conexion',
-    'convivencia',
-    'experiencias',
+    'Amistad',
+    'Aventuras',
+    'Diversión',
+    'Conexión',
+    'Convivencia',
+    'Experiencias',
   ];
   protected readonly includes = [
     { icon: 'leaf', label: 'Cine y salidas recreativas' },
-    { icon: 'waves', label: 'camping y aventuras al aire libre' },
-    { icon: 'utensils', label: 'talleres y actividades creativas' },
-    { icon: 'notebook', label: 'juegos competencias y deportes' },
-    { icon: 'notebook', label: 'fiestas tematicas y disfraces' },
-
-    { icon: 'notebook', label: 'paseos turisticos y nuevas experiencias' },
-
+    { icon: 'waves', label: 'Camping y aventuras al aire libre' },
+    { icon: 'utensils', label: 'Talleres y actividades creativas' },
+    { icon: 'notebook', label: 'Juegos, competencias y deportes' },
+    { icon: 'notebook', label: 'Fiestas temáticas y disfraces' },
+    { icon: 'notebook', label: 'Paseos turísticos y nuevas experiencias' },
   ];
   protected readonly pillars = [
     {
-      title: 'nuevas amistades',
-      text: 'amplia tu circulo social y crea conexiones autenticas a travez de experiencias compartidas',
+      title: 'Nuevas amistades',
+      text: 'Amplía tu círculo social y crea conexiones auténticas a través de experiencias compartidas.',
     },
     {
       title: 'Aventuras y experiencias',
-      text: 'disfruta de paseos, cine, deportes, talleres, juegos y actividades que te invitan a salir de la rutina',
+      text: 'Disfruta de paseos, cine, deportes, talleres, juegos y actividades que te invitan a salir de la rutina.',
     },
     {
-      title: 'Diversion y convivencia',
-      text: 'comparte risas,participa en dinamicas grupales y disfruta de momentos especiales en un ambiente acogedor',
+      title: 'Diversión y convivencia',
+      text: 'Comparte risas, participa en dinámicas grupales y disfruta de momentos especiales en un ambiente acogedor.',
     },
     {
       title: 'Premios y recuerdos',
-      text: 'participa en competencias, gana premios y colecciona recuerdos de momentos inolvidables.',
+      text: 'Participa en competencias, gana premios y colecciona recuerdos de momentos inolvidables.',
     },
   ];
 }

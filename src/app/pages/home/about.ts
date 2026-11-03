@@ -88,16 +88,16 @@ export class About {
   protected readonly img = IMG;
   protected readonly pillars = [
     {
-      title: 'Atencion psicologica individual',
-      text: 'un espacio seguro para comprender tus emociones, afrontar dificultades y fortalecer tu bienenstar',
+      title: 'Atención psicológica individual',
+      text: 'Un espacio seguro para comprender tus emociones, afrontar dificultades y fortalecer tu bienestar.',
     },
     {
-      title: 'Atencion psicologica de parejas',
-      text: 'fortalece la comunicacion, gestiona conflictos y construye vinculos mas saludables',
+      title: 'Atención psicológica de pareja',
+      text: 'Fortalece la comunicación, gestiona conflictos y construye vínculos más saludables.',
     },
     {
-      title: 'Metamorfosis - Comunidad femenina',
-      text: 'Espacio de convivencia y socializacion para conocer nuevas amigas compartir experiencias, disfrutar actividades recreativas y crear conexiones significativas',
+      title: 'Metamorfosis · Comunidad femenina',
+      text: 'Espacio de convivencia y socialización para conocer nuevas amigas, compartir experiencias, disfrutar actividades recreativas y crear conexiones significativas.',
     },
   ];
 }

@@ -14,13 +14,11 @@ import { Reveal } from '../../shared/reveal.directive';
       <div class="page">
         <header class="grid gap-6 lg:grid-cols-12 lg:items-end">
           <div class="lg:col-span-6">
-            <p appReveal class="eyebrow">Vital Kids · Atencion a niños grupal e individual</p>
+            <p appReveal class="eyebrow">Vital Kids · Atención a niños grupal e individual</p>
             <h2 appReveal="60" class="heading-lg mt-4">Aprender a sentir, <span class="em-brand">jugando.</span></h2>
           </div>
           <p appReveal="100" class="lead lg:col-span-5 lg:col-start-8">
-            a traves del juego terapeutico, promovemos el aprendizaje, 
-            la expresion y regulacion emocional y el desarrollo de habilidades sociales trabajamos conjunto con el equipo de psicopedagogia 
-            para favorecer el desarrollo integral de cada niño
+            A través del juego terapéutico promovemos el aprendizaje, la expresión y regulación emocional, y el desarrollo de habilidades sociales. Trabajamos en conjunto con el equipo de psicopedagogía para favorecer el desarrollo integral de cada niño.
           </p>
         </header>
 
