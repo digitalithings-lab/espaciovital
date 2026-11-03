@@ -15,7 +15,7 @@ const PAGES: Record<LegalKind, { title: string; intro: string; sections: { title
     sections: [
       { title: 'Qué datos recogemos', text: 'Solo los que nos das en el formulario de contacto o por WhatsApp: nombre, correo, teléfono y tu mensaje.' },
       { title: 'Para qué los usamos', text: 'Únicamente para responder tu consulta y coordinar sesiones o retiros. No los vendemos ni los compartimos con terceros.' },
-      { title: 'Confidencialidad clínica', text: 'Todo lo que se habla en terapia está protegido por el secreto profesional y el código de ética de la psicología.' },
+      { title: 'Confidencialidad y secreto profesional', text: 'Todo lo que se habla en terapia está protegido por el secreto profesional y el código de ética de la psicología.' },
       { title: 'Tus derechos', text: `Puedes pedir que corrijamos o borremos tus datos en cualquier momento escribiendo a ${SITE.email}.` },
     ],
   },

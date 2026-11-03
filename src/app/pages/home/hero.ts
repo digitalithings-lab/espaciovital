@@ -23,7 +23,7 @@ import { Icon } from '../../shared/icon';
             <span class="text-forest-500 italic">Bienestar y Sanación.</span>
           </h1>
           <p class="lead mt-7 max-w-[48ch]">
-            Psicología clínica, terapia individual y de pareja presencial en La Chorrera (Panamá Oeste) y virtual en todo Panamá. Dar el primer paso también es una forma de priorizarte.
+            Atención psicológica, terapia individual y de pareja presencial en La Chorrera (Panamá Oeste) y virtual en todo Panamá. Dar el primer paso también es una forma de priorizarte.
           </p>
           <div class="mt-10 flex flex-col gap-3 sm:flex-row">
             <a routerLink="/agendar" class="btn-primary h-14 px-8 text-base">

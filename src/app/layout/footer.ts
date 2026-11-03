@@ -57,7 +57,7 @@ import { Logo } from '../shared/logo';
             <ul class="space-y-3 text-sm text-muted">
               <li class="flex gap-2.5"><app-icon name="mapPin" [size]="18" class="mt-0.5 text-forest-700" /> Presencial en {{ site.city }} ({{ site.region }}) y en línea en todo Panamá</li>
               <li class="flex gap-2.5"><app-icon name="clock" [size]="18" class="mt-0.5 text-forest-700" /> {{ site.hours }}</li>
-              <li class="flex gap-2.5"><app-icon name="lock" [size]="18" class="mt-0.5 text-forest-700" /> Confidencialidad clínica garantizada</li>
+              <li class="flex gap-2.5"><app-icon name="lock" [size]="18" class="mt-0.5 text-forest-700" /> Confidencialidad y secreto profesional</li>
             </ul>
           </div>
         </div>

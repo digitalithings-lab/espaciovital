@@ -246,7 +246,7 @@ export const TESTIMONIALS: Testimonial[] = [
     detail: '38 años · Emprendedora',
     tone: 'clay',
     quote:
-      'Llegué al retiro exhausta de cuidar a todos menos a mí. Nathalie creó un entorno tan amoroso y clínicamente guiado que por primera vez en años lloré sin culpa y me sentí comprendida.',
+      'Llegué al retiro exhausta de cuidar a todos menos a mí. Nathalie creó un entorno tan amoroso y profesionalmente guiado que por primera vez en años lloré sin culpa y me sentí comprendida.',
   },
   {
     name: 'Karla S.',

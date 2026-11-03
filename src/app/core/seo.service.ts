@@ -36,7 +36,7 @@ export class SeoService {
     this.meta.updateTag({
       name: 'keywords',
       content:
-        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, terapia de pareja chorrera, psicologa clinica panama, psicologa en linea panama, retiro metamorfosis, psicologa nathalie vera, espaciovital',
+        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, terapia de pareja chorrera, psicologa general panama, psicologa en linea panama, retiro metamorfosis, psicologa nathalie vera, espaciovital',
     });
     this.meta.updateTag({ name: 'robots', content: page.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' });
 
@@ -144,9 +144,8 @@ export function businessJsonLd(description: string): object {
         closes: '18:00',
       },
     ],
-    medicalSpecialty: ['Psychology', 'Clinical'],
+    medicalSpecialty: ['Psychology'],
     knowsAbout: [
-      'Psicología clínica',
       'Psicología general',
       'Terapia psicológica en La Chorrera',
       'Terapia individual',
@@ -172,7 +171,7 @@ export function businessJsonLd(description: string): object {
       '@type': 'Person',
       name: 'Nathalie Vera',
       jobTitle: 'Psicóloga General & Guía Vivencial',
-      knowsAbout: ['Psicología clínica', 'Terapia individual y de pareja', 'Terapia somática'],
+      knowsAbout: ['Psicología general', 'Terapia individual y de pareja', 'Terapia somática'],
     },
     sameAs: [SITE.instagram],
   };
