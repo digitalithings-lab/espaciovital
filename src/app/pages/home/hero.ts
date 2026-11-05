@@ -59,7 +59,7 @@ import { Icon } from '../../shared/icon';
               </figcaption>
             </div>
 
-            <div class="absolute top-16 -left-3 z-20 flex items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-forest-900 shadow-lift sm:-left-6">
+            <div class="mt-4 flex w-fit items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-forest-900 shadow-lift sm:absolute sm:top-16 sm:-left-6 sm:z-20 sm:mt-0">
               <app-icon name="badgeCheck" [size]="20" class="text-forest-500" />
               <span class="text-sm font-bold">Psicóloga general idónea</span>
             </div>
