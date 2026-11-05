@@ -10,7 +10,7 @@ import { Logo } from '../shared/logo';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, Icon, Logo],
   template: `
-    <footer class="border-t border-line bg-surface-muted pt-16 pb-28 sm:pb-10">
+    <footer class="layer z-[55] bg-surface-muted pt-20 pb-28 sm:pb-10">
       <div class="page">
         <div class="grid gap-10 border-b border-line pb-12 md:grid-cols-2 lg:grid-cols-5">
           <div class="space-y-5 lg:col-span-2">

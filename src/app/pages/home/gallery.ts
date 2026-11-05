@@ -15,12 +15,11 @@ import { Reveal } from '../../shared/reveal.directive';
     '(document:keydown.arrowleft)': 'step(-1)',
   },
   template: `
-    <section id="galeria" class="section-y border-t border-line bg-surface">
+    <section id="galeria" class="layer z-50 section-y bg-surface">
       <div class="page">
         <header class="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div class="space-y-4">
-            <p appReveal class="eyebrow">Galería de vivencias</p>
-            <h2 appReveal="80" class="heading-lg max-w-2xl">Momentos que se quedan <span class="em-brand">contigo.</span></h2>
+            <h2 appReveal class="heading-xl max-w-3xl text-forest-900">Momentos que se quedan <span class="font-semibold text-forest-500 italic">contigo.</span></h2>
           </div>
           <p appReveal="120" class="lead max-w-md">
             Fotografías de ediciones anteriores: agua cálida, complicidad, risas profundas y la dicha de no tener que demostrar nada.
@@ -30,11 +29,11 @@ import { Reveal } from '../../shared/reveal.directive';
         <div class="grid gap-4 md:grid-cols-12 md:grid-rows-[auto]">
 
           <!-- Fila 1: foto grande izquierda + foto vertical derecha -->
-          <button type="button" [appReveal]="0" class="group relative cursor-zoom-in overflow-hidden text-left md:col-span-7 md:row-span-2" style="height:480px; border-radius: 2rem 1rem 2rem 2rem;" (click)="open(0)" [attr.aria-label]="'Ver foto: ' + photos[0].title">
+          <button type="button" [appReveal]="0" class="group relative h-[22rem] cursor-zoom-in overflow-hidden rounded-[2rem] rounded-tl-[6rem] text-left md:col-span-7 md:row-span-2 md:h-[480px]" (click)="open(0)" [attr.aria-label]="'Ver foto: ' + photos[0].title">
             <img [src]="photos[0].image" [attr.srcset]="srcset(photos[0].image)" sizes="(min-width: 768px) 58vw, 92vw" [style.object-position]="photos[0].focus" [alt]="photos[0].alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
             <span class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-forest-900/90 to-transparent"></span>
             <span class="absolute right-5 bottom-5 left-5 text-white">
-              <span class="block text-[11px] font-bold uppercase tracking-[0.18em] text-accent">{{ photos[0].tag }}</span>
+              <span class="block text-xs font-bold text-accent">{{ photos[0].tag }}</span>
               <span class="mt-1 block font-display text-2xl font-semibold">{{ photos[0].title }}</span>
             </span>
             <span class="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
@@ -43,17 +42,17 @@ import { Reveal } from '../../shared/reveal.directive';
           </button>
 
           <!-- Cuadro editorial: quote de impacto, color sólido fúcsia -->
-          <div appReveal="60" class="hidden md:flex flex-col justify-between rounded-3xl bg-forest-500 p-7 text-white md:col-span-5" style="height:224px;">
-            <p class="font-display text-3xl font-bold leading-snug">+320 Mujeres que se han sumado a la <span class="text-accent italic">Aventura.</span></p>
-            <p class="text-sm text-white/70 max-w-[28ch]">Actividades, terapia y círculos de palabra creando nuevas amistades, compartiendo momentos inolvidables y disfrutando</p>
+          <div appReveal="60" class="hidden flex-col justify-between rounded-[2rem] bg-forest-500 p-7 text-white md:col-span-5 md:flex" style="height:224px;">
+            <p class="font-display text-3xl font-bold leading-snug">+320 Mujeres que se han sumado a la <span class="text-forest-100 italic">Aventura.</span></p>
+            <p class="text-sm text-white/90 max-w-[28ch]">Actividades, terapia y círculos de palabra creando nuevas amistades, compartiendo momentos inolvidables y disfrutando</p>
           </div>
 
           <!-- Foto derecha 2 -->
-          <button type="button" [appReveal]="80" class="group relative cursor-zoom-in overflow-hidden rounded-3xl text-left md:col-span-5" style="height:224px;" (click)="open(1)" [attr.aria-label]="'Ver foto: ' + photos[1].title">
+          <button type="button" [appReveal]="80" class="group relative h-56 cursor-zoom-in overflow-hidden rounded-[2rem] rounded-br-[5rem] text-left md:col-span-5 md:h-[224px]" (click)="open(1)" [attr.aria-label]="'Ver foto: ' + photos[1].title">
             <img [src]="photos[1].image" [attr.srcset]="srcset(photos[1].image)" sizes="(min-width: 768px) 42vw, 92vw" [style.object-position]="photos[1].focus" [alt]="photos[1].alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
             <span class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-forest-900/85 to-transparent"></span>
             <span class="absolute right-4 bottom-4 left-4 text-white">
-              <span class="block text-[11px] font-bold uppercase tracking-[0.18em] text-accent">{{ photos[1].tag }}</span>
+              <span class="block text-xs font-bold text-accent">{{ photos[1].tag }}</span>
               <span class="mt-0.5 block font-display text-lg font-semibold">{{ photos[1].title }}</span>
             </span>
             <span class="absolute top-3 right-3 flex size-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
@@ -63,17 +62,17 @@ import { Reveal } from '../../shared/reveal.directive';
 
           <!-- Fila 2: 4 fotos en polaroid rotado (md:col-span-3 cada una) -->
           @for (photo of photos.slice(2); track photo.image; let j = $index) {
-            <div class="md:col-span-3" [appReveal]="(j + 2) * 70" [style]="polaroidRotate[j % polaroidRotate.length]">
+            <div class="md:col-span-3" [appReveal]="(j + 2) * 70">
               <button
                 type="button"
-                class="group w-full cursor-zoom-in overflow-hidden rounded-2xl bg-white p-2 shadow-lift transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:shadow-2xl hover:rotate-0 text-left"
+                class="group w-full cursor-zoom-in overflow-hidden rounded-[2rem] bg-forest-100 p-2.5 text-left transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-lift"
                 (click)="open(j + 2)"
                 [attr.aria-label]="'Ver foto: ' + photo.title"
               >
-                <img [src]="photo.image" [attr.srcset]="srcset(photo.image)" sizes="(min-width: 768px) 25vw, 92vw" [style.object-position]="photo.focus" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
-                <div class="px-1 pt-2 pb-0.5">
-                  <p class="text-[11px] font-bold uppercase tracking-[0.15em] text-forest-500">{{ photo.tag }}</p>
-                  <p class="mt-0.5 text-sm font-semibold text-ink leading-tight">{{ photo.title }}</p>
+                <img [src]="photo.image" [attr.srcset]="srcset(photo.image)" sizes="(min-width: 768px) 25vw, 92vw" [style.object-position]="photo.focus" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-[1.5rem] object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                <div class="px-2 pt-3 pb-1.5">
+                  <p class="text-xs font-bold text-forest-500">{{ photo.tag }}</p>
+                  <p class="mt-0.5 text-base font-bold text-forest-900 leading-tight">{{ photo.title }}</p>
                 </div>
               </button>
             </div>

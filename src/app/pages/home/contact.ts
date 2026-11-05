@@ -13,24 +13,23 @@ import { Reveal } from '../../shared/reveal.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink, Icon, Reveal],
   template: `
-    <section id="contacto" class="section-y border-t border-line">
+    <section id="contacto" class="layer z-[52] section-y bg-forest-500 text-white">
       <div class="page grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div class="space-y-6 lg:col-span-5">
-          <p appReveal class="eyebrow">Contacto</p>
-          <h2 appReveal="60" class="heading-lg">Da el primer paso. <span class="em-brand">Estoy aquí.</span></h2>
-          <p appReveal="100" class="lead">Cuéntame qué te trae y te respondo en menos de 24 horas hábiles.</p>
-          <ul appReveal="140" class="divide-y divide-line border-y border-line">
+          <h2 appReveal class="heading-xl">Da el primer paso. <span class="font-semibold text-forest-100 italic">Estoy aquí.</span></h2>
+          <p appReveal="100" class="lead text-white/95!">Cuéntame qué te trae y te respondo en menos de 24 horas hábiles.</p>
+          <ul appReveal="140" class="divide-y divide-white/25 border-y border-white/25">
             <li class="flex items-center gap-4 py-4">
-              <app-icon name="video" [size]="24" class="text-forest-500" />
-              <span><span class="block font-bold">Modalidades</span><span class="text-sm text-muted">Presencial en Panamá Oeste (La Chorrera) y Virtual en todo Panamá</span></span>
+              <app-icon name="video" [size]="24" class="text-white" />
+              <span><span class="block font-bold">Modalidades</span><span class="text-sm text-white/90">Presencial en Panamá Oeste (La Chorrera) y Virtual en todo Panamá</span></span>
             </li>
             <li class="flex items-center gap-4 py-4">
-              <app-icon name="clock" [size]="24" class="text-forest-500" />
-              <span><span class="block font-bold">Horario</span><span class="text-sm text-muted">{{ site.hours }}</span></span>
+              <app-icon name="clock" [size]="24" class="text-white" />
+              <span><span class="block font-bold">Horario</span><span class="text-sm text-white/90">{{ site.hours }}</span></span>
             </li>
             <li class="flex items-center gap-4 py-4">
-              <app-icon name="shield" [size]="24" class="text-forest-500" />
-              <span><span class="block font-bold">Confidencialidad total</span><span class="text-sm text-muted">Protegida por el secreto profesional</span></span>
+              <app-icon name="shield" [size]="24" class="text-white" />
+              <span><span class="block font-bold">Confidencialidad total</span><span class="text-sm text-white/90">Protegida por el secreto profesional</span></span>
             </li>
           </ul>
         </div>

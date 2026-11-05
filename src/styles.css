@@ -57,9 +57,9 @@
 /* Claro: fuchsia + naranja Metamorfosis. Todos los textos cumplen WCAG AA. */
 :root {
   color-scheme: light;
-  --ev-background: #fff5f8;
+  --ev-background: #fff6f0;
   --ev-surface: #ffffff;
-  --ev-surface-muted: #fde8ef;
+  --ev-surface-muted: #fde9e4;
   --ev-line: #F9B6C8;
   --ev-ink: #3a0518;
   --ev-muted: #7a2a4a;
@@ -107,8 +107,19 @@
     text-wrap: pretty;
   }
   ::selection {
-    background: var(--ev-forest-100);
-    color: var(--ev-ink);
+    background: var(--ev-forest-700);
+    color: #fff;
+  }
+  html {
+    scrollbar-color: var(--ev-forest-500) var(--ev-surface-muted);
+    accent-color: var(--ev-forest-500);
+  }
+  input,
+  textarea {
+    caret-color: var(--ev-forest-500);
+  }
+  a:not([class]) {
+    text-underline-offset: 0.2em;
   }
   :where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
     outline: 2px solid var(--ev-forest-500);
@@ -134,18 +145,22 @@
 @utility page {
   @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
 }
+/* Capas de papel: cada sección sube sobre la anterior con una esquina orgánica. */
+@utility layer {
+  @apply relative -mt-8 rounded-t-[2rem] md:-mt-14 md:rounded-t-[4rem];
+}
 @utility section-y {
-  @apply py-20 md:py-28;
+  @apply py-24 md:py-32;
 }
 /* Etiqueta pequeña sobre los títulos (sin fondo: texto, no otra tarjeta). */
 @utility eyebrow {
   @apply inline-flex items-center gap-2 text-xs font-bold tracking-[0.16em] text-forest-500 uppercase;
 }
 @utility heading-xl {
-  @apply font-display text-4xl leading-[1.05] font-medium tracking-tight md:text-5xl lg:text-6xl;
+  @apply font-display text-4xl leading-[1.04] font-semibold tracking-tight md:text-6xl lg:text-[5rem];
 }
 @utility heading-lg {
-  @apply font-display text-3xl leading-[1.1] font-medium tracking-tight md:text-[2.75rem];
+  @apply font-display text-[2rem] leading-[1.08] font-semibold tracking-tight md:text-5xl;
 }
 /* Énfasis dentro de un título: misma fuente, más peso y color de marca. */
 @utility em-brand {
@@ -155,7 +170,7 @@
   @apply max-w-[62ch] text-base leading-relaxed text-muted md:text-lg;
 }
 @utility card {
-  @apply rounded-3xl border border-line bg-surface shadow-soft;
+  @apply rounded-[2rem] border border-line bg-surface shadow-soft;
 }
 /* Tarjeta clara fija (formularios): fondo blanco también con el tema oscuro del sistema. */
 @utility card-light {

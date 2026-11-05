@@ -4,90 +4,116 @@ import { IMG } from '../../core/content';
 import { SITE } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
 
-// Portada: una sola idea (máx. 4 elementos de texto) y la foto en el arco del logo.
-// Credenciales y cifras van en la franja de abajo, no aquí.
+// Portada «Metamorfosis»: burgundy a pantalla completa, el arco del logo como puerta,
+// y tres caminos de igual peso (terapia, actividades, niños) en bloques de color.
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, Icon],
   template: `
-    <section id="inicio" class="relative -mt-[72px] overflow-hidden pt-[72px]">
-      <!-- Panel fúcsia sólido detrás de la foto. -->
-      <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] bg-forest-500 lg:block" aria-hidden="true"></div>
+    <section id="inicio" class="relative -mt-[72px] overflow-hidden bg-forest-900 pt-[72px] text-white">
+      <!-- Formas orgánicas de la paleta. -->
+      <div class="pointer-events-none absolute -top-24 -left-24 size-72 rounded-full bg-forest-500/40 blur-3xl" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute top-0 right-0 hidden h-[78%] w-[42%] rounded-bl-[12rem] bg-forest-500 lg:block" aria-hidden="true"></div>
 
-      <div class="page relative grid items-center gap-10 pt-8 pb-14 sm:pt-12 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-8 lg:pb-12">
-        <div class="animate-fade-up lg:col-span-6">
-          <p class="eyebrow mb-6">Psicología presencial en La Chorrera y en línea para todo Panamá</p>
-          <h1 class="font-display text-[2.5rem] leading-[1.05] font-bold tracking-tight text-ink min-[400px]:text-5xl md:text-6xl lg:text-7xl">
-            Bienvenido/a a tu espacio de<br>
-            <span class="text-forest-500 italic">Bienestar y Sanación.</span>
+      <div class="page relative grid items-end gap-10 pt-10 pb-14 sm:pt-14 lg:grid-cols-12 lg:gap-8 lg:pt-16 lg:pb-20">
+        <div class="animate-fade-up lg:col-span-7 lg:pb-6">
+          <h1 class="font-display text-[2.75rem] leading-[1.02] font-bold tracking-tight min-[400px]:text-[3.25rem] md:text-7xl lg:text-[5.5rem]">
+            Bienvenido/a a tu espacio de
+            <span class="mt-1 block font-semibold text-forest-100 italic">Bienestar y Sanación.</span>
           </h1>
-          <p class="lead mt-7 max-w-[48ch]">
-          Atención psicológica individual y de pareja en modalidad virtual y presencial en Panamá Oeste (La Chorrera). Dar el primer paso en también es una forma de priorizarte.
-
+          <p class="mt-7 max-w-[46ch] text-base leading-relaxed text-white/80 md:text-lg">
+            Atención psicológica individual y de pareja en modalidad virtual y presencial en Panamá Oeste (La Chorrera). Dar el primer paso en también es una forma de priorizarte.
           </p>
-          <div class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a routerLink="/agendar" class="btn-primary min-h-14 px-8 text-base">
               Agendar cita <app-icon name="arrowRight" [size]="18" />
             </a>
-            <a routerLink="/" fragment="retiro" class="btn-outline min-h-14 px-7 py-3 text-base">Conocer actividades Metamorfosis</a>
+            <a routerLink="/" fragment="retiro" class="btn-outline-light min-h-14 px-7 py-3 text-base">Conocer actividades Metamorfosis</a>
           </div>
+          <p class="mt-6 flex items-center gap-2 text-sm text-white/65">
+            <app-icon name="mapPin" [size]="16" class="shrink-0 text-accent" />
+            Psicología presencial en La Chorrera y en línea para todo Panamá
+          </p>
         </div>
 
-        <div class="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:max-w-none">
-          <!-- Mini foto flotante del retiro, fuera del arco, en el panel fúcsia -->
-          <div class="absolute -top-8 right-4 z-10 hidden rotate-[3deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-lift lg:block" style="width: 120px;">
-            <img
-              src="/img/fotos/retiro-playa-ronda-640.webp"
-              alt="Actividades Metamorfosis en la playa"
-              width="640"
-              height="480"
-              loading="lazy"
-              decoding="async"
-              class="aspect-[4/3] w-full rounded-xl object-cover"
-            />
-            <p class="pt-1 pb-0.5 text-center text-[11px] font-bold uppercase tracking-widest text-forest-700">Metamorfosis</p>
-          </div>
+        <div class="relative mx-auto w-full max-w-[20rem] sm:max-w-[24rem] lg:col-span-5 lg:max-w-none">
+          <div class="pointer-events-none absolute -top-6 -right-4 z-0 size-28 rounded-full bg-accent sm:size-36" aria-hidden="true"></div>
+          <div class="pointer-events-none absolute bottom-10 -left-5 z-0 size-20 rotate-12 rounded-[100%_0_100%_0] bg-forest-100 sm:size-28" aria-hidden="true"></div>
 
-          <!-- Foto sobre el panel fúcsia: arco del logo. -->
-          <figure class="relative overflow-visible">
-            <!-- Badge flotante superior izquierdo, rotado -->
-            <div class="absolute -top-5 -left-6 z-20 hidden rotate-[-6deg] rounded-2xl bg-white px-4 py-3 shadow-lift lg:block">
-              <p class="text-[11px] font-extrabold uppercase tracking-[0.15em] text-muted">Psicóloga general</p>
-              <p class="font-display text-lg font-bold text-forest-700">Idónea ✓</p>
-            </div>
-
-            <div class="relative overflow-hidden rounded-t-[999px] rounded-b-3xl shadow-lift">
+          <figure class="relative z-10">
+            <div class="relative overflow-hidden rounded-t-[999px] rounded-b-[2rem] shadow-lift">
               <img
                 [src]="img.hero"
                 srcset="/img/nathalie-vera-560.webp 560w, /img/nathalie-vera-934.webp 934w"
-                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 26rem, 92vw"
+                sizes="(min-width: 1024px) 34vw, (min-width: 640px) 24rem, 20rem"
                 alt="Psicóloga Nathalie Vera, fundadora de EspacioVital"
                 width="934"
                 height="1400"
                 fetchpriority="high"
                 class="aspect-[4/5] w-full object-cover object-[50%_12%]"
               />
-              <div class="absolute inset-x-0 bottom-0 h-1/3 bg-forest-900/80"></div>
-              <figcaption class="absolute right-6 bottom-6 left-6 text-white">
+              <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-forest-900/90 to-transparent"></div>
+              <figcaption class="absolute right-5 bottom-5 left-5">
                 <p class="font-display text-xl font-semibold">{{ site.therapist }}</p>
                 <p class="text-sm text-white/80">Fundadora de EspacioVital y Metamorfosis</p>
               </figcaption>
             </div>
 
-            <!-- Badge flotante inferior derecho, rotado -->
-            <div class="absolute -right-6 -bottom-5 z-20 hidden rotate-[4deg] rounded-2xl bg-accent px-4 py-3 shadow-lift lg:block">
-              <p class="text-[11px] font-extrabold uppercase tracking-[0.15em] text-forest-900/70">Vidas acompañadas</p>
-              <p class="font-display text-3xl font-bold text-forest-900">+1500</p>
+            <div class="absolute top-16 -left-3 z-20 flex items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-forest-900 shadow-lift sm:-left-6">
+              <app-icon name="badgeCheck" [size]="20" class="text-forest-500" />
+              <span class="text-sm font-bold">Psicóloga general idónea</span>
+            </div>
+            <div class="absolute -right-3 bottom-24 z-20 rounded-2xl bg-accent px-4 py-2.5 text-forest-900 shadow-lift sm:-right-5">
+              <p class="font-display text-2xl leading-none font-bold">+1500</p>
+              <p class="mt-1 text-xs font-bold">Vidas acompañadas</p>
             </div>
           </figure>
         </div>
       </div>
+
+      <!-- Tres caminos, el mismo peso. -->
+      <nav class="page relative pb-14 lg:pb-20" aria-label="Elige tu camino">
+        <ul class="grid gap-3 md:grid-cols-3 md:gap-4">
+          @for (path of paths; track path.title) {
+            <li>
+              <a
+                [routerLink]="path.link"
+                [fragment]="path.fragment"
+                class="group flex min-h-32 items-end justify-between gap-4 rounded-[2rem] p-6 transition-[transform,box-shadow] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-lift active:scale-[0.98] md:min-h-48 md:flex-col md:items-start md:justify-between"
+                [class]="path.tone"
+              >
+                <span>
+                  <span class="block text-sm font-semibold opacity-80">{{ path.hint }}</span>
+                  <span class="mt-1 block font-display text-2xl leading-tight font-bold md:text-3xl">{{ path.title }}</span>
+                </span>
+                <span class="flex size-12 shrink-0 items-center justify-center rounded-full bg-forest-900 text-white transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-1 md:self-end">
+                  <app-icon name="arrowRight" [size]="20" />
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
     </section>
 
+    <!-- Ritmo visual entre portada y sobre-mí. -->
+    <div class="overflow-hidden bg-accent py-4" aria-hidden="true">
+      <div class="flex items-center whitespace-nowrap" style="animation: marquee 28s linear infinite">
+        @for (item of ticker; track item) {
+          <span class="mx-8 text-xs font-extrabold uppercase tracking-[0.18em] text-forest-900">{{ item }}</span>
+          <span class="size-1.5 shrink-0 rounded-full bg-forest-900/40"></span>
+        }
+        @for (item of ticker; track item) {
+          <span class="mx-8 text-xs font-extrabold uppercase tracking-[0.18em] text-forest-900">{{ item }}</span>
+          <span class="size-1.5 shrink-0 rounded-full bg-forest-900/40"></span>
+        }
+      </div>
+    </div>
+
     <!-- Franja de confianza. -->
-    <section aria-label="Credenciales" class="border-y border-line bg-surface">
-      <dl class="page grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-line">
+    <section aria-label="Credenciales" class="bg-background pb-10">
+      <dl class="page grid grid-cols-2 gap-x-4 lg:grid-cols-4 lg:divide-x lg:divide-line">
         @for (item of trust; track item.label; let i = $index) {
           <div class="flex items-center gap-3 py-6 lg:px-6" [class.lg:pl-0]="i === 0">
             <app-icon [name]="item.icon" [size]="24" class="text-forest-500" />
@@ -99,25 +125,16 @@ import { Icon } from '../../shared/icon';
         }
       </dl>
     </section>
-
-    <!-- Marquee ticker: ritmo visual entre hero y sobre-mí -->
-    <div class="overflow-hidden bg-accent py-4" aria-hidden="true">
-      <div class="flex whitespace-nowrap" style="animation: marquee 28s linear infinite">
-        @for (item of ticker; track item) {
-          <span class="mx-8 text-xs font-extrabold uppercase tracking-[0.18em] text-forest-900">{{ item }}</span>
-          <span class="mr-8 text-forest-900/40 font-bold">✦</span>
-        }
-        @for (item of ticker; track item) {
-          <span class="mx-8 text-xs font-extrabold uppercase tracking-[0.18em] text-forest-900">{{ item }}</span>
-          <span class="mr-8 text-forest-900/40 font-bold">✦</span>
-        }
-      </div>
-    </div>
   `,
 })
 export class Hero {
   protected readonly site = SITE;
   protected readonly img = IMG;
+  protected readonly paths = [
+    { hint: 'Individual y de pareja', title: 'Atención psicológica', link: '/agendar', fragment: undefined, tone: 'bg-forest-100 text-forest-900' },
+    { hint: 'Actividades para chicas', title: 'Metamorfosis', link: '/', fragment: 'retiro', tone: 'bg-accent text-forest-900' },
+    { hint: 'Talleres socioemocionales', title: 'Vital Kids', link: '/', fragment: 'espacio-kids', tone: 'bg-forest-500 text-white' },
+  ];
   protected readonly trust = [
     { icon: 'badgeCheck', value: 'Idonea', label: 'Psicóloga general' },
     { icon: 'users', value: '+1500', label: 'Vidas acompañadas' },

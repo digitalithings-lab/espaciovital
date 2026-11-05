@@ -10,107 +10,99 @@ import { Reveal } from '../../shared/reveal.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, Icon, Reveal],
   template: `
-    <section id="retiro" class="section-y bg-forest-900 text-white">
+    <section id="retiro" class="layer z-40 section-y bg-forest-900 text-white">
       <div class="page">
-        <div class="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div class="grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div class="lg:col-span-6">
-            <p appReveal class="eyebrow text-accent">Actividades Metamorfosis</p>
-            <h2 appReveal="60" class="heading-lg mt-4">Sal de la rutina: <span class="font-semibold text-accent">conecta, disfruta y pertenece.</span></h2>
-            <p appReveal="100" class="mt-6 max-w-[56ch] text-lg leading-relaxed text-white/75">
+            <h2 appReveal class="heading-xl">Sal de la rutina: <span class="font-semibold text-accent italic">conecta, disfruta y pertenece.</span></h2>
+            <p appReveal="100" class="mt-6 max-w-[56ch] text-lg leading-relaxed text-white/85">
               Una comunidad femenina donde las desconocidas se convierten en amigas. Creamos experiencias para compartir, conocer nuevas personas, descubrir lugares y construir conexiones auténticas a través de la diversión.
             </p>
-            <ul appReveal="140" class="mt-8 grid max-w-lg grid-cols-2 gap-x-6 gap-y-3 text-sm text-white/85">
+            <p appReveal="120" class="mt-4 text-sm font-bold text-forest-100">Actividades Metamorfosis</p>
+            <ul appReveal="140" class="mt-6 flex flex-wrap gap-2">
               @for (item of includes; track item.label) {
-                <li class="flex items-center gap-2.5"><app-icon [name]="item.icon" [size]="20" class="text-accent" /> {{ item.label }}</li>
+                <li class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white">
+                  <app-icon [name]="item.icon" [size]="18" class="text-accent" /> {{ item.label }}
+                </li>
               }
             </ul>
             <a appReveal="180" routerLink="/" fragment="proximas-fechas" class="btn-primary mt-10">Ver fechas</a>
           </div>
-          <!-- Collage de 3 fotos apiladas, efecto "fotos sobre mesa" -->
-          <div appReveal="120" class="relative lg:col-span-6" style="height: 420px;">
 
-            <!-- Foto trasera: abrazo, rotada positivo, esquina inferior-derecha -->
-            <div class="absolute bottom-0 right-0 w-[55%] rotate-[6deg] overflow-hidden rounded-2xl bg-white/10 p-1.5 shadow-lift">
-              <img
-                src="/img/fotos/retiro-abrazo-640.webp"
-                alt="Abrazo en el retiro"
-                width="640"
-                height="480"
-                loading="lazy"
-                decoding="async"
-                class="aspect-[4/3] w-full rounded-xl object-cover"
-              />
-            </div>
-
-            <!-- Foto media: mirador, rotada negativo, arriba-izquierda -->
-            <div class="absolute top-0 left-0 w-[52%] rotate-[-5deg] overflow-hidden rounded-2xl bg-white/10 p-1.5 shadow-lift">
-              <img
-                src="/img/fotos/retiro-mirador-640.webp"
-                alt="Vista desde el mirador del retiro"
-                width="640"
-                height="480"
-                loading="lazy"
-                decoding="async"
-                class="aspect-[4/3] w-full rounded-xl object-cover"
-              />
-            </div>
-
-            <!-- Foto principal: manglar (la mayor), centrada y encima -->
-            <div class="absolute top-1/2 left-1/2 w-[68%] -translate-x-1/2 -translate-y-1/2 rotate-[-1deg] overflow-hidden rounded-2xl bg-white/10 p-1.5 shadow-lift">
+          <!-- Foto principal con esquinas orgánicas y dos recuerdos en círculo -->
+          <div appReveal="120" class="relative mx-auto w-full max-w-xl pb-10 lg:col-span-6 lg:max-w-none">
+            <div class="overflow-hidden rounded-[2rem] rounded-tl-[6rem] rounded-br-[6rem] shadow-lift">
               <img
                 [src]="img.retreat"
                 [attr.srcset]="srcset(img.retreat)"
-                sizes="(min-width: 1024px) 30vw, 60vw"
+                sizes="(min-width: 1024px) 40vw, 92vw"
                 alt="Grupo de mujeres en las actividades Metamorfosis"
                 width="640"
                 height="480"
                 loading="lazy"
                 decoding="async"
-                class="aspect-[4/3] w-full rounded-xl object-cover"
+                class="aspect-[5/4] w-full object-cover"
               />
             </div>
+            <img
+              src="/img/fotos/retiro-mirador-640.webp"
+              alt="Vista desde el mirador del retiro"
+              width="640"
+              height="480"
+              loading="lazy"
+              decoding="async"
+              class="absolute -top-6 -right-2 size-28 rounded-full border-4 border-forest-900 object-cover shadow-lift sm:-right-6 sm:size-36"
+            />
+            <img
+              src="/img/fotos/retiro-abrazo-640.webp"
+              alt="Abrazo en el retiro"
+              width="640"
+              height="480"
+              loading="lazy"
+              decoding="async"
+              class="absolute -bottom-0 left-4 size-24 rounded-full border-4 border-forest-900 object-cover shadow-lift sm:left-8 sm:size-32"
+            />
           </div>
         </div>
 
-        <!-- Ticker inverso dentro de la sección oscura -->
-        <div class="my-12 overflow-hidden rounded-2xl bg-white/10 py-3" aria-hidden="true">
-          <div class="flex whitespace-nowrap" style="animation: marquee 22s linear infinite reverse">
+        <!-- Cinta de palabras -->
+        <div class="my-14 overflow-hidden rounded-full bg-white/10 py-3" aria-hidden="true">
+          <div class="flex items-center whitespace-nowrap" style="animation: marquee 22s linear infinite reverse">
             @for (item of ticker; track item) {
-              <span class="mx-6 text-xs font-extrabold uppercase tracking-[0.18em] text-white/80">{{ item }}</span>
-              <span class="mr-6 text-accent font-bold">✦</span>
+              <span class="mx-6 text-xs font-extrabold uppercase tracking-[0.18em] text-white/85">{{ item }}</span>
+              <span class="size-1.5 shrink-0 rounded-full bg-accent"></span>
             }
             @for (item of ticker; track item) {
-              <span class="mx-6 text-xs font-extrabold uppercase tracking-[0.18em] text-white/80">{{ item }}</span>
-              <span class="mr-6 text-accent font-bold">✦</span>
+              <span class="mx-6 text-xs font-extrabold uppercase tracking-[0.18em] text-white/85">{{ item }}</span>
+              <span class="size-1.5 shrink-0 rounded-full bg-accent"></span>
             }
           </div>
         </div>
 
-        <!-- Los cuatro pilares del retiro, en columnas separadas por una línea (sin tarjetas). -->
-        <ol class="grid gap-10 border-t border-white/15 pt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        <!-- Los cuatro pilares, en bloques de color. -->
+        <ol class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
           @for (step of pillars; track step.title; let i = $index) {
-            <li [appReveal]="i * 80">
-              <span class="font-display text-sm font-semibold text-accent tabular-nums">0{{ i + 1 }}</span>
-              <h3 class="mt-3 text-xl font-medium">{{ step.title }}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-white/70">{{ step.text }}</p>
+            <li [appReveal]="i * 80" class="rounded-[2rem] p-6 sm:p-7" [class]="pillarTones[i]">
+              <h3 class="font-display text-xl font-bold">{{ step.title }}</h3>
+              <p class="mt-2 text-sm leading-relaxed">{{ step.text }}</p>
             </li>
           }
         </ol>
 
-        <!-- Experiencias de las participantes, justo debajo de las actividades -->
-        <div class="mt-16 border-t border-white/15 pt-12">
-          <p appReveal class="eyebrow text-accent">Lo que dicen nuestras participantes</p>
-          <h3 appReveal="60" class="heading-lg mt-3">Experiencias <span class="font-semibold text-accent">reales</span> en Metamorfosis</h3>
-          <ul class="mt-8 grid gap-5 md:grid-cols-3">
+        <!-- Experiencias de las participantes -->
+        <div class="mt-20">
+          <h3 appReveal class="heading-lg">Experiencias <span class="font-semibold text-accent italic">reales</span> en Metamorfosis</h3>
+          <p appReveal="60" class="mt-3 text-base font-medium text-forest-100">Lo que dicen nuestras participantes</p>
+          <ul class="mt-8 grid gap-4 md:grid-cols-3">
             @for (t of testimonials; track t.name; let i = $index) {
-              <li [appReveal]="i * 80" class="flex flex-col rounded-2xl border border-white/15 bg-white/10 p-5 sm:p-6">
-                <app-icon name="quote" [size]="28" class="text-accent" />
-                <blockquote class="mt-3 flex-1 text-sm leading-relaxed text-white/90 sm:text-[0.938rem]">{{ t.quote }}</blockquote>
-                <figcaption class="mt-5 flex items-center gap-3 border-t border-white/15 pt-4">
-                  <span class="flex size-9 items-center justify-center rounded-full bg-accent font-display text-sm font-bold text-forest-900">{{ t.name[0] }}</span>
+              <li [appReveal]="i * 80" class="flex flex-col rounded-[2rem] bg-forest-100 p-6 text-forest-900 sm:p-7" [class.md:translate-y-6]="i === 1">
+                <app-icon name="quote" [size]="28" class="text-forest-500" />
+                <blockquote class="mt-3 flex-1 text-base leading-relaxed">{{ t.quote }}</blockquote>
+                <figcaption class="mt-5 flex items-center gap-3">
+                  <span class="flex size-10 items-center justify-center rounded-full bg-forest-900 font-display text-sm font-bold text-white">{{ t.name[0] }}</span>
                   <span>
                     <span class="block text-sm font-bold">{{ t.name }}</span>
-                    <span class="block text-xs text-white/70">{{ t.detail }}</span>
+                    <span class="block text-xs text-forest-900/80">{{ t.detail }}</span>
                   </span>
                 </figcaption>
               </li>
@@ -140,6 +132,12 @@ export class Retreat {
     { icon: 'trophy', label: 'Juegos, competencias y deportes' },
     { icon: 'mask', label: 'Fiestas temáticas y disfraces' },
     { icon: 'compass', label: 'Paseos turísticos y nuevas experiencias' },
+  ];
+  protected readonly pillarTones = [
+    'bg-forest-100 text-forest-900',
+    'bg-accent text-forest-900',
+    'bg-forest-500 text-white',
+    'bg-surface-muted text-forest-900',
   ];
   protected readonly pillars = [
     {

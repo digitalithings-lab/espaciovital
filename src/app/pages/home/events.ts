@@ -37,15 +37,15 @@ function dateRange(start: string, end: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Reveal],
   template: `
-    <section id="proximas-fechas" class="section-y border-t border-line overflow-hidden">
+    <section id="proximas-fechas" class="layer z-[51] section-y overflow-hidden bg-surface-muted">
       <div class="page">
         <!-- Encabezado con título y controles responsivos -->
         <header class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div class="max-w-2xl">
-            <p appReveal class="eyebrow">Tour de Chicas · Calendario 2027</p>
-            <h2 appReveal="60" class="heading-lg mt-2 sm:mt-3">
-              Próximos <span class="em-brand">viajes y experiencias.</span>
+            <h2 appReveal class="heading-xl text-forest-900">
+              Próximos <span class="font-semibold text-forest-500 italic">viajes y experiencias.</span>
             </h2>
+            <p appReveal="40" class="mt-4 inline-flex rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-forest-900">Tour de Chicas · Calendario 2027</p>
             <p appReveal="90" class="lead mt-2.5 sm:mt-3 text-muted">
               Descubre Panamá, reconecta con la naturaleza y vive momentos inolvidables en grupo. Acompañamiento, actividades y dinámicas con la Psic. Nathalie Vera.
             </p>
@@ -102,13 +102,13 @@ function dateRange(start: string, end: string): string {
               @for (e of editions(); track e.id; let i = $index) {
                 <article
                   [appReveal]="i * 50"
-                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-3xl p-5 sm:p-6 md:p-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5"
-                  [class]="e.featured ? 'bg-forest-900 text-white shadow-lift ring-1 ring-white/10' : 'border border-line bg-surface shadow-soft hover:shadow-lift'"
+                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-[2rem] p-6 md:p-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5"
+                  [class]="e.featured ? 'bg-forest-900 text-white shadow-lift ring-1 ring-white/10' : 'bg-surface shadow-soft hover:shadow-lift'"
                 >
                   <!-- Badge flotante para la tarjeta destacada -->
                   @if (e.featured) {
-                    <div class="absolute -top-3.5 right-3 rotate-[6deg] rounded-full bg-accent px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-forest-900 shadow-soft">
-                      ⭐ Más solicitada
+                    <div class="absolute -top-3.5 right-5 flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-xs font-bold text-forest-900 shadow-soft">
+                      <app-icon name="star" [size]="14" /> Más solicitada
                     </div>
                   }
 
@@ -116,7 +116,7 @@ function dateRange(start: string, end: string): string {
                   <div>
                     <div class="flex items-center justify-between gap-2">
                       <span
-                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider"
+                        class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold"
                         [class]="e.featured ? 'bg-white/10 text-white/90' : 'bg-forest-50 text-forest-700'"
                       >
                         <app-icon [name]="e.icon" [size]="16" [class]="e.featured ? 'text-accent' : 'text-forest-500'" />
@@ -144,7 +144,7 @@ function dateRange(start: string, end: string): string {
 
                     <!-- Fechas y Cupos en bloque visual -->
                     <dl
-                      class="mt-4 sm:mt-5 grid grid-cols-2 gap-3 rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm"
+                      class="mt-4 sm:mt-5 grid grid-cols-2 gap-3 rounded-[1.5rem] p-4 text-sm"
                       [class]="e.featured ? 'bg-white/5 border border-white/10' : 'bg-surface-muted/60 border border-line/60'"
                     >
                       <div>
@@ -188,7 +188,7 @@ function dateRange(start: string, end: string): string {
                       [href]="book(e)"
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="flex items-center justify-center gap-2 py-3 px-4 text-xs sm:text-sm font-semibold rounded-2xl transition-transform active:scale-95"
+                      class="flex min-h-12 items-center justify-center gap-2 px-4 text-sm font-bold"
                     >
                       <app-icon name="whatsapp" [size]="18" />
                       Solicitar cupo
@@ -201,7 +201,7 @@ function dateRange(start: string, end: string): string {
               @for (a of activities; track a.id; let k = $index) {
                 <article
                   [appReveal]="(editions().length + k) * 30"
-                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-3xl border border-line bg-surface p-5 sm:p-6 md:p-7 shadow-soft transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5 hover:shadow-lift"
+                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-[2rem] bg-surface p-6 md:p-7 shadow-soft transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5 hover:shadow-lift"
                 >
                   <div>
                     <div class="flex items-center justify-between gap-2">
