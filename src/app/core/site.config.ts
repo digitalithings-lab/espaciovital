@@ -15,7 +15,7 @@ export const SITE = {
   country: 'Panamá',
   city: 'La Chorrera',
   region: 'Panamá Oeste',
-  hours: 'Lunes a sábado · 8:00 a. m. – 6:00 p. m.',
+  hours: 'Lunes a sábado de 10 a. m. a 10 p. m.',
   /** URL de tu backend (sin barra final). Vacío = el formulario solo abre WhatsApp. */
   apiUrl: '',
   /**

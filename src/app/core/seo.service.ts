@@ -36,7 +36,7 @@ export class SeoService {
     this.meta.updateTag({
       name: 'keywords',
       content:
-        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, terapia de pareja chorrera, psicologa general panama, psicologa en linea panama, retiro metamorfosis, psicologa nathalie vera, espaciovital',
+        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, terapia de pareja chorrera, psicologa general panama, psicologa en linea panama, actividades metamorfosis, psicologa nathalie vera, espaciovital',
     });
     this.meta.updateTag({ name: 'robots', content: page.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' });
 
@@ -140,8 +140,8 @@ export function businessJsonLd(description: string): object {
       {
         '@type': 'OpeningHoursSpecification',
         dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        opens: '08:00',
-        closes: '18:00',
+        opens: '10:00',
+        closes: '22:00',
       },
     ],
     medicalSpecialty: ['Psychology'],
@@ -163,7 +163,7 @@ export function businessJsonLd(description: string): object {
         'Terapia psicológica individual en La Chorrera (presencial)',
         'Terapia psicológica de pareja en La Chorrera y Panamá Oeste',
         'Terapia psicológica en línea para todo Panamá e internacional',
-        'Retiro Metamorfosis vivencial para mujeres en Panamá',
+        'Actividades Metamorfosis vivenciales para mujeres en Panamá',
         'Talleres socioemocionales para niños (Vital Kids)',
       ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
     },

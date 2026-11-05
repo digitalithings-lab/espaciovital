@@ -95,7 +95,7 @@ const FAQS_EN = [
           <p class="mt-2 leading-relaxed text-muted">Video sessions from Panama City, Arraiján, Coronado or anywhere else in the country.</p>
         </div>
         <p class="flex items-center gap-2 text-muted md:col-span-2">
-          <app-icon name="clock" [size]="18" /> Monday to Saturday · 8:00 a.m. – 6:00 p.m.
+          <app-icon name="clock" [size]="18" /> Monday to Saturday · 10:00 a.m. – 10:00 p.m.
         </p>
       </div>
     </section>

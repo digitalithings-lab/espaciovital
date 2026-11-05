@@ -34,7 +34,7 @@ import { Reveal } from '../../shared/reveal.directive';
             <img [src]="photos[0].image" [attr.srcset]="srcset(photos[0].image)" sizes="(min-width: 768px) 58vw, 92vw" [style.object-position]="photos[0].focus" [alt]="photos[0].alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
             <span class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-forest-900/90 to-transparent"></span>
             <span class="absolute right-5 bottom-5 left-5 text-white">
-              <span class="block text-[10px] font-bold uppercase tracking-[0.18em] text-accent">{{ photos[0].tag }}</span>
+              <span class="block text-[11px] font-bold uppercase tracking-[0.18em] text-accent">{{ photos[0].tag }}</span>
               <span class="mt-1 block font-display text-2xl font-semibold">{{ photos[0].title }}</span>
             </span>
             <span class="absolute top-4 right-4 flex size-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
@@ -44,8 +44,8 @@ import { Reveal } from '../../shared/reveal.directive';
 
           <!-- Cuadro editorial: quote de impacto, color sólido fúcsia -->
           <div appReveal="60" class="hidden md:flex flex-col justify-between rounded-3xl bg-forest-500 p-7 text-white md:col-span-5" style="height:224px;">
-            <p class="font-display text-3xl font-bold leading-snug">+150 mujeres <span class="text-accent italic">transformadas.</span></p>
-            <p class="text-sm text-white/70 max-w-[28ch]">Actividades, terapia y círculos de palabra desde 2020.</p>
+            <p class="font-display text-3xl font-bold leading-snug">+320 Mujeres que se han sumado a la <span class="text-accent italic">Aventura.</span></p>
+            <p class="text-sm text-white/70 max-w-[28ch]">Actividades, terapia y círculos de palabra creando nuevas amistades, compartiendo momentos inolvidables y disfrutando</p>
           </div>
 
           <!-- Foto derecha 2 -->
@@ -53,7 +53,7 @@ import { Reveal } from '../../shared/reveal.directive';
             <img [src]="photos[1].image" [attr.srcset]="srcset(photos[1].image)" sizes="(min-width: 768px) 42vw, 92vw" [style.object-position]="photos[1].focus" [alt]="photos[1].alt" width="800" height="560" loading="lazy" decoding="async" class="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
             <span class="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-forest-900/85 to-transparent"></span>
             <span class="absolute right-4 bottom-4 left-4 text-white">
-              <span class="block text-[10px] font-bold uppercase tracking-[0.18em] text-accent">{{ photos[1].tag }}</span>
+              <span class="block text-[11px] font-bold uppercase tracking-[0.18em] text-accent">{{ photos[1].tag }}</span>
               <span class="mt-0.5 block font-display text-lg font-semibold">{{ photos[1].title }}</span>
             </span>
             <span class="absolute top-3 right-3 flex size-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-md transition-opacity group-hover:opacity-100">
@@ -66,13 +66,13 @@ import { Reveal } from '../../shared/reveal.directive';
             <div class="md:col-span-3" [appReveal]="(j + 2) * 70" [style]="polaroidRotate[j % polaroidRotate.length]">
               <button
                 type="button"
-                class="group w-full cursor-zoom-in overflow-hidden rounded-2xl bg-white p-2 shadow-lift transition-all duration-300 hover:shadow-2xl hover:rotate-0 text-left"
+                class="group w-full cursor-zoom-in overflow-hidden rounded-2xl bg-white p-2 shadow-lift transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:shadow-2xl hover:rotate-0 text-left"
                 (click)="open(j + 2)"
                 [attr.aria-label]="'Ver foto: ' + photo.title"
               >
                 <img [src]="photo.image" [attr.srcset]="srcset(photo.image)" sizes="(min-width: 768px) 25vw, 92vw" [style.object-position]="photo.focus" [alt]="photo.alt" width="800" height="560" loading="lazy" decoding="async" class="aspect-[4/3] w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
                 <div class="px-1 pt-2 pb-0.5">
-                  <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-forest-500">{{ photo.tag }}</p>
+                  <p class="text-[11px] font-bold uppercase tracking-[0.15em] text-forest-500">{{ photo.tag }}</p>
                   <p class="mt-0.5 text-sm font-semibold text-ink leading-tight">{{ photo.title }}</p>
                 </div>
               </button>

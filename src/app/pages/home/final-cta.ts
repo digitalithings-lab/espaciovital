@@ -13,9 +13,9 @@ import { Reveal } from '../../shared/reveal.directive';
       <div class="page">
         <div appReveal class="grid gap-10 rounded-3xl bg-forest-900 px-7 py-12 text-white md:px-14 md:py-16 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-7">
-            <h2 id="cta-titulo" class="heading-lg">¿Lista para dar <span class="font-semibold text-accent">el primer paso?</span></h2>
+            <h2 id="cta-titulo" class="heading-lg">¿Listo/a para dar <span class="font-semibold text-accent">el primer paso?</span></h2>
             <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-white/75">
-              Elige el día y la hora que te queden mejor en la agenda de {{ site.therapistShort }}. La primera conversación es para conocernos.
+              Elige el día y la hora que más te convenga en la agenda digital.
             </p>
           </div>
           <div class="flex flex-col gap-3 sm:flex-row lg:col-span-5 lg:justify-end">

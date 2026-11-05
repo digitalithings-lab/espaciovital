@@ -47,6 +47,14 @@ export interface Testimonial {
   tone: Tone;
 }
 
+/** Actividad Metamorfosis sin fecha ni precio definidos todavía (se muestra como «Próximamente»). */
+export interface Activity {
+  id: string;
+  name: string;
+  icon: string;
+  text: string;
+}
+
 export interface Faq {
   question: string;
   answer: string;

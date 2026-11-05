@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "espaciovital-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start"],
+      "runtimeExecutable": "/bin/zsh",
+      "runtimeArgs": ["-c", "export PATH=/Users/rasta507/.nvm/versions/node/v24.22.1/bin:$PATH && npm run start"],
       "port": 4200
     }
   ]

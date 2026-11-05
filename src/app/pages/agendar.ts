@@ -132,7 +132,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                       <button
                         type="button"
                         role="option"
-                        class="flex w-[4.5rem] shrink-0 snap-start flex-col items-center gap-0.5 rounded-xl border-[1.5px] py-3 transition-all duration-200"
+                        class="flex w-[4.5rem] shrink-0 snap-start flex-col items-center gap-0.5 rounded-xl border-[1.5px] py-3 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-200"
                         [class]="
                           i === dayIndex()
                             ? 'border-accent bg-accent text-forest-900 shadow-soft'
@@ -159,7 +159,7 @@ const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
                         <button
                           type="button"
                           role="radio"
-                          class="cursor-pointer rounded-full border-[1.5px] py-3 text-sm font-bold tabular-nums transition-all duration-200"
+                          class="cursor-pointer rounded-full border-[1.5px] py-3 text-sm font-bold tabular-nums transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-200"
                           [class]="slot.startsAt === slotStart() ? 'border-accent bg-accent text-forest-900 shadow-soft' : 'border-line bg-surface hover:border-forest-500 hover:bg-forest-50'"
                           [attr.aria-checked]="slot.startsAt === slotStart()"
                           (click)="slotStart.set(slot.startsAt)"

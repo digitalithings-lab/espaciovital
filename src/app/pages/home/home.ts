@@ -20,13 +20,13 @@ import { Testimonials } from './testimonials';
   template: `
     <app-hero />
     <app-about />
-    <app-retreat />
-    <app-kids />
-    <app-gallery />
     <app-testimonials />
+    <app-kids />
+    <app-retreat />
+    <app-gallery />
     <app-events />
-    <app-faq />
     <app-contact />
+    <app-faq />
     <app-final-cta />
   `,
 })
@@ -47,7 +47,7 @@ export class Home {
         ...RETREATS.map((r) => ({
           '@context': 'https://schema.org',
           '@type': 'Event',
-          name: `Retiro Metamorfosis · ${r.name}`,
+          name: `Actividades Metamorfosis · ${r.name}`,
           startDate: r.startDate,
           endDate: r.endDate,
           eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',

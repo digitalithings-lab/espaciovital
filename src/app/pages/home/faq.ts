@@ -24,7 +24,7 @@ import { Reveal } from '../../shared/reveal.directive';
                 <span class="font-display">{{ item.question }}</span>
                 <app-icon name="chevronDown" [size]="20" class="shrink-0 text-muted transition-transform duration-300 group-open:rotate-180" />
               </summary>
-              <p class="max-w-[65ch] pb-6 leading-relaxed text-muted">{{ item.answer }}</p>
+              <p class="max-w-[65ch] whitespace-pre-line pb-6 leading-relaxed text-muted">{{ item.answer }}</p>
             </details>
           }
         </div>

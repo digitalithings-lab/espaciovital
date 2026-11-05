@@ -22,7 +22,7 @@ import { Reveal } from '../../shared/reveal.directive';
           <ul appReveal="140" class="divide-y divide-line border-y border-line">
             <li class="flex items-center gap-4 py-4">
               <app-icon name="video" [size]="24" class="text-forest-500" />
-              <span><span class="block font-bold">Presencial y en línea</span><span class="text-sm text-muted">Presencial en La Chorrera (Panamá Oeste) o por videollamada</span></span>
+              <span><span class="block font-bold">Modalidades</span><span class="text-sm text-muted">Presencial en Panamá Oeste (La Chorrera) y Virtual en todo Panamá</span></span>
             </li>
             <li class="flex items-center gap-4 py-4">
               <app-icon name="clock" [size]="24" class="text-forest-500" />
@@ -44,20 +44,20 @@ import { Reveal } from '../../shared/reveal.directive';
               <button type="button" class="btn-outline mt-2" (click)="reset()">Enviar otro mensaje</button>
             </div>
           } @else {
-            <form [formGroup]="form" (ngSubmit)="submit()" class="card space-y-5 p-6 md:p-8" novalidate>
+            <form [formGroup]="form" (ngSubmit)="submit()" class="card card-light space-y-5 p-6 md:p-8" novalidate>
               <div class="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label class="label" for="c-name">Nombre</label>
+                  <label class="label" for="c-name">Nombre <span class="font-medium text-muted">(obligatorio)</span></label>
                   <input id="c-name" class="input" formControlName="name" maxlength="120" autocomplete="name" [attr.aria-invalid]="invalid('name')" aria-describedby="c-name-err" />
                   @if (invalid('name')) {
                     <p id="c-name-err" class="mt-2 text-xs font-semibold text-accent-ink">Escribe tu nombre (solo letras).</p>
                   }
                 </div>
                 <div>
-                  <label class="label" for="c-phone">Teléfono / WhatsApp <span class="font-medium text-muted">(opcional)</span></label>
+                  <label class="label" for="c-phone">Teléfono / WhatsApp <span class="font-medium text-muted">(obligatorio)</span></label>
                   <input id="c-phone" class="input" type="tel" formControlName="phone" maxlength="20" autocomplete="tel" inputmode="tel" [attr.aria-invalid]="invalid('phone')" />
                   @if (invalid('phone')) {
-                    <p class="mt-2 text-xs font-semibold text-accent-ink">Escribe un teléfono válido.</p>
+                    <p class="mt-2 text-xs font-semibold text-accent-ink">Escribe tu teléfono o WhatsApp (obligatorio).</p>
                   }
                 </div>
               </div>
@@ -74,7 +74,7 @@ import { Reveal } from '../../shared/reveal.directive';
                   @for (option of interests; track option.value) {
                     <label class="cursor-pointer">
                       <input type="radio" class="peer sr-only" formControlName="interest" [value]="option.value" />
-                      <span class="flex h-full flex-col items-center gap-1.5 rounded-xl border-[1.5px] border-line bg-background px-2 py-3 text-center text-xs font-bold text-muted transition-all peer-checked:border-forest-500 peer-checked:bg-forest-50 peer-checked:text-forest-700 peer-focus-visible:ring-2 peer-focus-visible:ring-forest-500">
+                      <span class="flex h-full flex-col items-center gap-1.5 rounded-xl border-[1.5px] border-line bg-background px-2 py-3 text-center text-xs font-bold text-muted transition-[transform,box-shadow,background-color,border-color,color,opacity] peer-checked:border-forest-500 peer-checked:bg-forest-50 peer-checked:text-forest-700 peer-focus-visible:ring-2 peer-focus-visible:ring-forest-500">
                         <app-icon [name]="option.icon" />
                         {{ option.label }}
                       </span>
@@ -84,7 +84,7 @@ import { Reveal } from '../../shared/reveal.directive';
               </fieldset>
               <div>
                 <label class="label" for="c-message">Mensaje <span class="font-medium text-muted">(opcional)</span></label>
-                <textarea id="c-message" class="input min-h-28 resize-y" formControlName="message" maxlength="1000" placeholder="Cuéntame brevemente qué te gustaría trabajar…"></textarea>
+                <textarea id="c-message" class="input min-h-28 resize-y" formControlName="message" maxlength="1000" placeholder="Cuéntame brevemente el motivo de consulta y si vienes por Metamorfosis puedes dejar este espacio en blanco…"></textarea>
               </div>
               <!-- Campo trampa contra robots: oculto para las personas. -->
               <input type="text" formControlName="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
@@ -122,8 +122,8 @@ export class Contact {
   private readonly submitted = signal(false);
 
   protected readonly interests = [
-    { value: 'terapia', label: 'Terapia', icon: 'brain' },
-    { value: 'retiro', label: 'Retiro', icon: 'waves' },
+    { value: 'terapia', label: 'Psicología', icon: 'brain' },
+    { value: 'retiro', label: 'Metamorfosis', icon: 'waves' },
     { value: 'kids', label: 'Niños', icon: 'smile' },
     { value: 'pareja', label: 'Pareja', icon: 'users' },
   ] as const;
@@ -131,7 +131,7 @@ export class Contact {
   protected readonly form = inject(FormBuilder).nonNullable.group({
     name: ['', nameValidators],
     email: ['', emailValidators],
-    phone: ['', Validators.pattern(PHONE_PATTERN)],
+    phone: ['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
     interest: ['terapia' as ContactRequest['interest']],
     message: ['', Validators.maxLength(1000)],
     consent: [false, Validators.requiredTrue],

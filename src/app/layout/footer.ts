@@ -16,8 +16,7 @@ import { Logo } from '../shared/logo';
           <div class="space-y-5 lg:col-span-2">
             <app-logo [size]="44" [tagline]="true" />
             <p class="max-w-sm text-sm leading-relaxed text-muted">
-              Acompañamiento psicoterapéutico individual, talleres socioemocionales para niños y retiros vivenciales para mujeres
-              que eligen priorizarse, sanar y renacer.
+              Acompañamiento psicológico individual, talleres socioemocionales para niños y actividades recreativas para mujeres que desean socializar y priorizarse.
             </p>
             <div class="flex items-center gap-2">
               <a class="icon-btn size-10" [href]="whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -34,20 +33,20 @@ import { Logo } from '../shared/logo';
 
           <nav aria-labelledby="pie-navegacion">
             <p id="pie-navegacion" class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Navegación</p>
-            <ul class="space-y-2.5 text-sm text-muted">
+            <ul class="space-y-0.5 text-sm text-muted">
               @for (link of links; track link.id) {
-                <li><a routerLink="/" [fragment]="link.id" class="transition-colors hover:text-forest-700">{{ link.label }}</a></li>
+                <li><a routerLink="/" [fragment]="link.id" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">{{ link.label }}</a></li>
               }
             </ul>
           </nav>
 
           <nav aria-labelledby="pie-programas">
             <p id="pie-programas" class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Programas</p>
-            <ul class="space-y-2.5 text-sm text-muted">
-              <li><a routerLink="/" fragment="espacio-kids" class="transition-colors hover:text-forest-700">Metamorfosis Kids</a></li>
-              <li><a routerLink="/" fragment="sobre-mi" class="transition-colors hover:text-forest-700">Terapia individual</a></li>
+            <ul class="space-y-0.5 text-sm text-muted">
+              <li><a routerLink="/" fragment="espacio-kids" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">Vital Kids</a></li>
+              <li><a routerLink="/" fragment="sobre-mi" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">Atención psicológica</a></li>
               @for (edition of retreats; track edition.id) {
-                <li><a routerLink="/" fragment="proximas-fechas" class="transition-colors hover:text-forest-700">{{ edition.name }}</a></li>
+                <li><a routerLink="/" fragment="proximas-fechas" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">{{ edition.name }}</a></li>
               }
             </ul>
           </nav>
@@ -64,9 +63,9 @@ import { Logo } from '../shared/logo';
 
         <div class="flex flex-col items-center justify-between gap-4 pt-8 text-xs text-muted sm:flex-row">
           <p>© {{ year }} {{ site.name }} · {{ site.therapist }}. Todos los derechos reservados.</p>
-          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            <a routerLink="/privacidad" class="transition-colors hover:text-forest-700">Política de privacidad</a>
-            <a routerLink="/terminos" class="transition-colors hover:text-forest-700">Términos y condiciones</a>
+          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-0 [&_a]:py-3 sm:[&_a]:py-0">
+            <a routerLink="/privacidad" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">Política de privacidad</a>
+            <a routerLink="/terminos" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">Términos y condiciones</a>
             <span>Hecho por <span class="font-bold text-ink">digitalithings</span></span>
           </div>
         </div>
@@ -81,10 +80,10 @@ export class Footer {
   protected readonly whatsapp = whatsappLink(`Hola ${SITE.therapistShort}, me gustaría recibir información.`);
   protected readonly links = [
     { id: 'sobre-mi', label: 'Sobre mí' },
-    { id: 'retiro', label: 'Retiro Metamorfosis' },
+    { id: 'retiro', label: 'Actividades Metamorfosis' },
     { id: 'galeria', label: 'Galería' },
     { id: 'testimonios', label: 'Testimonios' },
-    { id: 'preguntas', label: 'Preguntas frecuentes' },
     { id: 'contacto', label: 'Contacto' },
+    { id: 'preguntas', label: 'Preguntas frecuentes' },
   ];
 }

@@ -18,7 +18,7 @@ import { Reveal } from '../../shared/reveal.directive';
             <h2 appReveal="60" class="heading-lg mt-4">Aprender a sentir, <span class="em-brand">jugando.</span></h2>
           </div>
           <p appReveal="100" class="lead lg:col-span-5 lg:col-start-8">
-            A través del juego terapéutico promovemos el aprendizaje, la expresión y regulación emocional, y el desarrollo de habilidades sociales. Trabajamos en conjunto con el equipo de psicopedagogía para favorecer el desarrollo integral de cada niño.
+            A través del juego terapéutico promovemos el aprendizaje, la expresión , la regulación emocional, y el desarrollo de habilidades sociales. Trabajamos en conjunto con el equipo de psicopedagogía para favorecer el desarrollo integral de cada niño.
           </p>
         </header>
 
@@ -36,7 +36,7 @@ import { Reveal } from '../../shared/reveal.directive';
               >
                 <!-- Sticker en la primera tarjeta -->
                 @if (i === 0) {
-                  <div class="absolute top-4 right-4 z-20 rotate-[5deg] rounded-full bg-accent px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-widest text-forest-900 shadow-soft">
+                  <div class="absolute top-4 right-4 z-20 rotate-[5deg] rounded-full bg-accent px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-widest text-forest-900 shadow-soft">
                     6 actividades ✦
                   </div>
                 }
@@ -58,7 +58,7 @@ import { Reveal } from '../../shared/reveal.directive';
 
                 <!-- Franja de color sólida abajo (no gradiente negro genérico) -->
                 <div class="absolute inset-x-0 bottom-0 z-10" [class]="i === 0 ? 'bg-forest-900/90 px-5 py-4' : 'bg-forest-500/90 px-5 py-4'">
-                  <p class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em]" [class]="i === 0 ? 'text-accent' : 'text-white/70'">
+                  <p class="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em]" [class]="i === 0 ? 'text-accent' : 'text-white/70'">
                     <app-icon [name]="program.icon" [size]="14" /> {{ program.tag }}
                   </p>
                   <h3 class="mt-1 font-semibold text-white" [class]="i === 0 ? 'text-xl md:text-2xl' : 'text-lg'">{{ program.title }}</h3>
@@ -71,7 +71,7 @@ import { Reveal } from '../../shared/reveal.directive';
               <!-- Tarjetas pequeñas: polaroid rotado, sale del flujo, efecto "fotos regadas" -->
               <article
                 [appReveal]="(i - 3) * 80"
-                class="group relative overflow-hidden rounded-2xl bg-white p-2 shadow-lift transition-all duration-300 hover:shadow-2xl"
+                class="group relative overflow-hidden rounded-2xl bg-white p-2 shadow-lift transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:shadow-2xl"
                 [class]="smallLayout[i - 3]"
                 [style]="smallRotate[i - 3]"
               >
@@ -88,7 +88,7 @@ import { Reveal } from '../../shared/reveal.directive';
                 />
                 <!-- Pie de foto estilo galería -->
                 <div class="px-1 pt-2 pb-0.5">
-                  <p class="flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.14em] text-forest-500">
+                  <p class="flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.14em] text-forest-500">
                     <app-icon [name]="program.icon" [size]="12" /> {{ program.tag }}
                   </p>
                   <p class="mt-0.5 text-sm font-semibold text-ink leading-tight">{{ program.title }}</p>

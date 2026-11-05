@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { IMG, srcset } from '../../core/content';
+import { IMG, METAMORFOSIS_TESTIMONIALS, srcset } from '../../core/content';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
 
-// Retiro Metamorfosis: sección oscura de ancho completo (contraste de ritmo con el resto de la página).
+// Actividades Metamorfosis: sección oscura de ancho completo (contraste de ritmo con el resto de la página).
 @Component({
   selector: 'app-retreat',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,7 +61,7 @@ import { Reveal } from '../../shared/reveal.directive';
                 [src]="img.retreat"
                 [attr.srcset]="srcset(img.retreat)"
                 sizes="(min-width: 1024px) 30vw, 60vw"
-                alt="Grupo de mujeres en el Retiro Metamorfosis"
+                alt="Grupo de mujeres en las actividades Metamorfosis"
                 width="640"
                 height="480"
                 loading="lazy"
@@ -96,6 +96,27 @@ import { Reveal } from '../../shared/reveal.directive';
             </li>
           }
         </ol>
+
+        <!-- Experiencias de las participantes, justo debajo de las actividades -->
+        <div class="mt-16 border-t border-white/15 pt-12">
+          <p appReveal class="eyebrow text-accent">Lo que dicen nuestras participantes</p>
+          <h3 appReveal="60" class="heading-lg mt-3">Experiencias <span class="font-semibold text-accent">reales</span> en Metamorfosis</h3>
+          <ul class="mt-8 grid gap-5 md:grid-cols-3">
+            @for (t of testimonials; track t.name; let i = $index) {
+              <li [appReveal]="i * 80" class="flex flex-col rounded-2xl border border-white/15 bg-white/10 p-5 sm:p-6">
+                <app-icon name="quote" [size]="28" class="text-accent" />
+                <blockquote class="mt-3 flex-1 text-sm leading-relaxed text-white/90 sm:text-[0.938rem]">{{ t.quote }}</blockquote>
+                <figcaption class="mt-5 flex items-center gap-3 border-t border-white/15 pt-4">
+                  <span class="flex size-9 items-center justify-center rounded-full bg-accent font-display text-sm font-bold text-forest-900">{{ t.name[0] }}</span>
+                  <span>
+                    <span class="block text-sm font-bold">{{ t.name }}</span>
+                    <span class="block text-xs text-white/70">{{ t.detail }}</span>
+                  </span>
+                </figcaption>
+              </li>
+            }
+          </ul>
+        </div>
       </div>
     </section>
   `,
@@ -103,6 +124,7 @@ import { Reveal } from '../../shared/reveal.directive';
 export class Retreat {
   protected readonly img = IMG;
   protected readonly srcset = srcset;
+  protected readonly testimonials = METAMORFOSIS_TESTIMONIALS;
   protected readonly ticker = [
     'Amistad',
     'Aventuras',
@@ -112,12 +134,12 @@ export class Retreat {
     'Experiencias',
   ];
   protected readonly includes = [
-    { icon: 'leaf', label: 'Cine y salidas recreativas' },
-    { icon: 'waves', label: 'Camping y aventuras al aire libre' },
-    { icon: 'utensils', label: 'Talleres y actividades creativas' },
-    { icon: 'notebook', label: 'Juegos, competencias y deportes' },
-    { icon: 'notebook', label: 'Fiestas temáticas y disfraces' },
-    { icon: 'notebook', label: 'Paseos turísticos y nuevas experiencias' },
+    { icon: 'film', label: 'Cine y salidas recreativas' },
+    { icon: 'tent', label: 'Camping y aventuras al aire libre' },
+    { icon: 'palette', label: 'Talleres y actividades creativas' },
+    { icon: 'trophy', label: 'Juegos, competencias y deportes' },
+    { icon: 'mask', label: 'Fiestas temáticas y disfraces' },
+    { icon: 'compass', label: 'Paseos turísticos y nuevas experiencias' },
   ];
   protected readonly pillars = [
     {

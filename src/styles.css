@@ -1,11 +1,10 @@
 @import 'tailwindcss';
 
 /*
- * Sistema de diseño de EspacioVital (rediseño con la skill design-taste-frontend).
+ * Sistema de diseño de EspacioVital — Paleta «Metamorfosis».
  *
- * Paleta «bosque»: verde profundo del logo + piedra fría + UN solo acento naranja.
- *   - Verdes: estructura, texto y secciones oscuras.
- *   - Ámbar: solo acciones principales y detalles destacados (nunca otro color de acento).
+ * Colores principales: Rosado #F9B6C8 · Naranja #FF7A3D
+ * Colores complemento: Fuchsia #C7237A · Burgundy #6A0D2F
  * Tipografía: Outfit (títulos) + Plus Jakarta Sans (texto), alojadas en el sitio.
  * Bordes (regla única): botones y chips en píldora · tarjetas, imágenes y paneles 24 px ·
  *   campos 12 px · la foto principal usa el arco del logo (excepción de marca).
@@ -25,17 +24,17 @@
   --color-forest-100: var(--ev-forest-100);
   --color-forest-500: var(--ev-forest-500);
   --color-forest-700: var(--ev-forest-700);
-  --color-forest-800: #881048;
-  --color-forest-900: #560b31;
+  --color-forest-800: #9c1d64;
+  --color-forest-900: #6A0D2F;
 
-  --color-accent: #fd761a;
-  --color-accent-hover: #ff8a3a;
+  --color-accent: #FF7A3D;
+  --color-accent-hover: #ff8f56;
   --color-accent-ink: var(--ev-accent-ink);
 
-  --shadow-soft: 0 1px 2px rgb(86 11 49 / 0.05), 0 10px 30px -18px rgb(86 11 49 / 0.2);
-  --shadow-lift: 0 2px 6px rgb(86 11 49 / 0.06), 0 30px 60px -28px rgb(86 11 49 / 0.35);
+  --shadow-soft: 0 1px 2px rgb(106 13 47 / 0.05), 0 10px 30px -18px rgb(106 13 47 / 0.2);
+  --shadow-lift: 0 2px 6px rgb(106 13 47 / 0.06), 0 30px 60px -28px rgb(106 13 47 / 0.35);
 
-  --animate-fade-up: fade-up 600ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-fade-up: fade-up 500ms cubic-bezier(0.23, 1, 0.32, 1) both;
   --animate-fade-in: fade-in 250ms ease-out both;
 }
 
@@ -55,36 +54,36 @@
   to   { transform: translateX(-50%) }
 }
 
-/* Claro: fúcsia + naranja. Todos los textos cumplen WCAG AA. */
+/* Claro: fuchsia + naranja Metamorfosis. Todos los textos cumplen WCAG AA. */
 :root {
   color-scheme: light;
-  --ev-background: #fafafa;
+  --ev-background: #fff5f8;
   --ev-surface: #ffffff;
-  --ev-surface-muted: #fce7f3;
-  --ev-line: #f8bbd9;
-  --ev-ink: #1a0810;
-  --ev-muted: #76354f;
-  --ev-forest-50: #fce7f3;
-  --ev-forest-100: #fbd3e9;
-  --ev-forest-500: #c2185b;
-  --ev-forest-700: #ad1457;
+  --ev-surface-muted: #fde8ef;
+  --ev-line: #F9B6C8;
+  --ev-ink: #3a0518;
+  --ev-muted: #7a2a4a;
+  --ev-forest-50: #fde8ef;
+  --ev-forest-100: #F9B6C8;
+  --ev-forest-500: #C7237A;
+  --ev-forest-700: #C7237A;
   --ev-accent-ink: #b04500;
 }
 
-/* Oscuro (según el sistema): fúcsia noche. */
+/* Oscuro (según el sistema): Metamorfosis noche. */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
-    --ev-background: #1a0810;
-    --ev-surface: #240d18;
-    --ev-surface-muted: #2e1220;
-    --ev-line: #451d33;
-    --ev-ink: #fce7f3;
-    --ev-muted: #d088a8;
-    --ev-forest-50: #2e1220;
-    --ev-forest-100: #3d1a2c;
-    --ev-forest-500: #e87ab0;
-    --ev-forest-700: #f0a8c8;
+    --ev-background: #1f0415;
+    --ev-surface: #2d0820;
+    --ev-surface-muted: #3a0d2a;
+    --ev-line: #5c1a40;
+    --ev-ink: #fde8ef;
+    --ev-muted: #e090b0;
+    --ev-forest-50: #3a0d2a;
+    --ev-forest-100: #4d1538;
+    --ev-forest-500: #f07ab0;
+    --ev-forest-700: #F9B6C8;
     --ev-accent-ink: #ff9a5c;
   }
 }
@@ -158,12 +157,27 @@
 @utility card {
   @apply rounded-3xl border border-line bg-surface shadow-soft;
 }
+/* Tarjeta clara fija (formularios): fondo blanco también con el tema oscuro del sistema. */
+@utility card-light {
+  color-scheme: light;
+  --ev-surface: #ffffff;
+  --ev-background: #fff5f8;
+  --ev-line: #F9B6C8;
+  --ev-ink: #3a0518;
+  --ev-muted: #7a2a4a;
+  --ev-forest-50: #fde8ef;
+  --ev-forest-100: #F9B6C8;
+  --ev-forest-500: #C7237A;
+  --ev-forest-700: #C7237A;
+  --ev-accent-ink: #b04500;
+  @apply bg-white text-ink;
+}
 @utility chip {
   @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-semibold text-ink;
 }
 @utility btn {
-  @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-7 text-sm font-bold whitespace-nowrap
-    transition-all duration-200 ease-out select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-full px-7 text-sm font-bold sm:whitespace-nowrap
+    transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] select-none text-center active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
 }
 /* Acción principal: el único acento (naranja) con texto verde noche (contraste > 5:1). */
 @utility btn-primary {
@@ -180,7 +194,7 @@
 }
 @utility icon-btn {
   @apply inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-line bg-surface text-forest-700
-    transition-all duration-200 hover:border-forest-500 active:scale-95;
+    transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-forest-500 active:scale-95;
 }
 @utility input {
   @apply w-full rounded-xl border-[1.5px] border-line bg-surface px-4 py-3 text-ink outline-none
@@ -204,10 +218,10 @@
  * Solo se oculta si hay JavaScript (clase .js en <html>): sin él, o para buscadores, todo se ve. */
 .js .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(10px);
   transition:
-    opacity 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    opacity 420ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 420ms cubic-bezier(0.23, 1, 0.32, 1);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .js .reveal.is-visible {

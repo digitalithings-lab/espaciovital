@@ -9,11 +9,11 @@ import { Logo } from '../shared/logo';
 
 const NAV = [
   { id: 'sobre-mi', label: 'Sobre mí' },
-  { id: 'retiro', label: 'Retiro' },
-  { id: 'espacio-kids', label: 'Kids' },
+  { id: 'retiro', label: 'Actividades' },
+  { id: 'espacio-kids', label: 'Vital Kids' },
   { id: 'proximas-fechas', label: 'Fechas' },
-  { id: 'preguntas', label: 'Preguntas' },
   { id: 'contacto', label: 'Contacto' },
+  { id: 'preguntas', label: 'Preguntas' },
 ];
 
 @Component({

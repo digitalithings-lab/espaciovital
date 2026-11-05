@@ -1,14 +1,17 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   inject,
   OnInit,
+  computed,
   signal,
   viewChild,
 } from '@angular/core';
-import { RETREATS } from '../../core/content';
-import { RetreatEdition } from '../../core/models';
+import { ACTIVITIES, RETREATS } from '../../core/content';
+import { Activity, RetreatEdition } from '../../core/models';
 import { RetreatService } from '../../core/retreat.service';
 import { SITE, whatsappLink } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
@@ -49,12 +52,12 @@ function dateRange(start: string, end: string): string {
           </div>
 
           <!-- Botones de flecha para escritorio y tablet -->
-          @if (editions().length > 1) {
-            <div class="hidden sm:flex items-center gap-3">
+          @if (total() > 1) {
+            <div class="hidden items-center gap-3 sm:flex">
               <button
                 type="button"
                 (click)="scrollPrev()"
-                class="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-foreground shadow-soft transition-all hover:border-forest-500 hover:text-forest-600 hover:scale-105 active:scale-95"
+                class="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-foreground shadow-soft transition-[transform,box-shadow,background-color,border-color,color,opacity] hover:border-forest-500 hover:text-forest-600 hover:scale-105 active:scale-95"
                 aria-label="Viaje anterior"
               >
                 <app-icon name="chevronLeft" [size]="20" />
@@ -62,7 +65,7 @@ function dateRange(start: string, end: string): string {
               <button
                 type="button"
                 (click)="scrollNext()"
-                class="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-foreground shadow-soft transition-all hover:border-forest-500 hover:text-forest-600 hover:scale-105 active:scale-95"
+                class="flex size-11 items-center justify-center rounded-full border border-line bg-surface text-foreground shadow-soft transition-[transform,box-shadow,background-color,border-color,color,opacity] hover:border-forest-500 hover:text-forest-600 hover:scale-105 active:scale-95"
                 aria-label="Siguiente viaje"
               >
                 <app-icon name="chevronRight" [size]="20" />
@@ -71,7 +74,7 @@ function dateRange(start: string, end: string): string {
           }
         </header>
 
-        @if (editions().length === 0) {
+        @if (total() === 0) {
           <div class="mt-12 border-t border-line pt-10">
             <p class="font-display text-2xl font-medium">Muy pronto, nuevas fechas.</p>
             <p class="mt-2 text-muted">Escríbeme y te aviso en cuanto abramos la próxima edición.</p>
@@ -85,20 +88,26 @@ function dateRange(start: string, end: string): string {
             <div
               #carousel
               (scroll)="onScroll($event)"
-              class="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-3 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:mx-0 lg:px-0 snap-x snap-mandatory scroll-smooth no-scrollbar"
+              (mouseenter)="hovering = true"
+              (mouseleave)="hovering = false"
+              (focusin)="hovering = true"
+              (focusout)="hovering = false"
+              (pointerdown)="pause()"
+              (wheel)="pause()"
+              class="flex gap-4 sm:gap-6 overflow-x-auto pb-6 pt-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-3 lg:px-3 snap-x snap-mandatory scroll-smooth no-scrollbar"
               tabindex="0"
               role="region"
-              aria-label="Carrusel de viajes 2027"
+              aria-label="Carrusel de viajes y actividades"
             >
               @for (e of editions(); track e.id; let i = $index) {
                 <article
                   [appReveal]="i * 50"
-                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-3xl p-5 sm:p-6 md:p-7 transition-all duration-300 hover:-translate-y-1.5"
+                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-3xl p-5 sm:p-6 md:p-7 transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5"
                   [class]="e.featured ? 'bg-forest-900 text-white shadow-lift ring-1 ring-white/10' : 'border border-line bg-surface shadow-soft hover:shadow-lift'"
                 >
                   <!-- Badge flotante para la tarjeta destacada -->
                   @if (e.featured) {
-                    <div class="absolute -top-3.5 -right-2 rotate-[6deg] rounded-full bg-accent px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-forest-900 shadow-soft">
+                    <div class="absolute -top-3.5 right-3 rotate-[6deg] rounded-full bg-accent px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-wide text-forest-900 shadow-soft">
                       ⭐ Más solicitada
                     </div>
                   }
@@ -119,7 +128,7 @@ function dateRange(start: string, end: string): string {
                           class="rounded-full px-3 py-1 text-xs font-extrabold tracking-tight"
                           [class]="e.featured ? 'bg-accent/20 text-accent ring-1 ring-accent/30' : 'bg-surface-muted text-ink border border-line'"
                         >
-                          \${{ e.price }} <span class="text-[10px] font-medium opacity-80">p/p</span>
+                          \${{ e.price }} <span class="text-[11px] font-medium opacity-80">p/p</span>
                         </span>
                       }
                     </div>
@@ -139,7 +148,7 @@ function dateRange(start: string, end: string): string {
                       [class]="e.featured ? 'bg-white/5 border border-white/10' : 'bg-surface-muted/60 border border-line/60'"
                     >
                       <div>
-                        <dt class="text-[11px] font-medium uppercase tracking-wider" [class]="e.featured ? 'text-white/60' : 'text-muted'">
+                        <dt class="text-xs font-medium uppercase tracking-wider" [class]="e.featured ? 'text-white/60' : 'text-muted'">
                           Fecha
                         </dt>
                         <dd class="mt-1 font-semibold leading-tight">
@@ -147,7 +156,7 @@ function dateRange(start: string, end: string): string {
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-[11px] font-medium uppercase tracking-wider" [class]="e.featured ? 'text-white/60' : 'text-muted'">
+                        <dt class="text-xs font-medium uppercase tracking-wider" [class]="e.featured ? 'text-white/60' : 'text-muted'">
                           Reserva
                         </dt>
                         <dd class="mt-1 font-semibold leading-tight" [class.text-accent]="e.featured">
@@ -158,7 +167,7 @@ function dateRange(start: string, end: string): string {
 
                     <!-- Lista de inclusiones -->
                     <div class="mt-4 sm:mt-5">
-                      <p class="text-[11px] font-bold uppercase tracking-wider mb-2.5" [class]="e.featured ? 'text-white/50' : 'text-muted'">
+                      <p class="text-xs font-bold uppercase tracking-wider mb-2.5" [class]="e.featured ? 'text-white/50' : 'text-muted'">
                         Qué incluye:
                       </p>
                       <ul class="space-y-2 text-xs sm:text-sm" [class]="e.featured ? 'text-white/85' : 'text-foreground/90'">
@@ -187,25 +196,74 @@ function dateRange(start: string, end: string): string {
                   </div>
                 </article>
               }
+
+              <!-- Actividades sin fecha ni precio todavía -->
+              @for (a of activities; track a.id; let k = $index) {
+                <article
+                  [appReveal]="(editions().length + k) * 30"
+                  class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-3xl border border-line bg-surface p-5 sm:p-6 md:p-7 shadow-soft transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5 hover:shadow-lift"
+                >
+                  <div>
+                    <div class="flex items-center justify-between gap-2">
+                      <span class="inline-flex items-center gap-1.5 rounded-full bg-forest-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-forest-700">
+                        <app-icon [name]="a.icon" [size]="16" class="text-forest-500" />
+                        Actividad
+                      </span>
+                      <span class="rounded-full border border-line bg-surface-muted px-3 py-1 text-xs font-extrabold tracking-tight text-ink">Próximamente</span>
+                    </div>
+                    <h3 class="mt-4 sm:mt-5 font-display text-xl sm:text-2xl font-semibold tracking-tight leading-snug">{{ a.name }}</h3>
+                    <p class="mt-2.5 text-xs leading-relaxed text-muted sm:text-sm">{{ a.text }}</p>
+                    <dl class="mt-4 sm:mt-5 grid grid-cols-2 gap-3 rounded-2xl border border-line/60 bg-surface-muted/60 p-3.5 sm:p-4 text-xs sm:text-sm">
+                      <div>
+                        <dt class="text-xs font-medium uppercase tracking-wider text-muted">Fecha</dt>
+                        <dd class="mt-1 font-semibold leading-tight">Próximamente</dd>
+                      </div>
+                      <div>
+                        <dt class="text-xs font-medium uppercase tracking-wider text-muted">Precio</dt>
+                        <dd class="mt-1 font-semibold leading-tight">Próximamente</dd>
+                      </div>
+                    </dl>
+                  </div>
+                  <div class="mt-6 sm:mt-7 pt-2">
+                    <a [href]="info(a)" target="_blank" rel="noopener noreferrer" class="btn-dark flex w-full items-center justify-center gap-2 rounded-2xl px-4 py-3 text-xs font-semibold shadow-soft sm:text-sm">
+                      <app-icon name="whatsapp" [size]="18" /> Necesito más información
+                    </a>
+                  </div>
+                </article>
+              }
             </div>
 
             <!-- Indicadores de paginación (dots) e info para móvil -->
             <div class="mt-4 flex flex-col items-center gap-2 sm:hidden">
-              <div class="flex items-center justify-center gap-1.5 py-1">
-                @for (e of editions(); track e.id; let i = $index) {
+              <div class="flex flex-wrap items-center justify-center">
+                @for (i of dots(); track i) {
+                  <!-- Área táctil de 44 px; el punto visible sigue siendo pequeño. -->
                   <button
                     type="button"
                     (click)="scrollTo(i)"
-                    class="h-2 rounded-full transition-all duration-300"
-                    [class]="activeIndex() === i ? 'w-6 bg-accent' : 'w-2 bg-line hover:bg-muted'"
-                    [attr.aria-label]="'Ir al viaje ' + (i + 1)"
-                  ></button>
+                    class="group flex h-11 min-w-6 items-center justify-center px-1"
+                    [attr.aria-label]="'Ir a la tarjeta ' + (i + 1)"
+                    [attr.aria-current]="activeIndex() === i ? 'true' : null"
+                  >
+                    <span
+                      class="block h-2 rounded-full transition-[width,background-color] duration-300 ease-out"
+                      [class]="activeIndex() === i ? 'w-6 bg-accent' : 'w-2 bg-line group-hover:bg-muted'"
+                    ></span>
+                  </button>
                 }
               </div>
-              <p class="text-xs text-muted">Desliza para ver más viajes ➔</p>
+              <p class="text-xs text-muted">Desliza para ver más viajes y actividades ➔</p>
             </div>
           </div>
         }
+
+        <!-- Mensaje de cierre del calendario -->
+        <div appReveal class="mt-4 rounded-3xl border border-line bg-surface-muted/60 p-6 text-center sm:p-8">
+          <p class="font-display text-xl font-semibold sm:text-2xl">¡Tu próxima aventura comienza aquí!</p>
+          <p class="mx-auto mt-2 max-w-[62ch] text-sm leading-relaxed text-muted sm:text-base">
+            En Metamorfosis puedes llegar sola y encontrar compañía para disfrutar de nuevas experiencias. Cada actividad es una oportunidad para divertirte, descubrir lugares, probar cosas diferentes y crear amistades. ¡No necesitas conocer a nadie para formar parte!
+          </p>
+        </div>
 
         <footer class="mt-6 sm:mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-t border-line/60 pt-6 text-xs sm:text-sm text-muted">
           <p class="max-w-[70ch]">
@@ -226,6 +284,35 @@ function dateRange(start: string, end: string): string {
   `,
 })
 export class Events implements OnInit {
+  /** Avance automático del carrusel: cada 4 s, se detiene al interactuar y vuelve al inicio al llegar al final. */
+  protected hovering = false;
+  private pausedUntil = 0;
+  private readonly destroyRef = inject(DestroyRef);
+
+  constructor() {
+    afterNextRender(() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const timer = window.setInterval(() => this.autoplay(), 4000);
+      this.destroyRef.onDestroy(() => window.clearInterval(timer));
+    });
+  }
+
+  protected pause(): void {
+    this.pausedUntil = Date.now() + 10_000;
+  }
+
+  private autoplay(): void {
+    const el = this.carouselEl()?.nativeElement;
+    if (!el || this.hovering || Date.now() < this.pausedUntil || document.hidden) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) return; // fuera de pantalla
+    const card = el.firstElementChild as HTMLElement | null;
+    if (!card) return;
+    const step = card.offsetWidth + (parseFloat(getComputedStyle(el).columnGap) || 16);
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+    el.scrollTo({ left: atEnd ? 0 : el.scrollLeft + step, behavior: 'smooth' });
+  }
+
   private readonly retreatService = inject(RetreatService);
   private readonly carouselEl = viewChild<ElementRef<HTMLElement>>('carousel');
 
@@ -236,6 +323,12 @@ export class Events implements OnInit {
   protected readonly editions = signal<RetreatEdition[]>(
     RETREATS.filter((e) => e.startDate.startsWith('2027')),
   );
+
+  /** Viajes con fecha + actividades sin fecha, todos en el mismo carrusel. */
+  protected readonly total = computed(() => this.editions().length + ACTIVITIES.length);
+  protected readonly dots = computed(() => Array.from({ length: this.total() }, (_, i) => i));
+
+  protected readonly activities = ACTIVITIES;
 
   protected readonly activeIndex = signal(0);
 
@@ -252,10 +345,11 @@ export class Events implements OnInit {
     const cardWidth = el.firstElementChild?.clientWidth || 340;
     const gap = 16;
     const index = Math.round(el.scrollLeft / (cardWidth + gap));
-    this.activeIndex.set(Math.min(Math.max(index, 0), this.editions().length - 1));
+    this.activeIndex.set(Math.min(Math.max(index, 0), this.total() - 1));
   }
 
   protected scrollTo(index: number): void {
+    this.pause();
     const el = this.carouselEl()?.nativeElement;
     if (!el) return;
     const card = el.children[index] as HTMLElement;
@@ -265,15 +359,21 @@ export class Events implements OnInit {
   }
 
   protected scrollPrev(): void {
+    this.pause();
     const el = this.carouselEl()?.nativeElement;
     if (!el) return;
     el.scrollBy({ left: -(el.clientWidth * 0.75), behavior: 'smooth' });
   }
 
   protected scrollNext(): void {
+    this.pause();
     const el = this.carouselEl()?.nativeElement;
     if (!el) return;
     el.scrollBy({ left: el.clientWidth * 0.75, behavior: 'smooth' });
+  }
+
+  protected info(a: Activity): string {
+    return whatsappLink(`Hola ${SITE.therapist}, necesito más información sobre la actividad «${a.name}» de Metamorfosis.`);
   }
 
   protected range(e: RetreatEdition): string {

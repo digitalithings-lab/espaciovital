@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="EspacioVital">
   <title>EspacioVital</title>
-  <path d="M26 102 V58 A34 34 0 0 1 94 58 V102" fill="none" stroke="#ad1457" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="60" cy="50" r="9" fill="#c2185b"/>
-    <path d="M60 100 C42 97 33 80 41 66 C53 71 60 84 60 100 Z" fill="#fd761a"/>
-    <path d="M60 100 C78 97 87 80 79 66 C67 71 60 84 60 100 Z" fill="#ea580c"/>
+  <path d="M26 102 V58 A34 34 0 0 1 94 58 V102" fill="none" stroke="#C7237A" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="60" cy="50" r="9" fill="#F9B6C8"/>
+    <path d="M60 100 C42 97 33 80 41 66 C53 71 60 84 60 100 Z" fill="#FF7A3D"/>
+    <path d="M60 100 C78 97 87 80 79 66 C67 71 60 84 60 100 Z" fill="#FF7A3D"/>
 </svg>

@@ -15,44 +15,45 @@ import { Icon } from '../../shared/icon';
       <!-- Panel fúcsia sólido detrás de la foto. -->
       <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] bg-forest-500 lg:block" aria-hidden="true"></div>
 
-      <div class="page relative grid items-center gap-12 pt-12 pb-16 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-8 lg:pb-12">
+      <div class="page relative grid items-center gap-10 pt-8 pb-14 sm:pt-12 lg:min-h-[calc(100dvh-72px)] lg:grid-cols-12 lg:gap-8 lg:pt-8 lg:pb-12">
         <div class="animate-fade-up lg:col-span-6">
-          <p class="eyebrow mb-6">Psicología en La Chorrera · Presencial y en línea para todo Panamá</p>
-          <h1 class="font-display text-5xl leading-[1.02] font-bold tracking-tight text-ink md:text-6xl lg:text-7xl">
+          <p class="eyebrow mb-6">Psicología presencial en La Chorrera y en línea para todo Panamá</p>
+          <h1 class="font-display text-[2.5rem] leading-[1.05] font-bold tracking-tight text-ink min-[400px]:text-5xl md:text-6xl lg:text-7xl">
             Bienvenido/a a tu espacio de<br>
             <span class="text-forest-500 italic">Bienestar y Sanación.</span>
           </h1>
           <p class="lead mt-7 max-w-[48ch]">
-            Atención psicológica, terapia individual y de pareja presencial en La Chorrera (Panamá Oeste) y virtual en todo Panamá. Dar el primer paso también es una forma de priorizarte.
+          Atención psicológica individual y de pareja en modalidad virtual y presencial en Panamá Oeste (La Chorrera). Dar el primer paso en también es una forma de priorizarte.
+
           </p>
-          <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-            <a routerLink="/agendar" class="btn-primary h-14 px-8 text-base">
+          <div class="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
+            <a routerLink="/agendar" class="btn-primary min-h-14 px-8 text-base">
               Agendar cita <app-icon name="arrowRight" [size]="18" />
             </a>
-            <a routerLink="/" fragment="retiro" class="btn-outline h-14 px-7 text-base">Conocer el retiro</a>
+            <a routerLink="/" fragment="retiro" class="btn-outline min-h-14 px-7 py-3 text-base">Conocer actividades Metamorfosis</a>
           </div>
         </div>
 
-        <div class="relative mx-auto w-full max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:max-w-none">
+        <div class="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:col-span-5 lg:col-start-8 lg:max-w-none">
           <!-- Mini foto flotante del retiro, fuera del arco, en el panel fúcsia -->
           <div class="absolute -top-8 right-4 z-10 hidden rotate-[3deg] overflow-hidden rounded-2xl bg-white p-1.5 shadow-lift lg:block" style="width: 120px;">
             <img
               src="/img/fotos/retiro-playa-ronda-640.webp"
-              alt="Retiro Metamorfosis en la playa"
+              alt="Actividades Metamorfosis en la playa"
               width="640"
               height="480"
               loading="lazy"
               decoding="async"
               class="aspect-[4/3] w-full rounded-xl object-cover"
             />
-            <p class="pt-1 pb-0.5 text-center text-[9px] font-bold uppercase tracking-widest text-forest-700">Metamorfosis</p>
+            <p class="pt-1 pb-0.5 text-center text-[11px] font-bold uppercase tracking-widest text-forest-700">Metamorfosis</p>
           </div>
 
           <!-- Foto sobre el panel fúcsia: arco del logo. -->
           <figure class="relative overflow-visible">
             <!-- Badge flotante superior izquierdo, rotado -->
             <div class="absolute -top-5 -left-6 z-20 hidden rotate-[-6deg] rounded-2xl bg-white px-4 py-3 shadow-lift lg:block">
-              <p class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-muted">Psicóloga general</p>
+              <p class="text-[11px] font-extrabold uppercase tracking-[0.15em] text-muted">Psicóloga general</p>
               <p class="font-display text-lg font-bold text-forest-700">Idónea ✓</p>
             </div>
 
@@ -76,7 +77,7 @@ import { Icon } from '../../shared/icon';
 
             <!-- Badge flotante inferior derecho, rotado -->
             <div class="absolute -right-6 -bottom-5 z-20 hidden rotate-[4deg] rounded-2xl bg-accent px-4 py-3 shadow-lift lg:block">
-              <p class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-forest-900/70">Vidas acompañadas</p>
+              <p class="text-[11px] font-extrabold uppercase tracking-[0.15em] text-forest-900/70">Vidas acompañadas</p>
               <p class="font-display text-3xl font-bold text-forest-900">+1500</p>
             </div>
           </figure>
@@ -118,15 +119,15 @@ export class Hero {
   protected readonly site = SITE;
   protected readonly img = IMG;
   protected readonly trust = [
-    { icon: 'badgeCheck', value: 'Colegiada', label: 'Psicóloga general' },
+    { icon: 'badgeCheck', value: 'Idonea', label: 'Psicóloga general' },
     { icon: 'users', value: '+1500', label: 'Vidas acompañadas' },
     { icon: 'lock', value: '100 %', label: 'Confidencial' },
-    { icon: 'video', value: 'Presencial', label: 'y por videollamada' },
+    { icon: 'video', value: 'Presencial', label: 'y Virtual' },
   ];
   protected readonly ticker = [
     'Psicología General',
     'Atención individual',
-    'Retiro Metamorfosis',
+    'Actividades para Chicas',
     'Vital Kids',
     'Bienestar emocional',
     'Presencial en La Chorrera',
