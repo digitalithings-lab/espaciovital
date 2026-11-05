@@ -70,24 +70,6 @@
   --ev-accent-ink: #b04500;
 }
 
-/* Oscuro (según el sistema): Metamorfosis noche. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --ev-background: #1f0415;
-    --ev-surface: #2d0820;
-    --ev-surface-muted: #3a0d2a;
-    --ev-line: #5c1a40;
-    --ev-ink: #fde8ef;
-    --ev-muted: #e090b0;
-    --ev-forest-50: #3a0d2a;
-    --ev-forest-100: #4d1538;
-    --ev-forest-500: #f07ab0;
-    --ev-forest-700: #F9B6C8;
-    --ev-accent-ink: #ff9a5c;
-  }
-}
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -199,7 +181,7 @@
   @apply btn bg-accent text-forest-900 shadow-soft hover:-translate-y-0.5 hover:bg-accent-hover;
 }
 @utility btn-dark {
-  @apply btn bg-forest-900 text-white hover:-translate-y-0.5 hover:bg-forest-800 dark:bg-forest-100 dark:text-ink;
+  @apply btn bg-forest-900 text-white hover:-translate-y-0.5 hover:bg-forest-800;
 }
 @utility btn-outline {
   @apply btn border-[1.5px] border-ink/25 text-ink hover:border-ink hover:bg-surface;

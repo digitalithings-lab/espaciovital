@@ -26,7 +26,7 @@ const NAV = [
       <div class="page relative">
         <div
           class="flex h-14 items-center justify-between gap-3 rounded-full border py-1 pr-1.5 pl-5 transition-[background-color,border-color,box-shadow] duration-300"
-          [class]="open() ? 'border-line bg-surface shadow-lift' : scrolled() ? 'border-line bg-background/90 shadow-soft backdrop-blur-xl' : 'border-white/25 bg-background/85 backdrop-blur-md'"
+          [class]="open() ? 'border-line bg-surface shadow-lift' : scrolled() ? 'border-line bg-background/95 shadow-soft backdrop-blur-xl' : 'border-white/25 bg-background/95 backdrop-blur-md'"
         >
           <a routerLink="/" fragment="inicio" class="rounded-2xl" aria-label="EspacioVital, ir al inicio" (click)="close()">
             <app-logo [size]="36" />

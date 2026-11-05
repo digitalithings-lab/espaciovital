@@ -39,7 +39,6 @@ import { Icon } from '../../shared/icon';
 
         <div class="relative mx-auto w-full max-w-[20rem] sm:max-w-[24rem] lg:col-span-5 lg:max-w-none">
           <div class="pointer-events-none absolute -top-6 -right-4 z-0 size-28 rounded-full bg-accent sm:size-36" aria-hidden="true"></div>
-          <div class="pointer-events-none absolute bottom-10 -left-5 z-0 size-20 rotate-12 rounded-[100%_0_100%_0] bg-forest-100 sm:size-28" aria-hidden="true"></div>
 
           <figure class="relative z-10">
             <div class="relative overflow-hidden rounded-t-[999px] rounded-b-[2rem] shadow-lift">
