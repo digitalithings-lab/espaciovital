@@ -27,6 +27,8 @@ export interface BookingRequest {
   idNumber?: string;
   birthDate?: string;
   reason: string;
+  /** Cómo quiere la sesión: videollamada o presencial. */
+  modality: 'VIDEO' | 'IN_PERSON';
   consent: true;
   /** Campo trampa contra robots: siempre vacío. */
   website: string;

@@ -240,6 +240,29 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                     </div>
                   </div>
 
+                  <!-- Modalidad: virtual o presencial -->
+                  <fieldset class="space-y-3">
+                    <legend class="label">¿Cómo quieres tu cita?</legend>
+                    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2" role="radiogroup" aria-label="Modalidad de la cita" [attr.aria-invalid]="invalid('modality')">
+                      @for (opt of modalities; track opt.value) {
+                        <button
+                          type="button"
+                          role="radio"
+                          class="flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-[1.5px] px-4 py-3 text-left text-sm font-bold transition-[transform,background-color,border-color,color] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.97]"
+                          [class]="form.controls.modality.value === opt.value ? 'border-accent bg-accent text-forest-900 shadow-soft' : invalid('modality') ? 'border-accent-ink bg-surface' : 'border-line bg-surface hover:border-forest-500'"
+                          [attr.aria-checked]="form.controls.modality.value === opt.value"
+                          (click)="form.controls.modality.setValue(opt.value)"
+                        >
+                          <app-icon [name]="opt.icon" [size]="20" class="shrink-0" />
+                          <span>{{ opt.label }}<span class="block text-xs font-medium opacity-80">{{ opt.hint }}</span></span>
+                        </button>
+                      }
+                    </div>
+                    @if (invalid('modality')) {
+                      <p class="text-xs font-semibold text-accent-ink">Elige si quieres la cita virtual o presencial.</p>
+                    }
+                  </fieldset>
+
                   <!-- Frecuencia: solo esta cita, repetición automática o días elegidos a mano -->
                   <fieldset class="space-y-4 rounded-2xl border border-line bg-surface-muted/40 p-5">
                     <legend class="px-1 text-sm font-bold text-ink">¿Con qué frecuencia?</legend>
@@ -394,8 +417,14 @@ export class Agendar {
     reason: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(500)]],
     consent: [false, Validators.requiredTrue],
     website: [''],
+    modality: ['' as '' | 'VIDEO' | 'IN_PERSON', Validators.required],
     recurrenceCount: [4],
   });
+
+  protected readonly modalities: { value: 'VIDEO' | 'IN_PERSON'; label: string; hint: string; icon: string }[] = [
+    { value: 'VIDEO', label: 'Virtual', hint: 'Por videollamada, desde donde estés', icon: 'video' },
+    { value: 'IN_PERSON', label: 'Presencial', hint: 'En La Chorrera, Panamá Oeste', icon: 'mapPin' },
+  ];
 
   protected readonly frequencies: { value: Frequency; label: string; hint: string; icon: string }[] = [
     { value: 'single', label: 'Solo esta cita', hint: 'Una única sesión', icon: 'target' },
@@ -508,6 +537,7 @@ export class Agendar {
         idNumber: cleanText(v.idNumber, 30).toUpperCase() || undefined,
         birthDate: /^\d{4}-\d{2}-\d{2}$/.test(v.birthDate) && v.birthDate <= this.today ? v.birthDate : undefined,
         reason: cleanText(v.reason, 500, true),
+        modality: v.modality as 'VIDEO' | 'IN_PERSON',
         consent: true as const,
         website: v.website,
       };
