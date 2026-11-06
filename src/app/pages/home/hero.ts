@@ -23,7 +23,7 @@ import { Icon } from '../../shared/icon';
             <span class="mt-1 block font-semibold text-forest-100 italic">Bienestar y Sanación.</span>
           </h1>
           <p class="mt-7 max-w-[46ch] text-base leading-relaxed text-white/80 md:text-lg">
-            Atención psicológica individual y de pareja en modalidad virtual y presencial en Panamá Oeste (La Chorrera). Dar el primer paso en también es una forma de priorizarte.
+            Atención psicológica individual y de pareja, presencial en Panamá Oeste (La Chorrera) y virtual para todo Panamá. Dar el primer paso también es una forma de priorizarte.
           </p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a routerLink="/agendar" class="btn-primary min-h-14 px-8 text-base">

@@ -33,6 +33,10 @@ export interface BookingRequest {
   /** Campo trampa contra robots: siempre vacío. */
   website: string;
   recurrence?: { rule: 'weekly' | 'biweekly'; count: number };
+  /** Días elegidos a mano, además de la primera cita (una sola solicitud). */
+  extraStartsAt?: string[];
+  /** Código del CAPTCHA (Cloudflare Turnstile). */
+  captchaToken?: string;
 }
 
 export interface BookingResult {

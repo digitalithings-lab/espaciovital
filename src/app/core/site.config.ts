@@ -25,6 +25,8 @@ export const SITE = {
   booking: {
     apiUrl: 'https://florece-digitali3.vercel.app',
     slug: 'nathalie-vera',
+    /** Clave pública de Cloudflare Turnstile (CAPTCHA). Vacía = sin CAPTCHA. */
+    turnstileSiteKey: '0x4AAAAAAF2pLz5VDvfUeU67',
   },
 };
 

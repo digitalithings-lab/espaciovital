@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { BookingAgenda, bookingError, BookingResult, BookingService } from '../core/booking.service';
@@ -14,6 +14,34 @@ const LONG_DAY = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric'
 const MONTH = new Intl.DateTimeFormat('es', { month: 'short', timeZone: 'UTC' });
 
 const utcDate = (iso: string) => new Date(`${iso}T00:00:00Z`);
+
+interface TurnstileApi {
+  render(el: HTMLElement, options: Record<string, unknown>): string;
+  reset(widgetId: string): void;
+}
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi;
+  }
+}
+
+let turnstileLoading: Promise<TurnstileApi> | null = null;
+/** Carga el script de Cloudflare una sola vez. */
+function loadTurnstile(): Promise<TurnstileApi> {
+  turnstileLoading ??= new Promise((resolve, reject) => {
+    if (window.turnstile) return resolve(window.turnstile);
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.async = true;
+    script.onload = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error('turnstile')));
+    script.onerror = () => {
+      turnstileLoading = null;
+      reject(new Error('turnstile'));
+    };
+    document.head.appendChild(script);
+  });
+  return turnstileLoading;
+}
 
 type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
 
@@ -130,6 +158,13 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
             </aside>
 
             <div class="min-w-0 space-y-6 lg:col-span-8">
+              @if (taken()) {
+                <p class="flex animate-fade-up items-start gap-3 rounded-[1.5rem] bg-accent/20 px-5 py-4 text-sm font-semibold text-forest-900" role="alert">
+                  <app-icon name="clock" [size]="20" class="mt-0.5 shrink-0" />
+                  <span>{{ taken() }}</span>
+                </p>
+              }
+
               <!-- Paso 1: día y hora -->
               <div class="card p-6 md:p-8">
                 <h2 class="mb-1 text-lg font-bold">1. Elige el día</h2>
@@ -174,7 +209,7 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                           class="cursor-pointer rounded-full border-[1.5px] py-3 text-sm font-bold tabular-nums transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-200"
                           [class]="slot.startsAt === slotStart() ? 'border-accent bg-accent text-forest-900 shadow-soft' : 'border-line bg-surface hover:border-forest-500 hover:bg-forest-50'"
                           [attr.aria-checked]="slot.startsAt === slotStart()"
-                          (click)="slotStart.set(slot.startsAt)"
+                          (click)="chooseSlot(slot.startsAt)"
                         >
                           {{ slotTime(slot.startsAt) }}
                         </button>
@@ -368,6 +403,10 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                     <span>Acepto la <a routerLink="/privacidad" class="font-bold text-forest-700 underline-offset-4 hover:underline">política de privacidad</a> y que me contacten para confirmar la cita.</span>
                   </label>
 
+                  @if (captchaKey) {
+                    <div #captchaBox class="min-h-[65px]" aria-label="Verificación de seguridad"></div>
+                  }
+
                   @if (error()) {
                     <p class="rounded-xl bg-accent/15 px-4 py-3 text-sm font-semibold text-accent-ink" role="alert">{{ error() }}</p>
                   }
@@ -404,6 +443,14 @@ export class Agendar {
   protected readonly error = signal<string | null>(null);
   protected readonly result = signal<BookingResult | null>(null);
   private readonly submitted = signal(false);
+  // CAPTCHA (Cloudflare Turnstile): solo se muestra si el sitio tiene su clave pública configurada.
+  protected readonly captchaKey = SITE.booking.turnstileSiteKey;
+  protected readonly captchaToken = signal<string | null>(null);
+  protected readonly captchaFailed = signal(false);
+  private readonly captchaBox = viewChild<ElementRef<HTMLElement>>('captchaBox');
+  private captchaWidget: string | null = null;
+  /** Aviso cuando una hora que la persona eligió ya la tomó otra. */
+  protected readonly taken = signal<string | null>(null);
 
   protected readonly anySlots = computed(() => this.agenda()?.days.some((d) => d.slots.length > 0) ?? false);
   protected readonly selectedDay = computed(() => this.agenda()?.days[this.dayIndex()] ?? null);
@@ -460,6 +507,17 @@ export class Agendar {
   });
 
   constructor() {
+    // Dibuja el CAPTCHA cuando aparece el formulario (y lo quita cuando desaparece).
+    effect(() => {
+      const box = this.captchaBox()?.nativeElement;
+      if (!this.captchaKey || !box) {
+        this.captchaWidget = null;
+        this.captchaToken.set(null);
+        return;
+      }
+      void this.renderCaptcha(box);
+    });
+
     inject(SeoService).set({
       title: `Agendar cita con ${SITE.therapist} | ${SITE.name}`,
       description: `Agenda en línea tu sesión de psicología con ${SITE.therapist}. Elige el día y la hora libres que te queden mejor.`,
@@ -483,6 +541,51 @@ export class Agendar {
           : bookingError(err, 'No pudimos cargar los horarios.'),
       );
     }
+  }
+
+  /** Elige una hora y, enseguida, comprueba con el servidor que siga libre (otra persona pudo tomarla). */
+  protected async chooseSlot(startsAt: string) {
+    this.taken.set(null);
+    this.slotStart.set(startsAt);
+    const fresh = await this.booking.agenda(21).catch(() => null);
+    if (!fresh) return; // sin conexión: el servidor volverá a comprobarlo al confirmar
+    this.agenda.set(fresh);
+    if (this.slotStart() === startsAt && !this.isFree(fresh, startsAt)) {
+      this.slotStart.set(null);
+      this.taken.set('Esa hora acaba de ser tomada por otra persona. Elige otra, por favor.');
+    }
+  }
+
+  private isFree(agenda: BookingAgenda, startsAt: string) {
+    const t = new Date(startsAt).getTime();
+    return agenda.days.some((d) => d.slots.some((s) => new Date(s.startsAt).getTime() === t));
+  }
+
+  private async renderCaptcha(box: HTMLElement) {
+    try {
+      const turnstile = await loadTurnstile();
+      if (box.childElementCount > 0) return;
+      this.captchaFailed.set(false);
+      this.captchaWidget = turnstile.render(box, {
+        sitekey: this.captchaKey,
+        language: 'es',
+        theme: 'light',
+        callback: (token: string) => this.captchaToken.set(token),
+        'expired-callback': () => this.captchaToken.set(null),
+        'error-callback': () => {
+          this.captchaToken.set(null);
+          this.captchaFailed.set(true);
+        },
+      });
+    } catch {
+      this.captchaFailed.set(true);
+    }
+  }
+
+  /** El código del CAPTCHA se usa una sola vez: tras cada intento se pide uno nuevo. */
+  private resetCaptcha() {
+    this.captchaToken.set(null);
+    if (this.captchaWidget) window.turnstile?.reset(this.captchaWidget);
   }
 
   protected selectDay(i: number) {
@@ -524,11 +627,35 @@ export class Agendar {
     this.form.markAllAsTouched();
     const startsAt = this.slotStart();
     if (this.form.invalid || !startsAt) return;
+    if (this.captchaKey && !this.captchaToken()) {
+      this.error.set(this.captchaFailed() ? 'No pudimos cargar la verificación. Recarga la página e inténtalo de nuevo.' : 'Espera un momento a que termine la verificación y vuelve a enviar.');
+      return;
+    }
 
     const v = this.form.getRawValue();
     this.sending.set(true);
     this.error.set(null);
+    this.taken.set(null);
     try {
+      // Última comprobación antes de registrar: las horas elegidas deben seguir libres.
+      const fresh = await this.booking.agenda(21).catch(() => null);
+      if (fresh) {
+        this.agenda.set(fresh);
+        if (!this.isFree(fresh, startsAt)) {
+          this.slotStart.set(null);
+          this.taken.set('Esa hora acaba de ser tomada por otra persona. Elige otra, por favor.');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
+        const gone = this.manualList().filter((m) => !this.isFree(fresh, m.startsAt));
+        if (this.frequency() === 'manual' && gone.length > 0) {
+          const picks = { ...this.manualPicks() };
+          for (const g of gone) delete picks[g.date];
+          this.manualPicks.set(picks);
+          this.error.set('Alguna de las fechas que elegiste ya no está disponible. La quitamos de tu lista: revisa y confirma de nuevo.');
+          return;
+        }
+      }
       const freq = this.frequency();
       const base = {
         fullName: cleanText(v.fullName, 120),
@@ -541,45 +668,36 @@ export class Agendar {
         consent: true as const,
         website: v.website,
       };
-      const first = await this.booking.book({
+      const extra = freq === 'manual' ? this.manualList().map((m) => m.startsAt) : [];
+      const res = await this.booking.book({
         ...base,
         startsAt,
         recurrence:
           freq === 'weekly' || freq === 'biweekly'
             ? { rule: freq, count: Math.min(12, Math.max(2, Math.trunc(Number(v.recurrenceCount)) || 2)) }
             : undefined,
+        extraStartsAt: extra.length > 0 ? extra : undefined,
+        captchaToken: this.captchaToken() ?? undefined,
       });
-
-      if (freq === 'manual' && this.manualList().length > 0) {
-        // El servidor agenda una cita por solicitud: las demás fechas se piden una a una.
-        const done = [{ id: first.id, startsAt: first.startsAt, endsAt: first.endsAt, recurrenceIndex: 0 }];
-        let failed = 0;
-        for (const m of this.manualList()) {
-          try {
-            const r = await this.booking.book({ ...base, startsAt: m.startsAt });
-            done.push({ id: r.id, startsAt: r.startsAt, endsAt: r.endsAt, recurrenceIndex: done.length });
-          } catch {
-            failed++;
-          }
-        }
-        this.result.set({ ...first, recurring: true, count: done.length, appointments: done });
-        if (failed > 0) this.error.set(`${failed} de las fechas elegidas ya no estaban disponibles y no se reservaron.`);
-      } else {
-        this.result.set(first);
+      this.result.set(res);
+      // Si el servidor reservó menos fechas de las pedidas, se avisa cuáles faltaron.
+      if (extra.length > 0 && (res.count ?? 1) < extra.length + 1) {
+        this.error.set(`${extra.length + 1 - (res.count ?? 1)} de las fechas elegidas ya no estaban disponibles y no se reservaron.`);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       // Si alguien tomó esa hora un instante antes, se recargan los horarios para elegir otra.
       if (err instanceof HttpErrorResponse && err.status === 409) {
-        this.error.set(bookingError(err, 'Ese horario ya no está disponible.'));
+        // Otra persona se adelantó por un instante: se recargan los horarios para elegir otra hora.
+        this.taken.set(bookingError(err, 'Esa hora acaba de ser tomada por otra persona. Elige otra, por favor.'));
         const agenda = await this.booking.agenda(21).catch(() => null);
-        if (agenda) {
-          this.agenda.set(agenda);
-          this.slotStart.set(null);
-        }
+        if (agenda) this.agenda.set(agenda);
+        this.slotStart.set(null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         this.error.set(bookingError(err, 'No pudimos agendar tu cita. Inténtalo de nuevo.'));
       }
+      this.resetCaptcha();
     } finally {
       this.sending.set(false);
     }
