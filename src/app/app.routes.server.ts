@@ -7,5 +7,9 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'agendar', renderMode: RenderMode.Prerender },
   { path: 'privacidad', renderMode: RenderMode.Prerender },
   { path: 'terminos', renderMode: RenderMode.Prerender },
+  { path: 'psicologa-en-la-chorrera', renderMode: RenderMode.Prerender },
+  { path: 'terapia-de-pareja-panama-oeste', renderMode: RenderMode.Prerender },
+  { path: 'psicologia-virtual-panama', renderMode: RenderMode.Prerender },
+  { path: 'psicologia-infantil-la-chorrera', renderMode: RenderMode.Prerender },
   { path: '**', renderMode: RenderMode.Client },
 ];

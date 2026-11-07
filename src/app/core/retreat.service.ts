@@ -5,18 +5,23 @@ import { RETREATS } from './content';
 import { RetreatEdition } from './models';
 import { SITE } from './site.config';
 
+/** Solo lo que no terminó todavía, ordenado por fecha (hoy según la hora de Panamá). */
+export function upcoming(list: RetreatEdition[]): RetreatEdition[] {
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Panama', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+  return list.filter((e) => e.endDate >= today).sort((a, b) => a.startDate.localeCompare(b.startDate));
+}
+
 @Injectable({ providedIn: 'root' })
 export class RetreatService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${SITE.booking.apiUrl}/public/retreats`;
 
-  async get2027Retreats(): Promise<RetreatEdition[]> {
+  /** Fechas que todavía no pasaron, de la más cercana a la más lejana. */
+  async getUpcoming(): Promise<RetreatEdition[]> {
     try {
-      const data = await firstValueFrom(
-        this.http.get<any[]>(`${this.apiUrl}?year=2027`).pipe(timeout(4000)),
-      );
+      const data = await firstValueFrom(this.http.get<any[]>(this.apiUrl).pipe(timeout(4000)));
       if (Array.isArray(data) && data.length > 0) {
-        return data.map((r) => ({
+        const fromServer: RetreatEdition[] = data.map((r) => ({
           id: r.slug || r.id,
           name: r.name,
           setting: r.setting,
@@ -31,10 +36,11 @@ export class RetreatService {
           tone: (r.tone || 'leaf') as any,
           highlights: r.highlights || [],
         }));
+        return upcoming(fromServer);
       }
     } catch {
-      // Fallback a los datos locales
+      // Si el servidor no responde, se muestran las fechas guardadas en el sitio.
     }
-    return RETREATS.filter((e) => e.startDate.startsWith('2027'));
+    return upcoming(RETREATS);
   }
 }

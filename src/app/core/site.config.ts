@@ -12,6 +12,8 @@ export const SITE = {
   whatsapp: '+50765807290',
   email: 'contacto@espaciovitalpsic.site',
   instagram: 'https://www.instagram.com/espaciovitalpsic?srtk=cHQxMnhwNWp4bW10',
+  /** Perfil de TikTok (enlace completo). Vacío = la tarjeta de TikTok no muestra botón «Seguir». */
+  tiktok: '',
   country: 'Panamá',
   city: 'La Chorrera',
   region: 'Panamá Oeste',

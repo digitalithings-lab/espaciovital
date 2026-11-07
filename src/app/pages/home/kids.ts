@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { KIDS, srcset } from '../../core/content';
 import { Icon } from '../../shared/icon';
@@ -10,7 +10,7 @@ import { Reveal } from '../../shared/reveal.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, Icon, Reveal],
   template: `
-    <section id="espacio-kids" class="layer z-30 section-y bg-background">
+    <section id="espacio-kids" class="layer section-y" [class]="layerClass() + ' ' + tone()">
       <div class="page">
         <header class="grid gap-6 lg:grid-cols-12 lg:items-end">
           <div class="lg:col-span-7">
@@ -69,6 +69,9 @@ import { Reveal } from '../../shared/reveal.directive';
   `,
 })
 export class Kids {
+  /** Prioridad de capa y fondo: la portada usa los de siempre; otras páginas los cambian para encajar. */
+  readonly layerClass = input('z-30');
+  readonly tone = input('bg-background');
   protected readonly programs = KIDS;
   protected readonly srcset = srcset;
   // Bento asimétrico: la primera pieza es el arco del logo; el resto, esquinas orgánicas alternadas.

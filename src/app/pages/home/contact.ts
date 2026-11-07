@@ -7,11 +7,12 @@ import { cleanText, emailValidators, nameValidators, PHONE_PATTERN } from '../..
 import { SITE } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
+import { Socials } from './socials';
 
 @Component({
   selector: 'app-contact',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, RouterLink, Icon, Reveal],
+  imports: [ReactiveFormsModule, RouterLink, Icon, Reveal, Socials],
   template: `
     <section id="contacto" class="layer z-[52] section-y bg-forest-500 text-white">
       <div class="page grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -107,6 +108,9 @@ import { Reveal } from '../../shared/reveal.directive';
             </form>
           }
         </div>
+      </div>
+      <div class="page">
+        <app-socials />
       </div>
     </section>
   `,

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RETREATS } from '../core/content';
+import { SERVICE_PAGES } from '../core/services';
 import { SITE, whatsappLink } from '../core/site.config';
 import { Icon } from '../shared/icon';
 import { Logo } from '../shared/logo';
@@ -12,7 +13,7 @@ import { Logo } from '../shared/logo';
   template: `
     <footer class="layer z-[55] bg-surface-muted pt-20 pb-28 sm:pb-10">
       <div class="page">
-        <div class="grid gap-10 border-b border-line pb-12 md:grid-cols-2 lg:grid-cols-5">
+        <div class="grid gap-10 border-b border-line pb-12 md:grid-cols-2 lg:grid-cols-6">
           <div class="space-y-5 lg:col-span-2">
             <app-logo [size]="44" [tagline]="true" />
             <p class="max-w-sm text-sm leading-relaxed text-muted">
@@ -36,6 +37,15 @@ import { Logo } from '../shared/logo';
             <ul class="space-y-0.5 text-sm text-muted">
               @for (link of links; track link.id) {
                 <li><a routerLink="/" [fragment]="link.id" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">{{ link.label }}</a></li>
+              }
+            </ul>
+          </nav>
+
+          <nav aria-labelledby="pie-servicios">
+            <p id="pie-servicios" class="mb-4 text-xs font-extrabold tracking-[0.14em] uppercase">Servicios</p>
+            <ul class="space-y-0.5 text-sm text-muted">
+              @for (service of services; track service.slug) {
+                <li><a [routerLink]="'/' + service.slug" class="inline-block py-3 transition-colors hover:text-forest-700 sm:py-1">{{ service.navLabel }}</a></li>
               }
             </ul>
           </nav>
@@ -76,13 +86,14 @@ import { Logo } from '../shared/logo';
 export class Footer {
   protected readonly site = SITE;
   protected readonly retreats = RETREATS;
+  protected readonly services = SERVICE_PAGES;
   protected readonly year = new Date().getFullYear();
   protected readonly whatsapp = whatsappLink(`Hola ${SITE.therapistShort}, me gustaría recibir información.`);
   protected readonly links = [
     { id: 'sobre-mi', label: 'Sobre mí' },
+    { id: 'testimonios', label: 'Testimonios' },
     { id: 'retiro', label: 'Actividades Metamorfosis' },
     { id: 'galeria', label: 'Galería' },
-    { id: 'testimonios', label: 'Testimonios' },
     { id: 'contacto', label: 'Contacto' },
     { id: 'preguntas', label: 'Preguntas frecuentes' },
   ];

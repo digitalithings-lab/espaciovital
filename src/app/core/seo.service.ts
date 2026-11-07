@@ -64,6 +64,42 @@ export class SeoService {
     this.setJsonLd(page.jsonLd ?? []);
   }
 
+  /** Datos de eventos para Google, con las fechas que llegan de la base de datos. Solo eventos con lugar definido. */
+  setEvents(events: { name: string; startDate: string; endDate: string; place: string; price?: number; spotsLeft: number; highlights: string[] }[]) {
+    this.document.head.querySelectorAll('script[data-seo="events"]').forEach((el) => el.remove());
+    for (const r of events.filter((e) => e.place && e.place !== 'Lugar por confirmar')) {
+      const script = this.document.createElement('script');
+      script.type = 'application/ld+json';
+      script.setAttribute('data-seo', 'events');
+      script.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Event',
+        name: `Actividades Metamorfosis · ${r.name}`,
+        startDate: r.startDate,
+        endDate: r.endDate,
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        eventStatus: 'https://schema.org/EventScheduled',
+        location: { '@type': 'Place', name: r.place, address: { '@type': 'PostalAddress', addressCountry: 'PA' } },
+        organizer: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+        performer: { '@type': 'Person', name: SITE.therapist },
+        image: [`${SITE.url}/brand/redes-compartir-1200x630.png`],
+        ...(r.price !== undefined
+          ? {
+              offers: {
+                '@type': 'Offer',
+                url: `${SITE.url}/#retiro`,
+                price: String(r.price),
+                priceCurrency: 'USD',
+                availability: r.spotsLeft > 0 ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+              },
+            }
+          : {}),
+        description: r.highlights.join('. '),
+      });
+      this.document.head.appendChild(script);
+    }
+  }
+
   private setCanonical(url: string) {
     let link = this.document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
     if (!link) {

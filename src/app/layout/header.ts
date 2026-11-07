@@ -9,8 +9,8 @@ import { Logo } from '../shared/logo';
 
 const NAV = [
   { id: 'sobre-mi', label: 'Sobre mí' },
-  { id: 'retiro', label: 'Actividades' },
   { id: 'espacio-kids', label: 'Vital Kids' },
+  { id: 'retiro', label: 'Actividades' },
   { id: 'proximas-fechas', label: 'Fechas' },
   { id: 'contacto', label: 'Contacto' },
   { id: 'preguntas', label: 'Preguntas' },
@@ -22,7 +22,7 @@ const NAV = [
   imports: [RouterLink, Icon, Logo],
   host: { '(document:keydown.escape)': 'close()' },
   template: `
-    <header class="sticky top-0 z-50 flex h-[72px] items-center">
+    <header class="sticky top-0 z-[58] flex h-[72px] items-center">
       <div class="page relative">
         <div
           class="flex h-14 items-center justify-between gap-3 rounded-full border py-1 pr-1.5 pl-5 transition-[background-color,border-color,box-shadow] duration-300"

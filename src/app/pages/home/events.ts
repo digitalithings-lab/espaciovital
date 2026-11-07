@@ -12,7 +12,8 @@ import {
 } from '@angular/core';
 import { ACTIVITIES, RETREATS } from '../../core/content';
 import { Activity, RetreatEdition } from '../../core/models';
-import { RetreatService } from '../../core/retreat.service';
+import { SeoService } from '../../core/seo.service';
+import { RetreatService, upcoming } from '../../core/retreat.service';
 import { SITE, whatsappLink } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
 import { Reveal } from '../../shared/reveal.directive';
@@ -45,7 +46,7 @@ function dateRange(start: string, end: string): string {
             <h2 appReveal class="heading-xl text-forest-900">
               Próximos <span class="font-semibold text-forest-500 italic">viajes y experiencias.</span>
             </h2>
-            <p appReveal="40" class="mt-4 inline-flex rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-forest-900">Tour de Chicas · Calendario 2027</p>
+            <p appReveal="40" class="mt-4 inline-flex rounded-full bg-accent px-4 py-1.5 text-sm font-bold text-forest-900">Tour de Chicas · Próximas fechas</p>
             <p appReveal="90" class="lead mt-2.5 sm:mt-3 text-muted">
               Descubre Panamá, reconecta con la naturaleza y vive momentos inolvidables en grupo. Acompañamiento, actividades y dinámicas con la Psic. Nathalie Vera.
             </p>
@@ -108,7 +109,7 @@ function dateRange(start: string, end: string): string {
                   <!-- Badge flotante para la tarjeta destacada -->
                   @if (e.featured) {
                     <div class="absolute -top-3.5 right-5 flex items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-xs font-bold text-forest-900 shadow-soft">
-                      <app-icon name="star" [size]="14" /> Más solicitada
+                      <app-icon name="star" [size]="14" /> {{ scarce(e) ? 'Pocos cupos' : 'Más solicitada' }}
                     </div>
                   }
 
@@ -160,11 +161,12 @@ function dateRange(start: string, end: string): string {
                           Reserva
                         </dt>
                         <dd class="mt-1 font-semibold leading-tight" [class.text-accent]="e.featured">
-                          {{ e.deposit ? 'Separa con $' + e.deposit : (e.spotsLeft ? e.spotsLeft + ' cupos' : 'Cupos limitados') }}
+                          {{ scarce(e) ? '¡Pocos cupos!' : e.deposit ? 'Separa con $' + e.deposit : (e.spotsLeft ? e.spotsLeft + ' cupos' : 'Cupos limitados') }}
                         </dd>
                       </div>
                     </dl>
 
+                    @if (e.highlights.length > 0) {
                     <!-- Lista de inclusiones -->
                     <div class="mt-4 sm:mt-5">
                       <p class="text-xs font-bold uppercase tracking-wider mb-2.5" [class]="e.featured ? 'text-white/50' : 'text-muted'">
@@ -179,6 +181,7 @@ function dateRange(start: string, end: string): string {
                         }
                       </ul>
                     </div>
+                    }
                   </div>
 
                   <!-- Botón CTA -->
@@ -198,7 +201,7 @@ function dateRange(start: string, end: string): string {
               }
 
               <!-- Actividades sin fecha ni precio todavía -->
-              @for (a of activities; track a.id; let k = $index) {
+              @for (a of activities(); track a.id; let k = $index) {
                 <article
                   [appReveal]="(editions().length + k) * 30"
                   class="relative flex flex-col justify-between w-[84vw] max-w-[340px] sm:w-[360px] sm:max-w-none md:w-[380px] shrink-0 snap-center rounded-[2rem] bg-surface p-6 md:p-7 shadow-soft transition-[transform,box-shadow,background-color,border-color,color,opacity] duration-300 hover:-translate-y-1.5 hover:shadow-lift"
@@ -314,29 +317,35 @@ export class Events implements OnInit {
   }
 
   private readonly retreatService = inject(RetreatService);
+  private readonly seo = inject(SeoService);
   private readonly carouselEl = viewChild<ElementRef<HTMLElement>>('carousel');
 
   protected readonly waGeneral = whatsappLink(
-    `Hola ${SITE.therapistShort}, avísame cuando abras nuevas fechas de los viajes y retiros 2027.`,
+    `Hola ${SITE.therapistShort}, avísame cuando abras nuevas fechas de los viajes y retiros.`,
   );
 
   protected readonly editions = signal<RetreatEdition[]>(
-    RETREATS.filter((e) => e.startDate.startsWith('2027')),
+    upcoming(RETREATS),
   );
 
   /** Viajes con fecha + actividades sin fecha, todos en el mismo carrusel. */
-  protected readonly total = computed(() => this.editions().length + ACTIVITIES.length);
+  protected readonly total = computed(() => this.editions().length + this.activities().length);
   protected readonly dots = computed(() => Array.from({ length: this.total() }, (_, i) => i));
 
-  protected readonly activities = ACTIVITIES;
+  /** Actividades sin fecha: si ya tienen una fecha en la base de datos, salen como tarjeta con fecha y no aquí. */
+  protected readonly activities = computed(() => {
+    const dated = new Set(this.editions().map((e) => e.id));
+    return ACTIVITIES.filter((a) => !dated.has(a.id));
+  });
 
   protected readonly activeIndex = signal(0);
 
   async ngOnInit(): Promise<void> {
-    const data = await this.retreatService.get2027Retreats();
+    const data = await this.retreatService.getUpcoming();
     if (data && data.length > 0) {
       this.editions.set(data);
     }
+    this.seo.setEvents(this.editions());
   }
 
   protected onScroll(event: Event): void {
@@ -374,6 +383,11 @@ export class Events implements OnInit {
 
   protected info(a: Activity): string {
     return whatsappLink(`Hola ${SITE.therapist}, necesito más información sobre la actividad «${a.name}» de Metamorfosis.`);
+  }
+
+  /** Quedan pocos lugares: se resalta en la tarjeta. */
+  protected scarce(e: RetreatEdition): boolean {
+    return e.spotsLeft > 0 && e.spotsLeft <= 8;
   }
 
   protected range(e: RetreatEdition): string {
