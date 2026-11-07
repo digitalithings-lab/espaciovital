@@ -134,12 +134,14 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                   <p class="text-sm text-muted">Pronto se publicarán los horarios.</p>
                 } @else {
                   <ul class="divide-y divide-line">
-                    @for (day of a.weekly; track day.weekday) {
+                    @for (day of weekRows(a.weekly); track day.weekday) {
                       <li class="flex items-start justify-between gap-4 py-2.5 text-sm">
                         <span class="font-semibold">{{ weekdays[day.weekday] }}</span>
-                        <span class="text-right text-muted tabular-nums">
+                        <span class="text-right tabular-nums" [class]="day.ranges.length ? 'text-muted' : 'text-muted opacity-60'">
                           @for (r of day.ranges; track r.start) {
                             <span class="block">{{ clock(r.start) }} – {{ clock(r.end) }}</span>
+                          } @empty {
+                            Cerrado
                           }
                         </span>
                       </li>
@@ -431,6 +433,10 @@ export class Agendar {
   private readonly booking = inject(BookingService);
   protected readonly site = SITE;
   protected readonly weekdays = WEEKDAYS;
+  /** Los siete días, de lunes a domingo: los que no tienen horario salen como «Cerrado». */
+  protected weekRows(weekly: BookingAgenda['weekly']) {
+    return [1, 2, 3, 4, 5, 6, 0].map((weekday) => weekly.find((d) => d.weekday === weekday) ?? { weekday, ranges: [] });
+  }
   protected readonly whatsapp = whatsappLink(`Hola ${SITE.therapistShort}, quiero agendar una cita.`);
   protected readonly today = new Date().toISOString().slice(0, 10);
 

@@ -59,13 +59,15 @@ import { Icon } from '../../shared/icon';
               </figcaption>
             </div>
 
-            <div class="mt-4 flex w-fit items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-forest-900 shadow-lift sm:absolute sm:top-16 sm:-left-6 sm:z-20 sm:mt-0">
-              <app-icon name="badgeCheck" [size]="20" class="text-forest-500" />
-              <span class="text-sm font-bold">Psicóloga general idónea</span>
-            </div>
-            <div class="absolute -right-3 bottom-24 z-20 rounded-2xl bg-accent px-4 py-2.5 text-forest-900 shadow-lift sm:-right-5">
-              <p class="font-display text-2xl leading-none font-bold">+1500</p>
-              <p class="mt-1 text-xs font-bold">Vidas acompañadas</p>
+            <div class="mt-4 flex flex-wrap items-center gap-3 sm:contents">
+              <div class="flex w-fit items-center gap-2 rounded-full bg-white py-2 pr-4 pl-3 text-forest-900 shadow-lift sm:absolute sm:top-16 sm:-left-6 sm:z-20">
+                <app-icon name="badgeCheck" [size]="20" class="text-forest-500" />
+                <span class="text-sm font-bold">Psicóloga general idónea</span>
+              </div>
+              <div class="w-fit rounded-2xl bg-accent px-4 py-2.5 text-forest-900 shadow-lift sm:absolute sm:-right-5 sm:bottom-24 sm:z-20">
+                <p class="font-display text-2xl leading-none font-bold">+1500</p>
+                <p class="mt-1 text-xs font-bold">Vidas acompañadas</p>
+              </div>
             </div>
           </figure>
         </div>
