@@ -40,7 +40,7 @@ const DURATION = '50 a 60 minutos por sesión';
 export const SERVICE_PAGES: ServicePage[] = [
   {
     slug: 'psicologa-en-la-chorrera',
-    cardTitle: 'Terapia individual',
+    cardTitle: 'Atención individual',
     blurb: 'Presencial en La Chorrera o por videollamada.',
     icon: 'mapPin',
     navLabel: 'Psicóloga en La Chorrera',
@@ -82,10 +82,10 @@ export const SERVICE_PAGES: ServicePage[] = [
   },
   {
     slug: 'terapia-de-pareja-panama-oeste',
-    cardTitle: 'Terapia de pareja',
+    cardTitle: 'Atención de pareja',
     blurb: 'Comunicación, conflictos y vínculo, juntos.',
     icon: 'heart',
-    navLabel: 'Terapia de pareja',
+    navLabel: 'Atención de pareja',
     title: 'Terapia de pareja en Panamá Oeste | Nathalie Vera',
     description: 'Terapia de pareja en La Chorrera y Panamá Oeste, presencial o virtual. Mejora la comunicación, gestiona conflictos y fortalece tu vínculo. Agenda en línea.',
     h1: 'Terapia de pareja en Panamá Oeste',
