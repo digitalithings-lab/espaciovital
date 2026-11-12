@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { afterNextRender, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { BookingAgenda, bookingError, BookingResult, BookingService } from '../core/booking.service';
 import { SeoService } from '../core/seo.service';
@@ -44,6 +44,9 @@ function loadTurnstile(): Promise<TurnstileApi> {
 }
 
 type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
+type ConsultType = 'INDIVIDUAL' | 'COUPLE' | 'CHILD';
+
+const ID_PATTERN = /^[A-Za-z0-9.\- ]{4,30}$/;
 
 // Agendar cita: horario de Nathalie, solo horas libres (las ocupadas nunca se muestran ni se pueden tomar).
 @Component({
@@ -115,6 +118,9 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                 <p class="mt-1 font-bold capitalize">{{ resultLabel() }}</p>
               }
               <p class="mt-2 text-sm text-muted">{{ agenda()!.psychologist.sessionMinutes }} minutos · {{ site.therapist }}</p>
+              @if (bookedCouple(); as couple) {
+                <p class="mt-2 flex items-center gap-2 text-sm font-semibold text-forest-700"><app-icon name="heart" [size]="16" /> Cita para dos personas: {{ couple }}</p>
+              }
             </div>
             @if (error()) {
               <p class="mx-auto mt-4 max-w-sm rounded-xl bg-accent/15 px-4 py-3 text-sm font-semibold text-accent-ink" role="alert">{{ error() }}</p>
@@ -253,12 +259,18 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                       }
                     </div>
                     <div>
-                      <label class="label" for="b-id">Cédula <span class="font-medium text-muted">(opcional)</span></label>
-                      <input id="b-id" class="input uppercase" formControlName="idNumber" maxlength="30" placeholder="8-123-4567" [attr.aria-invalid]="invalid('idNumber')" />
+                      <label class="label" for="b-id">Cédula</label>
+                      <input id="b-id" class="input uppercase" formControlName="idNumber" maxlength="30" placeholder="8-123-4567" autocomplete="off" [attr.aria-invalid]="invalid('idNumber')" />
+                      @if (invalid('idNumber')) {
+                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe tu número de cédula (de 4 a 30 caracteres).</p>
+                      }
                     </div>
                     <div>
-                      <label class="label" for="b-birth">Fecha de nacimiento <span class="font-medium text-muted">(opcional)</span></label>
-                      <input id="b-birth" class="input" type="date" formControlName="birthDate" [max]="today" />
+                      <label class="label" for="b-birth">Fecha de nacimiento</label>
+                      <input id="b-birth" class="input" type="date" formControlName="birthDate" [max]="today" autocomplete="bday" [attr.aria-invalid]="invalid('birthDate')" />
+                      @if (invalid('birthDate')) {
+                        <p class="mt-1.5 text-xs font-semibold text-accent-ink">Elige tu fecha de nacimiento.</p>
+                      }
                     </div>
                     <div class="sm:col-span-2">
                       <label class="label" for="b-reason">Motivo de la cita</label>
@@ -275,6 +287,74 @@ type Frequency = 'single' | 'weekly' | 'biweekly' | 'manual';
                         <span class="text-muted tabular-nums">{{ form.controls.reason.value.length }}/500</span>
                       </div>
                     </div>
+
+                    <!-- Tipo de consulta: individual, pareja o niños y adolescentes -->
+                    <fieldset class="space-y-3 sm:col-span-2">
+                      <legend class="label">Tipo de consulta</legend>
+                      <div class="grid grid-cols-1 gap-2 sm:grid-cols-3" role="radiogroup" aria-label="Tipo de consulta" [attr.aria-invalid]="invalid('consultType')">
+                        @for (opt of consultTypes; track opt.value) {
+                          <button
+                            type="button"
+                            role="radio"
+                            class="flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border-[1.5px] px-4 py-3 text-left text-sm font-bold transition-[transform,background-color,border-color,color] duration-[180ms] ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.97]"
+                            [class]="consultType() === opt.value ? 'border-accent bg-accent text-forest-900 shadow-soft' : invalid('consultType') ? 'border-accent-ink bg-surface' : 'border-line bg-surface hover:border-forest-500'"
+                            [attr.aria-checked]="consultType() === opt.value"
+                            (click)="setConsultType(opt.value)"
+                          >
+                            <app-icon [name]="opt.icon" [size]="20" class="shrink-0" />
+                            <span>{{ opt.label }}<span class="block text-xs font-medium opacity-80">{{ opt.hint }}</span></span>
+                          </button>
+                        }
+                      </div>
+                      @if (invalid('consultType')) {
+                        <p class="text-xs font-semibold text-accent-ink">Elige el tipo de consulta.</p>
+                      }
+                    </fieldset>
+
+                    <!-- Datos de la pareja: solo si la consulta es de pareja. Todos los campos son obligatorios. -->
+                    @if (consultType() === 'COUPLE') {
+                      <fieldset class="animate-fade-up space-y-4 rounded-2xl border border-line bg-surface-muted/40 p-5 sm:col-span-2" formGroupName="partner">
+                        <legend class="px-1 text-sm font-bold text-ink">Datos de tu pareja</legend>
+                        <p class="text-xs text-muted">Registraremos a las dos personas como una pareja, para que {{ site.therapistShort }} los acompañe juntos.</p>
+                        <div class="grid gap-5 sm:grid-cols-2">
+                          <div class="sm:col-span-2">
+                            <label class="label" for="p-name">Nombre completo de tu pareja</label>
+                            <input id="p-name" class="input" formControlName="fullName" maxlength="120" autocomplete="off" [attr.aria-invalid]="invalidPartner('fullName')" />
+                            @if (invalidPartner('fullName')) {
+                              <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe su nombre completo (solo letras).</p>
+                            }
+                          </div>
+                          <div>
+                            <label class="label" for="p-email">Correo</label>
+                            <input id="p-email" class="input" type="email" inputmode="email" formControlName="email" maxlength="254" autocomplete="off" [attr.aria-invalid]="invalidPartner('email')" />
+                            @if (invalidPartner('email')) {
+                              <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe un correo válido.</p>
+                            }
+                          </div>
+                          <div>
+                            <label class="label" for="p-phone">Teléfono / WhatsApp</label>
+                            <input id="p-phone" class="input" type="tel" inputmode="tel" formControlName="phone" maxlength="20" autocomplete="off" placeholder="+507 6000-0000" [attr.aria-invalid]="invalidPartner('phone')" />
+                            @if (invalidPartner('phone')) {
+                              <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe un teléfono válido.</p>
+                            }
+                          </div>
+                          <div>
+                            <label class="label" for="p-id">Cédula</label>
+                            <input id="p-id" class="input uppercase" formControlName="idNumber" maxlength="30" placeholder="8-123-4567" autocomplete="off" [attr.aria-invalid]="invalidPartner('idNumber')" />
+                            @if (invalidPartner('idNumber')) {
+                              <p class="mt-1.5 text-xs font-semibold text-accent-ink">Escribe su número de cédula (de 4 a 30 caracteres).</p>
+                            }
+                          </div>
+                          <div>
+                            <label class="label" for="p-birth">Fecha de nacimiento</label>
+                            <input id="p-birth" class="input" type="date" formControlName="birthDate" [max]="today" autocomplete="off" [attr.aria-invalid]="invalidPartner('birthDate')" />
+                            @if (invalidPartner('birthDate')) {
+                              <p class="mt-1.5 text-xs font-semibold text-accent-ink">Elige su fecha de nacimiento.</p>
+                            }
+                          </div>
+                        </div>
+                      </fieldset>
+                    }
                   </div>
 
                   <!-- Modalidad: virtual o presencial -->
@@ -461,18 +541,41 @@ export class Agendar {
   protected readonly anySlots = computed(() => this.agenda()?.days.some((d) => d.slots.length > 0) ?? false);
   protected readonly selectedDay = computed(() => this.agenda()?.days[this.dayIndex()] ?? null);
 
-  protected readonly form = inject(FormBuilder).nonNullable.group({
+  private readonly fb = inject(FormBuilder).nonNullable;
+
+  /** Rechaza fechas de nacimiento futuras. */
+  private readonly notFuture: ValidatorFn = (c) => (c.value && c.value > this.today ? { future: true } : null);
+
+  protected readonly form = this.fb.group({
     fullName: ['', [...nameValidators, Validators.minLength(3)]],
     email: ['', emailValidators],
     phone: ['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
-    idNumber: ['', Validators.pattern(/^[A-Za-z0-9.\- ]{4,30}$/)],
-    birthDate: [''],
+    idNumber: ['', [Validators.required, Validators.pattern(ID_PATTERN)]],
+    birthDate: ['', [Validators.required, this.notFuture]],
+    consultType: ['' as '' | ConsultType, Validators.required],
+    // Datos de la segunda persona: solo se activan (y se validan) cuando la consulta es de pareja.
+    partner: this.fb.group({
+      fullName: ['', [...nameValidators, Validators.minLength(3)]],
+      email: ['', emailValidators],
+      phone: ['', [Validators.required, Validators.pattern(PHONE_PATTERN)]],
+      idNumber: ['', [Validators.required, Validators.pattern(ID_PATTERN)]],
+      birthDate: ['', [Validators.required, this.notFuture]],
+    }),
     reason: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(500)]],
     consent: [false, Validators.requiredTrue],
     website: [''],
     modality: ['' as '' | 'VIDEO' | 'IN_PERSON', Validators.required],
     recurrenceCount: [4],
   });
+
+  protected readonly consultTypes: { value: ConsultType; label: string; hint: string; icon: string }[] = [
+    { value: 'INDIVIDUAL', label: 'Individual', hint: 'Para ti', icon: 'leaf' },
+    { value: 'COUPLE', label: 'Pareja', hint: 'Para los dos', icon: 'heart' },
+    { value: 'CHILD', label: 'Niños y adolescentes', hint: 'Para tu hijo/a', icon: 'smile' },
+  ];
+  protected readonly consultType = signal<'' | ConsultType>('');
+  /** Para la pantalla de éxito: «Nombre y Nombre» cuando la cita fue de pareja. */
+  protected readonly bookedCouple = signal<string | null>(null);
 
   protected readonly modalities: { value: 'VIDEO' | 'IN_PERSON'; label: string; hint: string; icon: string }[] = [
     { value: 'VIDEO', label: 'Virtual', hint: 'Por videollamada, desde donde estés', icon: 'video' },
@@ -513,6 +616,9 @@ export class Agendar {
   });
 
   constructor() {
+    // Los datos de la pareja solo se activan cuando se elige «Pareja».
+    this.form.controls.partner.disable();
+
     // Dibuja el CAPTCHA cuando aparece el formulario (y lo quita cuando desaparece).
     effect(() => {
       const box = this.captchaBox()?.nativeElement;
@@ -623,6 +729,24 @@ export class Agendar {
     this.manualPicks.set({ ...this.manualPicks(), [date]: startsAt });
   }
 
+  protected setConsultType(value: ConsultType) {
+    this.consultType.set(value);
+    this.form.controls.consultType.setValue(value);
+    const partner = this.form.controls.partner;
+    if (value === 'COUPLE') {
+      partner.enable();
+    } else {
+      // Sin pareja: los campos se vacían y se desactivan (no se validan ni se envían).
+      partner.reset();
+      partner.disable();
+    }
+  }
+
+  protected invalidPartner(name: 'fullName' | 'email' | 'phone' | 'idNumber' | 'birthDate') {
+    const control = this.form.controls.partner.controls[name];
+    return control.invalid && (control.touched || this.submitted()) ? true : null;
+  }
+
   protected invalid(name: keyof typeof this.form.controls) {
     const control = this.form.controls[name];
     return control.invalid && (control.touched || this.submitted()) ? true : null;
@@ -639,6 +763,11 @@ export class Agendar {
     }
 
     const v = this.form.getRawValue();
+    const isCouple = v.consultType === 'COUPLE';
+    if (isCouple && cleanText(v.partner.idNumber, 30).toUpperCase() === cleanText(v.idNumber, 30).toUpperCase()) {
+      this.error.set('La cédula de tu pareja debe ser distinta a la tuya. Revisa los datos.');
+      return;
+    }
     this.sending.set(true);
     this.error.set(null);
     this.taken.set(null);
@@ -671,6 +800,16 @@ export class Agendar {
         birthDate: /^\d{4}-\d{2}-\d{2}$/.test(v.birthDate) && v.birthDate <= this.today ? v.birthDate : undefined,
         reason: cleanText(v.reason, 500, true),
         modality: v.modality as 'VIDEO' | 'IN_PERSON',
+        clientType: v.consultType as ConsultType,
+        partner: isCouple
+          ? {
+              fullName: cleanText(v.partner.fullName, 120),
+              idNumber: cleanText(v.partner.idNumber, 30).toUpperCase(),
+              birthDate: v.partner.birthDate,
+              email: v.partner.email.trim().toLowerCase(),
+              phone: cleanText(v.partner.phone, 20),
+            }
+          : undefined,
         consent: true as const,
         website: v.website,
       };
@@ -685,6 +824,7 @@ export class Agendar {
         extraStartsAt: extra.length > 0 ? extra : undefined,
         captchaToken: this.captchaToken() ?? undefined,
       });
+      this.bookedCouple.set(isCouple ? `${cleanText(v.fullName, 120).split(' ')[0]} y ${cleanText(v.partner.fullName, 120).split(' ')[0]}` : null);
       this.result.set(res);
       // Si el servidor reservó menos fechas de las pedidas, se avisa cuáles faltaron.
       if (extra.length > 0 && (res.count ?? 1) < extra.length + 1) {

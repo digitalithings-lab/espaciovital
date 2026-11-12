@@ -29,6 +29,10 @@ export interface BookingRequest {
   reason: string;
   /** Cómo quiere la sesión: videollamada o presencial. */
   modality: 'VIDEO' | 'IN_PERSON';
+  /** Tipo de consulta: individual, de pareja o para niños y adolescentes. */
+  clientType: 'INDIVIDUAL' | 'COUPLE' | 'CHILD';
+  /** Datos de la segunda persona. Solo se envía (y es obligatorio) cuando clientType es COUPLE. */
+  partner?: { fullName: string; idNumber: string; birthDate: string; email: string; phone: string };
   consent: true;
   /** Campo trampa contra robots: siempre vacío. */
   website: string;
