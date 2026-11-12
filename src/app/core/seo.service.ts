@@ -183,11 +183,11 @@ export function businessJsonLd(description: string): object {
     medicalSpecialty: ['Psychology'],
     knowsAbout: [
       'Psicología general',
-      'Terapia psicológica en La Chorrera',
+      'Atención psicológica en La Chorrera',
       'Atención individual',
       'Atención de pareja',
-      'Terapia en línea Panamá',
-      'Terapia somática',
+      'Atención en línea Panamá',
+      'Atención somática',
       'Regulación emocional',
       'Ansiedad y estrés',
       'Autoestima y límites saludables',
@@ -198,7 +198,7 @@ export function businessJsonLd(description: string): object {
       itemListElement: [
         'Atención psicológica individual en La Chorrera (presencial)',
         'Atención psicológica de pareja en La Chorrera y Panamá Oeste',
-        'Terapia psicológica en línea para todo Panamá e internacional',
+        'Atención psicológica en línea para todo Panamá e internacional',
         'Actividades Metamorfosis vivenciales para mujeres en Panamá',
         'Talleres socioemocionales para niños (Vital Kids)',
       ].map((name) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name } })),
@@ -207,7 +207,7 @@ export function businessJsonLd(description: string): object {
       '@type': 'Person',
       name: 'Nathalie Vera',
       jobTitle: 'Psicóloga General & Guía Vivencial',
-      knowsAbout: ['Psicología general', 'Atención individual y de pareja', 'Terapia somática'],
+      knowsAbout: ['Psicología general', 'Atención individual y de pareja', 'Atención somática'],
     },
     sameAs: [SITE.instagram],
   };

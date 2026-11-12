@@ -72,7 +72,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       { question: '¿Dónde atiendes en La Chorrera?', answer: 'La atención presencial es en Panamá Oeste (La Chorrera). Al confirmar tu cita te indico los detalles del lugar. Si prefieres, también puedes tener tus sesiones por videollamada.' },
       { question: '¿Atiendes a personas de Arraiján, Capira o Ciudad de Panamá?', answer: 'Sí. Si te queda lejos de La Chorrera, puedes elegir la modalidad virtual y conectarte desde cualquier lugar de Panamá.' },
       { question: '¿Qué pasa en la primera consulta?', answer: 'Iniciamos con una bienvenida, te explico mi enfoque y metodología, y conversamos sobre tus emociones, inquietudes y objetivos. Al final te explico cómo sería el proceso.' },
-      { question: '¿Lo que hablo es confidencial?', answer: 'Sí. Todo lo que se conversa en terapia está protegido por el secreto profesional y el código de ética de la psicología.' },
+      { question: '¿Lo que hablo es confidencial?', answer: 'Sí. Todo lo que se conversa en la atención psicológica está protegido por el secreto profesional y el código de ética de la psicología.' },
     ],
     related: ['terapia-de-pareja-panama-oeste', 'psicologia-virtual-panama', 'psicologia-infantil-la-chorrera'],
     image: IMG.hero,
@@ -100,7 +100,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       'Quieren fortalecer su vínculo antes de que los problemas crezcan.',
     ],
     steps: [
-      { title: 'Primera sesión', text: 'Los escucho a los dos, entiendo qué los trajo y qué esperan de la terapia.' },
+      { title: 'Primera sesión', text: 'Los escucho a los dos, entiendo qué los trajo y qué esperan de la atención.' },
       { title: 'Objetivos en común', text: 'Definimos juntos hacia dónde quieren ir como pareja y qué es lo más urgente trabajar.' },
       { title: 'Herramientas y acuerdos', text: 'Practicamos formas de comunicarse y de gestionar los desacuerdos que puedan usar en su día a día.' },
     ],
@@ -133,13 +133,13 @@ export const SERVICE_PAGES: ServicePage[] = [
     h1: 'Psicología en línea para todo Panamá',
     h1Accent: 'desde donde estés',
     lead: 'Si vives lejos, tienes poco tiempo o prefieres la comodidad de tu casa, puedes tener tus sesiones por videollamada. Atención psicológica individual y de pareja, con la misma calidad que en consulta.',
-    forWhoTitle: 'La terapia virtual es una buena opción si…',
+    forWhoTitle: 'La atención virtual es una buena opción si…',
     forWho: [
       'Vives fuera de La Chorrera, en otra provincia o en un lugar de difícil acceso.',
       'Tu horario hace complicado trasladarte a un consultorio.',
       'Prefieres hablar desde un lugar en el que te sientes cómoda o cómodo.',
       'Estás fuera de Panamá por un tiempo y quieres mantener tu proceso.',
-      'Quieres empezar terapia pero te da nervios ir a un consultorio por primera vez.',
+      'Quieres empezar a recibir atención psicológica pero te da nervios ir a un consultorio por primera vez.',
     ],
     steps: [
       { title: 'Eliges tu hora', text: 'Reservas en la agenda en línea, escogiendo "Virtual" como modalidad.' },
@@ -153,7 +153,7 @@ export const SERVICE_PAGES: ServicePage[] = [
       { label: 'Pago', value: 'Anticipado, por Yappy o transferencia bancaria' },
     ],
     faqs: [
-      { question: '¿Es igual de efectiva que la terapia presencial?', answer: 'La calidad del acompañamiento es la misma. Lo que cambia es el lugar desde el que nos conectamos.' },
+      { question: '¿Es igual de efectiva que la atención presencial?', answer: 'La calidad del acompañamiento es la misma. Lo que cambia es el lugar desde el que nos conectamos.' },
       { question: '¿Qué necesito para una sesión virtual?', answer: 'Un teléfono o computadora con cámara y micrófono, internet estable y un lugar tranquilo donde puedas hablar con privacidad.' },
       { question: '¿Cómo se paga la sesión virtual?', answer: 'El pago es anticipado, por Yappy o transferencia bancaria. Al confirmar tu cita te doy los datos.' },
       { question: '¿Atiendes pareja por videollamada?', answer: 'Sí, también atiendo parejas en modalidad virtual.' },

@@ -338,7 +338,7 @@ export const FAQS: Faq[] = [
       'Cada atención tiene una duración de 50 a 60 minutos. En la primera consulta iniciamos con una bienvenida, la explicación de mi enfoque y metodología de trabajo, y un espacio para conocer tus emociones, inquietudes, antecedentes y objetivos. Al finalizar, te explico la estructura del proceso, que generalmente comprende 4 sesiones de evaluación y una quinta sesión de entrega del informe psicológico, donde se presentan los resultados y se propone un plan de intervención personalizado, con duración y frecuencia estimadas según cada caso.\n\nModalidad virtual: pago anticipado por Yappy o transferencia bancaria.\n\nModalidad presencial: pago al finalizar la consulta.',
   },
   {
-    question: '¿Necesito estar en terapia para ir a las actividades de Metamorfosis?',
+    question: '¿Necesito estar en atención psicológica para ir a las actividades de Metamorfosis?',
     answer:
       'No, no necesitas llevar un proceso de atención psicológica individual para ir a las actividades, es un espacio creado para que chicas se diviertan y socialicen de manera segura.',
   },

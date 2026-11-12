@@ -44,7 +44,7 @@ import { Reveal } from '../../shared/reveal.directive';
           <!-- Cuadro editorial: quote de impacto, color sólido fúcsia -->
           <div appReveal="60" class="hidden flex-col justify-between rounded-[2rem] bg-forest-500 p-7 text-white md:col-span-5 md:flex" style="height:224px;">
             <p class="font-display text-3xl font-bold leading-snug">+320 Mujeres que se han sumado a la <span class="text-forest-100 italic">Aventura.</span></p>
-            <p class="text-sm text-white/90 max-w-[28ch]">Actividades, terapia y círculos de palabra creando nuevas amistades, compartiendo momentos inolvidables y disfrutando</p>
+            <p class="text-sm text-white/90 max-w-[28ch]">Actividades, atención y círculos de palabra creando nuevas amistades, compartiendo momentos inolvidables y disfrutando</p>
           </div>
 
           <!-- Foto derecha 2 -->

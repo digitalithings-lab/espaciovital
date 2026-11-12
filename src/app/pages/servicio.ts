@@ -15,7 +15,7 @@ import { Retreat } from './home/retreat';
 import { ServiceLinks } from '../shared/service-links';
 import { Testimonials } from './home/testimonials';
 
-// Página de servicio (psicóloga en La Chorrera, terapia de pareja, psicología en línea, psicología infantil).
+// Página de servicio (psicóloga en La Chorrera, atención de pareja, psicología en línea, psicología infantil).
 // Todas comparten esta plantilla; el contenido sale de core/services.ts.
 @Component({
   selector: 'app-servicio',

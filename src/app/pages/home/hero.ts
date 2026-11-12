@@ -5,7 +5,7 @@ import { SITE } from '../../core/site.config';
 import { Icon } from '../../shared/icon';
 
 // Portada «Metamorfosis»: burgundy a pantalla completa, el arco del logo como puerta,
-// y tres caminos de igual peso (terapia, actividades, niños) en bloques de color.
+// y tres caminos de igual peso (atención, actividades, niños) en bloques de color.
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
