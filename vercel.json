@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist/espaciovital/browser",
+  "redirects": [{ "source": "/terapia-de-pareja-panama-oeste", "destination": "/atencion-de-pareja-panama-oeste", "permanent": true }],
   "rewrites": [{ "source": "/((?!.*\\.).*)", "destination": "/index.csr.html" }],
   "headers": [
     {
