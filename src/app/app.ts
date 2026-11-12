@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { Footer } from './layout/footer';
@@ -24,7 +24,7 @@ import { Icon } from './shared/icon';
     <!-- Agendar siempre a mano en el celular; se retira donde ya hay un formulario o el pie, para no tapar campos ni botones. -->
     <a
       routerLink="/agendar"
-      class="btn-primary fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 size-14 rounded-full p-0 shadow-lift transition-[opacity,transform,background-color] duration-200 ease-out sm:hidden"
+      class="btn-primary fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-[56] size-14 rounded-full p-0 shadow-lift transition-[opacity,transform,background-color] duration-200 ease-out sm:hidden"
       [class]="hideFab() ? 'pointer-events-none translate-y-2 scale-95 opacity-0' : ''"
       [attr.aria-hidden]="hideFab() ? 'true' : null"
       [attr.tabindex]="hideFab() ? -1 : null"
@@ -37,8 +37,8 @@ import { Icon } from './shared/icon';
     <button
       type="button"
       (click)="scrollTop()"
-      class="fixed right-4 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-40 flex size-12 items-center justify-center rounded-full bg-white text-forest-900 shadow-lift ring-1 ring-forest-900/15 transition-[opacity,transform,background-color] duration-200 ease-out hover:bg-forest-50 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-900 sm:right-6 sm:bottom-6"
-      [class]="showTop() ? '' : 'pointer-events-none translate-y-2 opacity-0'"
+      class="fixed right-4 z-[56] flex size-12 items-center justify-center rounded-full bg-white text-forest-900 shadow-lift ring-1 ring-forest-900/15 transition-[opacity,transform,background-color] duration-200 ease-out hover:bg-forest-50 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-900 "
+      [class]="topClasses()"
       [attr.aria-hidden]="showTop() ? null : 'true'"
       [attr.tabindex]="showTop() ? null : -1"
       aria-label="Subir al inicio"
@@ -50,6 +50,14 @@ import { Icon } from './shared/icon';
 export class App {
   protected readonly hideFab = signal(false);
   protected readonly showTop = signal(false);
+  // Sobre el botón de agendar (celular); si ese está oculto, baja a su lugar. Por encima de las secciones en capas (z-[51]…[55]).
+  protected readonly topClasses = computed(
+    () =>
+      (this.hideFab()
+        ? 'bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-6 sm:right-6'
+        : 'bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] sm:bottom-6 sm:right-6') +
+      (this.showTop() ? '' : ' pointer-events-none translate-y-2 opacity-0'),
+  );
   private readonly doc = inject(DOCUMENT);
 
   protected scrollTop() {
