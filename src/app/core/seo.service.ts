@@ -36,7 +36,7 @@ export class SeoService {
     this.meta.updateTag({
       name: 'keywords',
       content:
-        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, terapia de pareja chorrera, psicologa general panama, psicologa en linea panama, actividades metamorfosis, psicologa nathalie vera, espaciovital',
+        'psicologa chorrera, psicologo la chorrera, psicologa panama oeste, atencion de pareja chorrera, psicologa general panama, psicologa en linea panama, actividades metamorfosis, psicologa nathalie vera, espaciovital',
     });
     this.meta.updateTag({ name: 'robots', content: page.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large' });
 
@@ -184,8 +184,8 @@ export function businessJsonLd(description: string): object {
     knowsAbout: [
       'Psicología general',
       'Terapia psicológica en La Chorrera',
-      'Terapia individual',
-      'Terapia de pareja',
+      'Atención individual',
+      'Atención de pareja',
       'Terapia en línea Panamá',
       'Terapia somática',
       'Regulación emocional',
@@ -196,8 +196,8 @@ export function businessJsonLd(description: string): object {
       '@type': 'OfferCatalog',
       name: 'Servicios de psicología y bienestar',
       itemListElement: [
-        'Terapia psicológica individual en La Chorrera (presencial)',
-        'Terapia psicológica de pareja en La Chorrera y Panamá Oeste',
+        'Atención psicológica individual en La Chorrera (presencial)',
+        'Atención psicológica de pareja en La Chorrera y Panamá Oeste',
         'Terapia psicológica en línea para todo Panamá e internacional',
         'Actividades Metamorfosis vivenciales para mujeres en Panamá',
         'Talleres socioemocionales para niños (Vital Kids)',
@@ -207,7 +207,7 @@ export function businessJsonLd(description: string): object {
       '@type': 'Person',
       name: 'Nathalie Vera',
       jobTitle: 'Psicóloga General & Guía Vivencial',
-      knowsAbout: ['Psicología general', 'Terapia individual y de pareja', 'Terapia somática'],
+      knowsAbout: ['Psicología general', 'Atención individual y de pareja', 'Terapia somática'],
     },
     sameAs: [SITE.instagram],
   };
