@@ -7,13 +7,13 @@ export const SITE = {
   /** Dominio final, sin barra al final (para SEO: canonical, sitemap y Open Graph). */
   url: 'https://espaciovitalpsic.site',
   description:
-    'Psicóloga en La Chorrera, Panamá Oeste y en línea para todo Panamá. Terapia individual y de pareja con la Psic. Nathalie Vera. Agenda tu consulta.',
+    'Psicóloga en La Chorrera, Panamá Oeste y en línea para todo Panamá. Atención individual y de pareja con la Psic. Nathalie Vera. Agenda tu consulta.',
   /** Número con código de país y sin «+» ni espacios, p. ej. 50760000000. Vacío = WhatsApp pide elegir chat. */
   whatsapp: '+50765807290',
   email: 'contacto@espaciovitalpsic.site',
   instagram: 'https://www.instagram.com/espaciovitalpsic?srtk=cHQxMnhwNWp4bW10',
   /** Perfil de TikTok (enlace completo). Vacío = la tarjeta de TikTok no muestra botón «Seguir». */
-  tiktok: '',
+  tiktok: 'https://www.tiktok.com/@espaciovitalpsic0',
   country: 'Panamá',
   city: 'La Chorrera',
   region: 'Panamá Oeste',
