@@ -122,39 +122,12 @@ export class Socials {
     });
   }
 
-  /**
-   * Los videos se abren en ventanas que crea el widget. Aquí se les da lo que hace falta para que se reproduzcan bien en el celular:
-   * el reproductor de TikTok puede arrancar con permiso de reproducción y pantalla completa, y los videos de Instagram se quedan en la página
-   * (sin saltar a pantalla completa) y con sus controles, incluido el volumen. El sonido lo activa la persona con el ícono de volumen:
-   * los navegadores no dejan que una página ponga sonido sin que se toque.
-   */
-  private fixPlayers() {
-    const tune = (root: ParentNode) => {
-      root.querySelectorAll<HTMLIFrameElement>('iframe[src*="tiktok.com"]').forEach((frame) => {
-        if (frame.getAttribute('allow')?.includes('autoplay')) return;
-        frame.setAttribute('allow', 'autoplay; fullscreen; encrypted-media; picture-in-picture');
-        frame.setAttribute('allowfullscreen', '');
-        const src = frame.src;
-        frame.src = src; // se vuelve a cargar con los permisos ya puestos
-      });
-      root.querySelectorAll<HTMLVideoElement>('.white-popup video, .mfp-content video').forEach((video) => {
-        video.playsInline = true;
-        video.controls = true;
-        video.setAttribute('controlsList', 'nodownload');
-      });
-    };
-    new MutationObserver((mutations) => {
-      for (const m of mutations) m.addedNodes.forEach((n) => n instanceof HTMLElement && tune(n.matches?.('iframe, video') ? n.parentElement ?? document : n));
-    }).observe(document.body, { childList: true, subtree: true });
-  }
-
   private started = false;
   /** Carga los scripts y, si pasados unos segundos un feed sigue vacío, avisa en su tarjeta. */
   private start() {
     if (this.started) return;
     this.started = true;
     load();
-    this.fixPlayers();
     setTimeout(() => {
       const empty = (cls: string) => (document.querySelector(cls)?.childElementCount ?? 0) === 0;
       this.failed.set({ instagram: empty('.sk-instagram-feed'), tiktok: empty('.sk-tiktok-feed') });
