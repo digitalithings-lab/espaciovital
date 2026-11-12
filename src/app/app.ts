@@ -32,10 +32,31 @@ import { Icon } from './shared/icon';
     >
       <app-icon name="calendar" [size]="24" />
     </a>
+
+    <!-- Subir al inicio: aparece al bajar. En el celular queda sobre el botón de agendar. -->
+    <button
+      type="button"
+      (click)="scrollTop()"
+      class="fixed right-4 bottom-[calc(max(1rem,env(safe-area-inset-bottom))+4.25rem)] z-40 flex size-12 items-center justify-center rounded-full bg-white text-forest-900 shadow-lift ring-1 ring-forest-900/15 transition-[opacity,transform,background-color] duration-200 ease-out hover:bg-forest-50 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest-900 sm:right-6 sm:bottom-6"
+      [class]="showTop() ? '' : 'pointer-events-none translate-y-2 opacity-0'"
+      [attr.aria-hidden]="showTop() ? null : 'true'"
+      [attr.tabindex]="showTop() ? null : -1"
+      aria-label="Subir al inicio"
+    >
+      <app-icon name="arrowUp" [size]="22" />
+    </button>
   `,
 })
 export class App {
   protected readonly hideFab = signal(false);
+  protected readonly showTop = signal(false);
+  private readonly doc = inject(DOCUMENT);
+
+  protected scrollTop() {
+    const win = this.doc.defaultView;
+    const reduce = win?.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    win?.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  }
 
   constructor() {
     const document = inject(DOCUMENT);
@@ -47,6 +68,7 @@ export class App {
 
       // Oculta el botón mientras el formulario de contacto, las preguntas o el pie están en pantalla.
       const update = () => {
+        this.showTop.set(win.scrollY > 600);
         if (router.url.startsWith('/agendar')) {
           this.hideFab.set(true);
           return;

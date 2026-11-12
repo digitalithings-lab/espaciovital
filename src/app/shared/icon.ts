@@ -3,6 +3,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorStarFill } from '@ng-icons/phosphor-icons/fill';
 import {
   phosphorArrowRight,
+  phosphorArrowUp,
   phosphorArrowsOut,
   phosphorBrain,
   phosphorCalendarBlank,
@@ -61,6 +62,7 @@ const NAMES: Record<string, string> = {
   message: 'phosphorChatCircle',
   whatsapp: 'phosphorWhatsappLogo',
   arrowRight: 'phosphorArrowRight',
+  arrowUp: 'phosphorArrowUp',
   calendar: 'phosphorCalendarBlank',
   checkCircle: 'phosphorCheckCircle',
   mapPin: 'phosphorMapPin',
@@ -120,6 +122,7 @@ const NAMES: Record<string, string> = {
   viewProviders: [
     provideIcons({
       phosphorArrowRight,
+      phosphorArrowUp,
       phosphorArrowsOut,
       phosphorBrain,
       phosphorCalendarBlank,
